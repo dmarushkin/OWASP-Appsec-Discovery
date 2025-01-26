@@ -1,0 +1,8 @@
+parsers:
+  - 'swagger'
+
+ai_local:
+  model_folder: "/hf_models"
+  model_id: "Neurogen/Vikhr-Llama3.1-8B-Instruct-R-21-09-24-Q4_K_M-GGUF"
+  gguf_file: "vikhr-llama3.1-8b-instruct-r-21-09-24-q4_k_m.gguf"
+  system_prompt: "You are data security bot, for provided object and it field you must deside does it contain any personal, financial, authorization or other private data with special mesures to store and show."

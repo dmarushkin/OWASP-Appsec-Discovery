@@ -12,13 +12,13 @@ Under the hood tool powered by Semgrep OSS engine and specialy crafted discovery
 
 Install cli tool:
 
-```
+```bash
 pip install appsec-discovery
 ```
 
 Provided rules in conf.yaml or leave it empty for default list:
 
-```
+```yaml
 score_tags:
   pii:
     high:
@@ -49,7 +49,7 @@ score_tags:
 
 Run on code project folder with swaggers, protobuf and other structured contracts in code and get parsed objects and fields marked with severity and category tags:
 
-```
+```yaml
 appsec-discovery --source tests/swagger_samples
 
 - hash: 40140abef3b5f45d447d16e7180cc231
@@ -132,7 +132,7 @@ appsec-discovery --source tests/swagger_samples
 
 Replace or combine exist static keyword ruleset with local LLM, fill conf.yaml with choosed LLM and prompt:
 
-```
+```yaml
 ai_local:
   model_folder: "/hf_models"
   model_id: "Neurogen/Vikhr-Llama3.1-8B-Instruct-R-21-09-24-Q4_K_M-GGUF"
@@ -142,7 +142,7 @@ ai_local:
 
 Run scan with new settings and get objects and fields severity from local AI engine:
 
-```
+```yaml
 appsec-discovery --source tests/swagger_samples --config tests/config_samples/ai_conf_vikhr_7b.yaml
 
 - hash: 2e20a348a612aa28d24c1bd0498eebf0
@@ -181,7 +181,7 @@ Play around with with various [models](https://huggingface.co/models?search=llam
 
 Also you can use external openai campatible LLM api with ai_api section of conf.yaml:
 
-```
+```yaml
 ai_api:
   base_url: "https://api.deepseek.com"
   api_key: "some_api_key"
@@ -196,7 +196,7 @@ But remember that with great power comes great responsibility!
 
 Run scan with sarif output format:  
 
-```
+```bash
 appsec-discovery --source tests/swagger_samples --config tests/config_samples/conf.yaml --output report.json --output-type sarif
 ```
 
@@ -217,7 +217,7 @@ cd appsec-discovery/appsec_discovery_service
 
 Fillout .env file with your gitlab url and token, change passwords for local db and ui user, for alerts register new telegram bot or use exist one, or just leave TG args empty to only store objects:
 
-```
+```ini
 POSTGRES_HOST=discovery_postgres
 POSTGRES_DB=discovery_db
 POSTGRES_USER=discovery_user
@@ -236,7 +236,7 @@ TG_CHAT_ID=0000000000
 
 Run service localy with docker compose: 
 
-```
+```bash
 docker-compose up --build
 ```
 

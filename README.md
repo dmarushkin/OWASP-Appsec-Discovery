@@ -179,7 +179,7 @@ At first run tool with download provided model from Huggingface into local cache
 
 Play around with with various [models](https://huggingface.co/models?search=llama-3.2) from Huggingface and prompts for best results.
 
-Also fill free to use external openai campatible LLM api, fill conf.yaml with choosed LLM creds and prompt:
+Also you can use external openai campatible LLM api with ai_api section of conf.yaml:
 
 ```
 ai_api:

@@ -72,17 +72,24 @@ class ExcludeScoring(BaseModel):
     tag: Optional[str]
     keyword: Optional[str]
 
-class AiParams(BaseModel):
-    model_id: str
+class AiLocal(BaseModel):
     model_folder: str
+    model_id: str
     gguf_file: str
-    prompt: str
+    system_prompt: str
+
+class AiApi(BaseModel):
+    base_url: str
+    api_key: str
+    model: str
+    system_prompt: str
 
 class ScoreConfig(BaseModel):
     parsers: List[str] = ['all']
     object_types: List[str] = ['all']
     score_tags: Dict[str,Dict[str,List[str]]] = default_rules
-    ai_params: Optional[AiParams]
+    ai_local: Optional[AiLocal]
+    ai_api: Optional[AiApi]
     exclude_scan: List[ExcludeScan] = []
     exclude_scoring: List[ExcludeScoring] = []
 

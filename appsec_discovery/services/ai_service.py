@@ -1,10 +1,12 @@
 from llama_cpp import Llama, LlamaRAMCache
+from openai import OpenAI
+
 import re
 
 from typing import List, Dict
 import logging
 
-from appsec_discovery.models import CodeObject, ExcludeScoring, AiParams
+from appsec_discovery.models import CodeObject, ExcludeScoring, AiLocal, AiApi
 
 severities_int = {'critical': 5, 'high': 4, 'medium': 3, 'low': 2, 'info': 1}
 skip_ai = ['created_at', 'updated_at', 'deleted_at']
@@ -13,14 +15,12 @@ logger = logging.getLogger(__name__)
 
 class AiService:
 
-    def __init__(self, ai_params: AiParams, exclude_scoring: List[ExcludeScoring]):
+    def __init__(self, exclude_scoring: List[ExcludeScoring], ai_local: AiLocal = None, ai_api: AiApi = None):
 
-        self.model_id = ai_params.model_id
-        self.model_folder = ai_params.model_folder
-        self.system_prompt = ai_params.prompt
-        self.gguf_file = ai_params.gguf_file
-        self.exclude_scoring = exclude_scoring
-        
+        self.ai_local = ai_local
+        self.ai_api = ai_api
+
+        self.exclude_scoring = exclude_scoring       
 
     def ai_score_objects(self, code_objects: List[CodeObject]) -> List[CodeObject]:
 
@@ -32,7 +32,7 @@ class AiService:
 
                 object_to_score: Dict[str: List[str]] = {'field_names': []}
                 
-                scored_list = []
+                scored_list = {}
 
                 for field in object.fields.values() :
 
@@ -41,50 +41,109 @@ class AiService:
                     else:
                         field_name = field.field_name
 
-                    llm = Llama.from_pretrained(
-                        repo_id=self.model_id,
-                        filename=self.gguf_file,
-                        verbose=False,
-                        cache_dir=self.model_folder,
-                        max_tokens=5,
-                        seed=112358,
-                    )
+                    question = f'''
+                        For object: {object.object_name}
+                        
+                        Field name: {field_name}
 
-                    quastion = f'''
-                    For object: {object.object_name}
-                    
-                    Field name: {field_name}
-
-                    Can contain sensitive data? Answer only 'yes' or 'no',
+                        Can contain private data? Answer only 'yes' or 'no',
                     '''
 
-                    response = llm.create_chat_completion(
-                        messages = [
-                            {"role": "system", "content": self.system_prompt},
-                            {"role": "user", "content": quastion },
-                        ]
-                    )
+                    question2 = f'''
+                        For object: {object.object_name}
+                        
+                        Field name: {field_name}
 
-                    llm.reset()
-                    llm.set_cache(None)
+                        Choose category for field private data from lost: pii, finance, auth, other 
 
-                    answer = response['choices'][0]["message"]["content"]
+                        Answer only with category name word.
+                    '''
+                    
+                    # Local
+                    if self.ai_local:
 
-                    logger.info(f"For {object.object_name} and {field.field_name} llm answer is {answer}")
+                        llm = Llama.from_pretrained(
+                            repo_id=self.ai_local.model_id,
+                            filename=self.ai_local.gguf_file,
+                            verbose=False,
+                            cache_dir=self.ai_local.model_folder,
+                            max_tokens=5,
+                            seed=112358,
+                        )
 
-                    if 'yes' in answer.lower():
-                        scored_list.append(field.field_name)                       
+                        response = llm.create_chat_completion(
+                            messages = [
+                                {"role": "system", "content": self.ai_local.system_prompt},
+                                {"role": "user", "content": question },
+                            ]
+                        )
 
+                        llm.reset()
+                        llm.set_cache(None)
+
+                        answer = response['choices'][0]["message"]["content"]
+
+                        if 'yes' in answer.lower():
+
+                            response2 = llm.create_chat_completion(
+                                messages = [
+                                    {"role": "system", "content": self.ai_local.system_prompt},
+                                    {"role": "user", "content": question2 },
+                                ]
+                            )
+
+                            answer2 = response2['choices'][0]["message"]["content"]
+
+                            for cat in ['pii', 'auth', 'finance', 'other']:
+                                if cat in answer2.lower():
+                                    scored_list[field.field_name] = f"llm-{cat}"
+                                    logger.info(f"For {object.object_name} and {field.field_name} llm answer is {answer}, cat {answer2}")
+
+                    # API
+                    if self.ai_api:
+
+                        client = OpenAI(api_key=self.ai_api.api_key, base_url=self.ai_api.base_url)
+
+                        response = client.chat.completions.create(
+                            model=self.ai_api.model,
+                            messages=[
+                                {"role": "system", "content": self.ai_api.system_prompt},
+                                {"role": "user", "content": question},
+                            ],
+                            stream=False
+                        )
+
+                        answer = response.choices[0].message.content
+
+                        if 'yes' in answer.lower():
+
+                            response2 = client.chat.completions.create(
+                                model=self.ai_api.model,
+                                messages=[
+                                    {"role": "system", "content": self.ai_api.system_prompt},
+                                    {"role": "user", "content": question2},
+                                ],
+                                stream=False
+                            )
+
+                            answer2 = response2.choices[0].message.content
+
+                            for cat in ['pii', 'auth', 'finance', 'other']:
+                                if cat in answer2.lower():
+                                    scored_list[field.field_name] = f"llm-{cat}"
+                                    logger.info(f"For {object.object_name} and {field.field_name} llm answer is {answer}, cat {answer2}")
+                
                 scored_fields = {}
 
-                tag = "llm"
                 severity = "medium"
 
                 for field_name, field in object.fields.items():
 
-                    if field.field_name in scored_list:
+                    if field.field_name in scored_list.keys():
 
                         excluded = False
+
+                        tag = scored_list[field.field_name]
 
                         for exclude in self.exclude_scoring:
 

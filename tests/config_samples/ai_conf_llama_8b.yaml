@@ -1,8 +1,8 @@
 parsers:
   - 'swagger'
 
-ai_params:
+ai_local:
+  model_folder: "/hf_models"
   model_id: "QuantFactory/DarkIdol-Llama-3.1-8B-Instruct-1.2-Uncensored-GGUF"
   gguf_file: "DarkIdol-Llama-3.1-8B-Instruct-1.2-Uncensored.Q4_K_M.gguf"
-  model_folder: "/app/tests/ai_samples/hf_home"
-  prompt: "You are security bot, for provided objects select only field names that contain personally identifiable information, passport or other person identification document numbers, finance or payment information, authentication and other sensitive data."
+  system_prompt: "You are data security bot, for provided object and it field you must deside does it contain any personal, financial, authorization or other private data with special mesures to store and show."

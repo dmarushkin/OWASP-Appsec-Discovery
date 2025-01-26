@@ -130,20 +130,20 @@ appsec-discovery --source tests/swagger_samples
 
 ## Score object fields with local LLM model
 
-Replace or combine exist static keyword ruleset with LLM, fill conf.yaml with choosed LLM and prompt:
+Replace or combine exist static keyword ruleset with local LLM, fill conf.yaml with choosed LLM and prompt:
 
 ```
-ai_params:
-  model_id: "mradermacher/Llama-3.2-3B-Instruct-uncensored-GGUF"
-  gguf_file: "Llama-3.2-3B-Instruct-uncensored.Q8_0.gguf"
-  model_folder: "/app/tests/ai_samples/hf_home"
-  prompt: "You are security bot, for provided objects select only field names that contain personally identifiable information (pii), finance, authentication and other sensitive data. You return json list of selected critical field names like [\"field1\", \"field2\", ... ] or empty json list."
+ai_local:
+  model_folder: "/hf_models"
+  model_id: "Neurogen/Vikhr-Llama3.1-8B-Instruct-R-21-09-24-Q4_K_M-GGUF"
+  gguf_file: "vikhr-llama3.1-8b-instruct-r-21-09-24-q4_k_m.gguf"
+  system_prompt: "You are data security bot, for provided object and it field you must deside does it contain any personal, financial, authorization or other private data with special mesures to store and show."
 ```
 
 Run scan with new settings and get objects and fields severity from local AI engine:
 
 ```
-appsec-discovery --source tests/swagger_samples --config tests/config_samples/ai_conf_llama.yaml
+appsec-discovery --source tests/swagger_samples --config tests/config_samples/ai_conf_vikhr_7b.yaml
 
 - hash: 2e20a348a612aa28d24c1bd0498eebf0
   object_name: Swagger route /user/login (GET)
@@ -151,7 +151,8 @@ appsec-discovery --source tests/swagger_samples --config tests/config_samples/ai
   parser: swagger
 > severity: medium  <<<<<<<<<<<<<<<< !!!
   tags:
-> - llm  <<<<<<<<<<<<<<<<<<<<<<<<<<< !!!
+> - llm-pii  <<<<<<<<<<<<<<<<<<<<<<< !!!
+> - llm-auth  <<<<<<<<<<<<<<<<<<<<<< !!!
   file: /swagger.yaml
   line: 83
   properties:
@@ -170,13 +171,25 @@ appsec-discovery --source tests/swagger_samples --config tests/config_samples/ai
       line: 83
 >>>>  severity: medium  <<<<<<<<<<<<<< !!!
       tags:
->>>>  - llm  <<<<<<<<<<<<<<<<<<<<<<<<< !!!
+>>>>  - llm-auth  <<<<<<<<<<<<<<<<<<<< !!!
       ...
 ```
 
 At first run tool with download provided model from Huggingface into local cache dir, for next offline scans use this dir with pre downloaded models.
 
 Play around with with various [models](https://huggingface.co/models?search=llama-3.2) from Huggingface and prompts for best results.
+
+Also fill free to use external openai campatible LLM api, fill conf.yaml with choosed LLM creds and prompt:
+
+```
+ai_api:
+  base_url: "https://api.deepseek.com"
+  api_key: "some_api_key"
+  model: "deepseek-chat"
+  system_prompt: "You are data security bot, for provided object and it field you must deside does it contain any personal, financial, authorization or other private data with special mesures to store and show."
+```
+
+But remember that with great power comes great responsibility!
 
 
 ## Integrate scans into CI/CD

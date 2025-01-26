@@ -68,8 +68,8 @@ class ScanService:
         filtered_objects = self.filter_objects(parsed_objects)
         scored_objects = self.score_objects(filtered_objects)
 
-        if self.config.ai_params :
-            ai = AiService(self.config.ai_params, self.config.exclude_scoring)
+        if self.config.ai_local or self.config.ai_api:
+            ai = AiService(exclude_scoring=self.config.exclude_scoring, ai_local=self.config.ai_local, ai_api=self.config.ai_api)
             ai_scored_objects = ai.ai_score_objects(scored_objects)
 
             result_objects = [ obj for obj in ai_scored_objects if obj.severity or not self.only_scored_objects ]

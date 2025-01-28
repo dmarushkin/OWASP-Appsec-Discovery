@@ -78,10 +78,10 @@ class GraphqlParser(Parser):
 
             for type_def in file_gql.definitions:
 
-                if type_def.kind == 'object_type_extension':
+                if hasattr(type_def, 'name') and type_def.kind == 'object_type_extension':
                     extend_types[type_def.name.value] = 1
 
-                if type_def.name.value not in types:
+                if hasattr(type_def, 'name') and type_def.name.value not in types:
 
                     types[type_def.name.value] = {
                         'name': type_def.name.value,
@@ -105,7 +105,7 @@ class GraphqlParser(Parser):
                         elif hasattr(field_def.type, 'type') and hasattr(field_def.type.type, 'type') and hasattr(field_def.type.type.type, 'type') and hasattr(field_def.type.type.type.type, 'name'):
                             output = field_def.type.type.type.type.name.value
 
-                        if field_def.name.value not in types[type_def.name.value]['fields']:
+                        if hasattr(field_def, 'name') and field_def.name.value not in types[type_def.name.value]['fields']:
                             types[type_def.name.value]['fields'][field_def.name.value] = {
                                 'name': field_def.name.value,
                                 'file': file,
@@ -116,8 +116,7 @@ class GraphqlParser(Parser):
 
                         if hasattr(field_def, 'arguments'):
                             for input_def in field_def.arguments:
-                                if input_def.name.value not in types[type_def.name.value]['fields'][field_def.name.value]['inputs']:
-
+                                if hasattr(input_def, 'name') and input_def.name.value not in types[type_def.name.value]['fields'][field_def.name.value]['inputs']:
                                     input_type = ''
                                     if hasattr(input_def.type, 'name'):
                                         input_type = input_def.type.name.value

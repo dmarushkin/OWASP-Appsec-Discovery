@@ -1,10 +1,13 @@
-from typing import Set, List, Optional
-from sqlmodel import SQLModel, Field, Relationship, Column, String
-from sqlalchemy.dialects import postgresql
+from typing import List, Optional
+from sqlmodel import SQLModel, Field, Relationship
+from sqlmodel import SQLModel, Field, Relationship
+from sqlalchemy import Column, ARRAY, String
+
 from datetime import datetime
 from enum import Enum
 
 class Project(SQLModel, table=True):
+    __tablename__ = "gitlab_projects"
     id: Optional[int] = Field(default=None, primary_key=True)
     project_name: str
     full_path: str
@@ -14,10 +17,16 @@ class Project(SQLModel, table=True):
     created_at: datetime
     updated_at: datetime
     processed_at: Optional[datetime] = None
+    severity: Optional[str] = None
+    tags: Optional[List[str]] = Field(
+        sa_column=Column(ARRAY(String)),
+        default=None
+    )
     branches: List["Branch"] = Relationship(back_populates="project")
     mrs: List["MR"] = Relationship(back_populates="project")
 
 class Branch(SQLModel, table=True):
+    __tablename__ = "gitlab_branches"
     id: Optional[int] = Field(default=None, primary_key=True)
     branch_name: str
     is_main: bool = Field(default=False) 
@@ -25,13 +34,14 @@ class Branch(SQLModel, table=True):
     updated_at: datetime
     commit: str
     processed_at: Optional[datetime] = None
-    project_id: int = Field(default=None, foreign_key="project.id")
+    project_id: int = Field(default=None, foreign_key="gitlab_projects.id")
     project: Project = Relationship(back_populates="branches")
     project_path: str
 
 class MR(SQLModel, table=True):
+    __tablename__ = "gitlab_mrs"
     id: Optional[int] = Field(default=None, primary_key=True)
-    project_id: int = Field(default=None, foreign_key="project.id")
+    project_id: int = Field(default=None, foreign_key="gitlab_projects.id")
     project_path: str
     project: Project = Relationship(back_populates="mrs")
     source_branch_id: int
@@ -51,15 +61,91 @@ class MR(SQLModel, table=True):
     processed_at: Optional[datetime] = None
 
 class Scan(SQLModel, table=True):
+    __tablename__ = "discovery_scans"
     id: Optional[int] = Field(default=None, primary_key=True)
+    project_id: int = Field(default=None, foreign_key="gitlab_projects.id")
+    branch_id: int = Field(default=None, foreign_key="gitlab_branches.id")
+    project_path: str
+    branch_name: str
+    branch_commit: str
     scanner: str
     rules_version: str
-    project_id: int = Field(default=None, foreign_key="project.id")
-    branch_id: int = Field(default=None, foreign_key="branch.id")
-    branch_commit: str
+    parsers: Optional[List[str]] = Field(
+        sa_column=Column(ARRAY(String)),
+        default=None
+    )
     scanned_at: datetime
 
+class DbCodeObjectField(SQLModel, table=True):
+    __tablename__ = "discovery_code_object_fields"
+    code_object_id: int = Field(
+        foreign_key="discovery_code_objects.id",
+        primary_key=True
+    )
+    field_name: str = Field(primary_key=True)
+    field_type: str
+    file: Optional[str] = None
+    line: Optional[int] = None
+    severity: Optional[str] = None
+    tags: Optional[List[str]] = Field(
+        sa_column=Column(ARRAY(String)),
+        default=None
+    )
+    code_object: Optional["DbCodeObject"] = Relationship(
+        back_populates="fields",
+        sa_relationship_kwargs={"cascade": "all, delete"}
+    )
 
+class DbCodeObjectProp(SQLModel, table=True):
+    __tablename__ = "discovery_code_object_props"
+    code_object_id: int = Field(
+        foreign_key="discovery_code_objects.id",
+        primary_key=True
+    )
+    prop_name: str = Field(primary_key=True)
+    prop_value: str
+    file: Optional[str] = None
+    line: Optional[int] = None
+    severity: Optional[str] = None
+    tags: Optional[List[str]] = Field(
+        sa_column=Column(ARRAY(String)),
+        default=None
+    )
+    code_object: Optional["DbCodeObject"] = Relationship(
+        back_populates="properties",
+        sa_relationship_kwargs={"cascade": "all, delete"}
+    )
+
+class DbCodeObject(SQLModel, table=True):
+    __tablename__ = "discovery_code_objects"
+    id: Optional[int] = Field(default=None, primary_key=True)
+    project_id: int = Field(default=None, foreign_key="gitlab_projects.id")
+    branch_id: int = Field(default=None, foreign_key="gitlab_branches.id")
+    hash: str
+    object_name: str
+    object_type: str
+    parser: str
+    properties: List[DbCodeObjectProp] = Relationship(
+        back_populates="code_object",
+        sa_relationship_kwargs={"cascade": "all, delete-orphan"}                                     
+    )
+    fields: List[DbCodeObjectField] = Relationship(
+        back_populates="code_object",
+        sa_relationship_kwargs={"cascade": "all, delete-orphan"}                                     
+    )
+    file: str
+    line: int
+    severity: Optional[str] = None
+    tags: Optional[List[str]] = Field(
+        sa_column=Column(ARRAY(String)),
+        default=None
+    )
+    created_at: Optional[datetime] = None
+    updated_at: Optional[datetime] = None
+    alerted_at: Optional[datetime] = None
+    ai_processed_at: Optional[datetime] = None
+
+'''
 class TableObject(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     project_id: int = Field(default=None, foreign_key="project.id")
@@ -136,7 +222,7 @@ class TfObject(SQLModel, table=True):
     updated_at: Optional[datetime] = None
 
 
-'''
+
 class ProjectInfo(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     project_id: int = Field(default=None, foreign_key="project.id")
@@ -193,20 +279,31 @@ class GrpcClientCall(SQLModel, table=True):
 
 '''
 
+
 ####################################################
 #   Scoring rules                               ####
 ####################################################
 
-class ScoreRuleStatus(str, Enum):
-    active = "active"
+class DbScoreRuleStatus(str, Enum):
+    mark = "mark"
     skip = "skip"
+    alert = "alert"
 
-class ScoreRule(SQLModel, table=True):
+class DbScoreRuleSeverity(str, Enum):
+    critical = "critical"
+    high = "high"
+    medium = "medium"
+    low = "low"
+    info = "info"
+
+class DbScoreRule(SQLModel, table=True):
+    __tablename__ = "discovery_score_rules"
     id: Optional[int] = Field(default=None, primary_key=True)
-    service_re: Optional[str]
-    object_type_re: Optional[str]
-    object_re: Optional[str]
-    field_re: Optional[str]
-    field_type_re: Optional[str]
-    risk_score: int
-    status: ScoreRuleStatus = ScoreRuleStatus.active
+    project: Optional[str]
+    object: Optional[str]
+    object_type: Optional[str]
+    field: Optional[str]
+    field_type: Optional[str]
+    severity: Optional[DbScoreRuleSeverity]
+    tag: Optional[str]
+    status: DbScoreRuleStatus = DbScoreRuleStatus.mark

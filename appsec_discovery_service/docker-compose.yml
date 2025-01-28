@@ -12,12 +12,23 @@ services:
       - GITLAB_URL=${GITLAB_URL}
       - GITLAB_PRIVATE_TOKEN=${GITLAB_PRIVATE_TOKEN}
       - GITLAB_PROJECTS_PREFIX=${GITLAB_PROJECTS_PREFIX}
-      - MAX_WORKERS=${MAX_WORKERS}
+      - GITLAB_SCAN_TYPES=${GITLAB_SCAN_TYPES}
+      - PARSERS=${PARSERS}
       - CACHE_SIZE_GB=${CACHE_SIZE_GB}
+      - MAX_WORKERS=${MAX_WORKERS}
+      - LLM_API_URL=${LLM_API_URL}
+      - LLM_API_KEY=${LLM_API_KEY}
+      - LLM_API_MODEL=${LLM_API_MODEL}
+      - LLM_LOCAL_MODEL=${LLM_LOCAL_MODEL}
+      - LLM_LOCAL_FILE=${LLM_LOCAL_FILE}
+      - LLM_PROMPT=${LLM_PROMPT}
       - MR_ALERTS=${MR_ALERTS}
+      - TG_CHAT_ID=${TG_CHAT_ID}
       - TG_ALERT_TOKEN=${TG_ALERT_TOKEN}
       - TG_CHAT_ID=${TG_CHAT_ID}
     restart: always
+    volumes:
+      - hf_models:/hf_models
     depends_on:
       - discovery_postgres
 
@@ -79,5 +90,11 @@ volumes:
     driver: local 
     driver_opts:
       type: none
-      device: ${PWD}/pg_data
+      device: ${HOME}/discovery_db
+      o: bind
+  hf_models:
+    driver: local 
+    driver_opts:
+      type: none
+      device: ${HOME}/hf_models
       o: bind

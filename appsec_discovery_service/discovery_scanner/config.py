@@ -10,8 +10,20 @@ GITLAB_URL = os.getenv("GITLAB_URL")
 
 GITLAB_PROJECTS_PREFIX = os.getenv("GITLAB_PROJECTS_PREFIX").split(",")
 
+GITLAB_SCAN_TYPES = os.getenv("GITLAB_SCAN_TYPES").split(",")
+
+PARSERS = os.getenv("PARSERS").split(",")
+
 MAX_WORKERS = int(os.getenv("MAX_WORKERS"))
 CACHE_SIZE = int(os.getenv("CACHE_SIZE_GB")) * 1024 * 1024 * 1024
+
+LLM_API_URL = os.getenv("LLM_API_URL")
+LLM_API_KEY = os.getenv("LLM_API_KEY")
+LLM_API_MODEL = os.getenv("LLM_API_MODEL")
+
+LLM_LOCAL_MODEL = os.getenv("LLM_LOCAL_MODEL")
+LLM_LOCAL_FILE = os.getenv("LLM_LOCAL_FILE")
+LLM_PROMPT = os.getenv("LLM_PROMPT")
 
 MR_ALERTS = os.getenv("MR_ALERTS")
 

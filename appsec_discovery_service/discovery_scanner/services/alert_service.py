@@ -13,27 +13,8 @@ def render_and_send_alert(project, branch, mr_id, crit_objects):
 
     message = f'Branch: {branch}\nMR: {GITLAB_URL}/{project}/-/merge_requests/{mr_id}/diffs\n'
 
-    if crit_objects['table_objs']:
-
-        message += '\nTable fields:\n'
-
-        for table_obj in crit_objects['table_objs'].values():
-            message += f'  {table_obj.table_name}.{table_obj.field} scored as risky for {table_obj.score}\n'
-
-
-    if crit_objects['proto_objs']:
-
-        message += '\nProto fields:\n'
-
-        for proto_obj in crit_objects['proto_objs'].values():
-            message += f'  {proto_obj.service}.{proto_obj.method}.{proto_obj.message}.{proto_obj.field} scored as risky for {proto_obj.score}\n'
-
-    if crit_objects['client_objs']:
-
-        message += '\nClient calls:\n'
-
-        for client_obj in crit_objects['client_objs'].values():
-            message += f'  {client_obj.package}{client_obj.method} calls {client_obj.url} scored as risky for {client_obj.score}\n'
+    for code_obj in crit_objects.values():
+        message += f'  {code_obj.object_name} scored as {code_obj.severity} with tags {str(code_obj.tags)}\n'
 
     if MR_ALERTS :
         
@@ -47,7 +28,7 @@ def render_and_send_alert(project, branch, mr_id, crit_objects):
 
         return True
     
-    logger.error(f"Alert for {project}, mr {mr_id} does not sent, {MM_ALERT_TOKEN} {MM_ALERT_URL}")
+    logger.error(f"Alert for {project}, mr {mr_id} does not sent")
 
 
 def send_tg_alert(alert_title, alert_text):

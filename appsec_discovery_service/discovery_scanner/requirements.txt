@@ -18,7 +18,7 @@
 #mdurl==0.1.2
 #packaging==24.0
 #peewee==3.17.1
-#psycopg2-binary==2.9.9
+psycopg2-binary==2.9.9
 pydantic==1.10.13
 #pydantic_core==2.16.3
 #Pygments==2.17.2
@@ -36,5 +36,5 @@ sqlmodel==0.0.22
 #tomli==2.0.1
 typing_extensions==4.12.2
 urllib3==2.2.3
-appsec-discovery==0.6.7
+appsec-discovery==0.7.2
 #wcmatch==8.5.1

@@ -1,7 +1,6 @@
 from pydantic import BaseModel
 from typing import List, Dict, Optional
 
-
 class CodeObjectField(BaseModel):
     field_name: str
     field_type: str

@@ -6,7 +6,7 @@ Cli tool can also use lightweight local LLM models like Llama 3.1 8B from Huggin
 
 Appsec Discovery service continuosly fetch changes from local Gitlab via api, clone code for particular projects, scan for objects in code and score them with provided via UI rules, store result objects with projects, branches and MRs from Gitlab in local db and alert about critical changes via messenger or comments to MR in Gitlab.
 
-Under the hood tool powered by Semgrep OSS engine and specialy crafted discovery rules and parsers that extract particular objects from semgrep report meta variables.
+Under the hood tool powered by Semgrep OSS engine and specialy crafted discovery rules and parsers that extract particular objects.
 
 ## Cli mode
 

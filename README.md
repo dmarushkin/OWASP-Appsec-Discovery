@@ -218,17 +218,27 @@ cd appsec-discovery/appsec_discovery_service
 Fillout .env file with your gitlab url and token, change passwords for local db and ui user, for alerts register new telegram bot or use exist one, or just leave TG args empty to only store objects:
 
 ```ini
-POSTGRES_HOST=discovery_postgres
+POSTGRES_HOST=discovery_db
 POSTGRES_DB=discovery_db
 POSTGRES_USER=discovery_user
 POSTGRES_PASSWORD=some_secret_str
 GITLAB_PRIVATE_TOKEN=some_secret_str
 GITLAB_URL=https://gitlab.examle.com
 GITLAB_PROJECTS_PREFIX=backend/,frontend/,test/
+GITLAB_SCAN_TYPES=mains,mrs
+PARSERS=all
+CACHE_SIZE_GB=5
 UI_ADMIN_EMAIL=admin@example.com
 UI_ADMIN_PASSWORD=admin
 UI_JWT_KEY=some_secret_str
 MAX_WORKERS=5
+LLM_API_URL=https://api.deepseek.com
+LLM_API_KEY=test_key
+LLM_API_MODEL=deepseek-chat
+LLM_LOCAL_MODEL=Neurogen/Vikhr-Llama3.1-8B-Instruct-R-21-09-24-Q4_K_M-GGUF
+LLM_LOCAL_FILE=vikhr-llama3.1-8b-instruct-r-21-09-24-q4_k_m.gguf
+LLM_PROMPT="You are data security bot, for provided object and it field you must deside does it contain any personal, financial, authorization or other private data with special mesures to store and show."
+LLM_PROMPT_VER="1.0.1"
 MR_ALERTS=1
 TG_ALERT_TOKEN=test
 TG_CHAT_ID=0000000000

@@ -4,7 +4,7 @@ OWASP Appsec Discovery cli tool scan provided code projects and extract structur
 
 Cli tool can also use lightweight local LLM models like Llama 3.1 8B from Huggingface or OpenAI compatible APIs and provided prompt to score objects without pre-existing knowledge about assets in code. Small local open source models work fast on common hardware and are just enouth for such classification tasks.
 
-Appsec Discovery service continuosly fetch changes from local Gitlab via api, clone code for particular projects, scan for objects in code and score them with provided via UI rules, store result objects with projects, branches and MRs from Gitlab in local db and alert about critical changes via messenger or comments to MR in Gitlab.
+Appsec Discovery service continuosly fetch changes from local Gitlab via api, clone code for particular projects, scan for objects in code and score them with provided via UI rules and LLMs, store result objects with projects, branches and MRs from Gitlab in local db and alert about critical changes via messenger or comments to MR in Gitlab.
 
 Under the hood tool powered by Semgrep OSS engine and specialy crafted discovery rules and parsers that extract particular objects.
 

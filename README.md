@@ -2,7 +2,7 @@
 
 OWASP Appsec Discovery cli tool scan provided code projects and extract structured protobuf, graphql, swaggers, database schemas, python, go and java object DTOs, used api clients and methods, and other kinds of external contracts. It scores risk level for found object fields with provided in config static keywords ruleset and store results in own format json or sarif reports for fast integration with exist vuln management systems like Defectdojo.
 
-Cli tool can also use local LLM model Llama 3.2 3B from Huggingface and provided prompt to score objects without pre-existing knowledge about assets in code. Small open source models work fast on common hardware and are just enouth for such classification tasks.
+Cli tool can also use lightweight local LLM models like Llama 3.1 8B from Huggingface or OpenAI compatible APIs and provided prompt to score objects without pre-existing knowledge about assets in code. Small local open source models work fast on common hardware and are just enouth for such classification tasks.
 
 Appsec Discovery service continuosly fetch changes from local Gitlab via api, clone code for particular projects, scan for objects in code and score them with provided via UI rules, store result objects with projects, branches and MRs from Gitlab in local db and alert about critical changes via messenger or comments to MR in Gitlab.
 

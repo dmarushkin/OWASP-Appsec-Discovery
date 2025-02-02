@@ -3,7 +3,7 @@ from datetime import datetime
 
 from typing import List
 
-from models import Scan, DbCodeObject, DbCodeObjectProp, DbCodeObjectField
+from models import Scan, DbObject, DbObjectField
 from appsec_discovery.models import CodeObject
 from appsec_discovery.parsers import ParserFactory, Parser
 
@@ -14,7 +14,8 @@ from services.gl_service import (
 from services.db_service import (
     insert_scan, 
     get_scan,
-    upsert_code_obj,
+    upsert_obj,
+    upsert_llm_score,
     get_score_rules,
     get_objects_to_score,
 )
@@ -61,7 +62,7 @@ def scan_branch(session, branch):
                     parsed_objects_list, result = run_discovery_scan(project_path, project_id, branch_id, branch_name, branch_commit, score_rules)
 
                     for parsed_object in parsed_objects_list:
-                        upsert_code_obj(session, parsed_object)
+                        upsert_obj(session, parsed_object)
 
                     if result == 'scanned':
                         insert_scan(session, scan)
@@ -115,7 +116,7 @@ def scan_mr(session, project_id, project_path, mr_id,
                 diff_objects = get_diff(scan.scanner, source_objects_list, target_objects_list) 
 
                 for parsed_object in diff_objects:
-                    _, result = upsert_code_obj(session, parsed_object)
+                    _, result = upsert_obj(session, parsed_object)
                     if result == 'inserted' and parsed_object.severity :
                         new_objects[parsed_object.hash] = parsed_object
                 
@@ -160,24 +161,23 @@ def llm_score_branch(session, branch):
 
             objects_to_score = get_objects_to_score(session, project_id, branch_id)
 
-            scored_objects = llm_score_objects(objects_to_score)
+            scored_fields = llm_score_objects(objects_to_score)
 
-            for scored_object in scored_objects:
-                scored_object.ai_processed_at = datetime.now()
-                upsert_code_obj(session, scored_object)
+            for scored_field in scored_fields:
+                upsert_llm_score(session, scored_field)
 
-                insert_scan(session, scan)
+            logger.info(f"Project {project_path}, branch {branch_name} llm scored {len(scored_fields)} fields")
+            
+            insert_scan(session, scan)
+
         else:
             logger.info(f"Already exist scan {scan.scanner} (ver {scan.rules_version} parsers {str(scan.parsers)} for {project_path}, branch {branch_name}")
 
-        logger.info(f"Project {project_path}, branch {branch_name} processed")
-        
         return True
 
     except Exception as e:
 
         logger.error(f"Failed to score project {project_path}, branch {branch_name}: {e}")
-    
         return False
     
 
@@ -238,23 +238,15 @@ def run_discovery_scan(project_path, project_id, branch_id, branch_name, branch_
 
     for obj in parsed_objects:
 
-        db_props = []
+        db_props = {}
         for local_prop in obj.properties.values():
-            db_prop = DbCodeObjectProp(
-                prop_name=local_prop.prop_name, 
-                prop_value=local_prop.prop_value,
-                file=local_prop.file,
-                line=local_prop.line,
-                severity=local_prop.severity,
-                tags=local_prop.tags,
-            )
-            db_props.append(db_prop)
+            db_props[local_prop.prop_name] = local_prop.prop_value
 
         db_fields = []
         for local_field in obj.fields.values():
-            db_field = DbCodeObjectField(
-                field_name=local_field.field_name, 
-                field_type=local_field.field_type,
+            db_field = DbObjectField(
+                name=local_field.field_name, 
+                type=local_field.field_type,
                 file=local_field.file,
                 line=local_field.line,
                 severity=local_field.severity,
@@ -262,14 +254,14 @@ def run_discovery_scan(project_path, project_id, branch_id, branch_name, branch_
             )
             db_fields.append(db_field)
 
-        db_obj = DbCodeObject(
+        db_obj = DbObject(
             project_id=project_id, 
             branch_id=branch_id,
             hash=obj.hash,
-            object_name=obj.object_name,
-            object_type=obj.object_type,
+            name=obj.object_name,
+            type=obj.object_type,
             parser=obj.parser,
-            properties=db_props,
+            props=db_props,
             fields=db_fields,
             file=obj.file,
             line=obj.line,
@@ -278,9 +270,6 @@ def run_discovery_scan(project_path, project_id, branch_id, branch_name, branch_
         )
 
         db_objs.append(db_obj)
-
-    # filtered_objects = filter_objects(parsed_objects, score_rules)
-    # scored_objects = self.score_objects(filtered_objects)
 
     return db_objs, 'scanned'
 

@@ -118,9 +118,9 @@ def test_ai_service_vikhr_local():
     assert score_config.ai_local is not None
     assert score_config.ai_local.model_id == "Neurogen/Vikhr-Llama3.1-8B-Instruct-R-21-09-24-Q4_K_M-GGUF"
 
-    assert scanned_objects[1].fields["Input.User.email"].field_name == "Input.User.email"
-    assert scanned_objects[1].fields["Input.User.email"].severity == "medium"  
-    assert "llm-pii" in scanned_objects[1].fields["Input.User.email"].tags
+    assert scanned_objects[1].fields["input.username"].field_name == "input.username"
+    assert scanned_objects[1].fields["input.username"].severity == "medium"  
+    assert "llm-pii" in scanned_objects[1].fields["input.username"].tags
 
 
 def test_ai_service_deepseek_api():
@@ -143,9 +143,9 @@ def test_ai_service_deepseek_api():
     assert score_config.ai_api is not None
     assert score_config.ai_api.model == "deepseek-chat"
 
-    assert scanned_objects[1].fields["input.firstName"].field_name == "input.firstName"
-    assert scanned_objects[1].fields["input.firstName"].severity == "high"
-    assert "llm-pii" in scanned_objects[1].fields["input.firstName"].tags
+    assert scanned_objects[1].fields["input.username"].field_name == "input.username"
+    assert scanned_objects[1].fields["input.username"].severity == "medium" 
+    assert "llm-pii" in scanned_objects[1].fields["input.username"].tags
 
 def test_ai_service_score_objects_local():
 

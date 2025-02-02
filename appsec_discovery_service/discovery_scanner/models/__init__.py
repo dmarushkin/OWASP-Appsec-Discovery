@@ -3,8 +3,8 @@ from .models import (
     Branch, 
     MR, 
     Scan,
-    DbCodeObject,
-    DbCodeObjectProp,
-    DbCodeObjectField,
+    DbObject,
+    DbObjectField,
+    DbLLMScore,
     DbScoreRule
 )  #, TableObject, ProtoObject, ClientCallObject

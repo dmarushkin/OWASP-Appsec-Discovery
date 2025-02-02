@@ -22,15 +22,16 @@ services:
       - LLM_LOCAL_MODEL=${LLM_LOCAL_MODEL}
       - LLM_LOCAL_FILE=${LLM_LOCAL_FILE}
       - LLM_PROMPT=${LLM_PROMPT}
+      - LLM_PROMPT_VER=${LLM_PROMPT_VER}
       - MR_ALERTS=${MR_ALERTS}
       - TG_CHAT_ID=${TG_CHAT_ID}
       - TG_ALERT_TOKEN=${TG_ALERT_TOKEN}
       - TG_CHAT_ID=${TG_CHAT_ID}
     restart: always
     volumes:
-      - hf_models:/hf_models
+      - "${HOME}/hf_models:/hf_models"
     depends_on:
-      - discovery_postgres
+      - discovery_db
 
   discovery_api:
     container_name: discovery_api
@@ -46,7 +47,7 @@ services:
       - UI_JWT_KEY=${UI_JWT_KEY}
     restart: always
     depends_on:
-      - discovery_postgres
+      - discovery_db
 
   discovery_ui:
     container_name: discovery_ui
@@ -57,7 +58,7 @@ services:
         - "linux/amd64"
     restart: always
 
-  discovery_postgres:
+  discovery_db:
     container_name: discovery_postgres
     image: postgres:13
     platform: "linux/amd64"     
@@ -69,7 +70,7 @@ services:
       - "54321:5432"
     restart: always
     volumes:
-      - pg_data:/var/lib/postgresql/data
+      - "${HOME}/db_data:/var/lib/postgresql/data"
 
   discovery_nginx:
     container_name: discovery_nginx
@@ -84,17 +85,3 @@ services:
     depends_on:
       - discovery_api
       - discovery_ui
-
-volumes:
-  pg_data:
-    driver: local 
-    driver_opts:
-      type: none
-      device: ${HOME}/discovery_db
-      o: bind
-  hf_models:
-    driver: local 
-    driver_opts:
-      type: none
-      device: ${HOME}/hf_models
-      o: bind

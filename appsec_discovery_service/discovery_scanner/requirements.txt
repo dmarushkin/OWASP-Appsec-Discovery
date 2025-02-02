@@ -36,5 +36,5 @@ sqlmodel==0.0.22
 #tomli==2.0.1
 typing_extensions==4.12.2
 urllib3==2.2.3
-appsec-discovery==0.7.2
+appsec-discovery==0.8.1
 #wcmatch==8.5.1

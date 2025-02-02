@@ -1,12 +1,14 @@
 import re
 from typing import List, Dict
 
-from models import DbCodeObject
+from models import DbObject, DbLLMScore
 from logger import get_logger
 from llama_cpp import Llama, LlamaRAMCache
 from openai import OpenAI
 
-from config import LLM_API_KEY, LLM_API_MODEL, LLM_API_URL, LLM_LOCAL_FILE, LLM_LOCAL_MODEL, LLM_PROMPT
+from config import LLM_API_KEY, LLM_API_MODEL, LLM_API_URL, LLM_LOCAL_FILE, LLM_LOCAL_MODEL, LLM_PROMPT, LLM_PROMPT_VER
+
+
 
 import re
 
@@ -31,146 +33,199 @@ def score_field(service, object, object_type, field_name, field_type, score_rule
     return 0 
 
 
-def llm_score_objects(objects_to_score: List[DbCodeObject]):
+def llm_score_objects(objects_to_score: List[DbObject]):
     
-    scored_objects = []
-
+    scored_fields = []
 
     for object in objects_to_score:
         
         try:
-                        
-            scored_list = {}
+            
+            choosen_fields = []
+            fields_str = ''
 
             for field in object.fields:
+                if ( 'int' in field.type.lower() or 'str' in field.type.lower() ) and \
+                   ( 'idempotency' not in field.name.lower() 
+                     and not field.name.endswith('Id')
+                     and not field.name.endswith('ID')
+                     and not field.name.lower().endswith('_id')
+                     and not field.name.lower().endswith('_ids')
+                     and not field.name.lower().endswith('.id')
+                     and not field.name.lower().endswith('.ids')
+                     and not field.name.lower().endswith('_date')
+                     and not field.name.lower().endswith('page')
+                     and not field.name.lower().endswith('per_page')
+                     and not field.name.lower().endswith('limit')
+                     and not field.name.lower().endswith('total')
+                     and not field.name.lower().endswith('total_items') 
+                     and not field.name.lower().endswith('_filename') 
+                     and not field.name.lower().endswith('_size') 
+                     and not field.name.lower().endswith('id_in') 
+                     and not field.name.lower().endswith('ids_in') 
+                     and not field.name.lower() == 'id') :
+                    
+                    fields_str += f" - {field.name}\n"
+                    choosen_fields.append(field.name)
 
-                if field.field_name.split('.')[0].lower() in ['input','output'] and len(field.field_name.split('.')) > 1 :
-                    field_name = ".".join(field.field_name.split('.')[1:])
-                else:
-                    field_name = field.field_name
+            question1 = f'''
+                For object: {object.name}
+                Fields: 
+                {fields_str}
+                Can contain private data? Answer only 'yes' or 'no',
+            '''
 
-                question = f'''
-                    For object: {object.object_name}
-                    Field name: {field_name}
-                    Can contain private data? Answer only 'yes' or 'no',
-                '''
+            question2 = f'''
+                For object: {object.name}
+                Fields: 
+                {fields_str}
+                Choose category for private data from lost: pii, finance, auth, other 
+                Answer only with category name word.
+            '''
 
-                question2 = f'''
-                    For object: {object.object_name}
-                    Field name: {field_name}
-                    Choose category for field private data from lost: pii, finance, auth, other 
-                    Answer only with category name word.
-                '''
-                
-                # Local
-                if LLM_LOCAL_MODEL:
+            question3 = f'''
+                For object: {object.name}
+                Fields: 
+                {fields_str}
+                Choose only fields that can contain private data.
+                Answer only with choosen field names separated by comma.
+            '''
+            
+            # Local
+            if fields_str and LLM_LOCAL_MODEL :
 
-                    llm = Llama.from_pretrained(
-                        repo_id=LLM_LOCAL_MODEL,
-                        filename=LLM_LOCAL_FILE,
-                        verbose=False,
-                        cache_dir="/hf_models",
-                    )
+                llm = Llama.from_pretrained(
+                    repo_id=LLM_LOCAL_MODEL,
+                    filename=LLM_LOCAL_FILE,
+                    verbose=False,
+                    cache_dir="/hf_models",
+                )
 
-                    response = llm.create_chat_completion(
+                response = llm.create_chat_completion(
+                    messages = [
+                        {"role": "system", "content": LLM_PROMPT},
+                        {"role": "user", "content": question1 },
+                    ]
+                )
+
+                answer1 = response['choices'][0]["message"]["content"]
+
+                logger.info(f"For question {question1} llm answer is {answer1}")
+
+                if 'yes' in answer1.lower():
+
+                    response2 = llm.create_chat_completion(
                         messages = [
                             {"role": "system", "content": LLM_PROMPT},
-                            {"role": "user", "content": question },
+                            {"role": "user", "content": question2 },
                         ]
                     )
 
-                    answer = response['choices'][0]["message"]["content"]
+                    answer2 = response2['choices'][0]["message"]["content"]
 
-                    if 'yes' in answer.lower():
+                    logger.info(f"For question {question2} llm answer is {answer2}")
 
-                        response2 = llm.create_chat_completion(
-                            messages = [
-                                {"role": "system", "content": LLM_PROMPT},
-                                {"role": "user", "content": question2 },
-                            ]
-                        )
+                    result_cat = 'other'
 
-                        answer2 = response2['choices'][0]["message"]["content"]
+                    for cat in ['pii', 'auth', 'finance', 'other']:
+                        if cat in answer2.lower():
 
-                        for cat in ['pii', 'auth', 'finance', 'other']:
-                            if cat in answer2.lower():
-                                scored_list[field.field_name] = f"llm-{cat}"
-                                logger.info(f"For {object.object_name} and {field.field_name} llm answer is {answer}, cat {answer2}")
+                            result_cat = cat
 
-                # API
-                if LLM_API_URL:
+                    response3 = llm.create_chat_completion(
+                        messages = [
+                            {"role": "system", "content": LLM_PROMPT},
+                            {"role": "user", "content": question3 },
+                        ]
+                    )
 
-                    client = OpenAI(api_key=LLM_API_KEY, base_url=LLM_API_URL)
+                    answer3 = response3['choices'][0]["message"]["content"]
 
-                    response = client.chat.completions.create(
+                    logger.info(f"For question {question3} llm answer is {answer3}")
+
+                    for field in object.fields:
+                        if field.name in choosen_fields and field.name.split('.')[-1].lower() in answer3.lower():
+
+                            field_score = DbLLMScore(
+                                field_id=field.id,
+                                model=LLM_LOCAL_MODEL,
+                                prompt_ver=LLM_PROMPT_VER,
+                                severity='medium',
+                                tag=result_cat,             
+                            )
+
+                            scored_fields.append(field_score)
+
+                            logger.info(f"For object {object.name} field {field.name} scored as {result_cat}")              
+
+            # API
+            if fields_str and LLM_API_URL and not LLM_LOCAL_MODEL:
+
+                client = OpenAI(api_key=LLM_API_KEY, base_url=LLM_API_URL)
+
+                response = client.chat.completions.create(
+                    model=LLM_API_MODEL,
+                    messages=[
+                        {"role": "system", "content": LLM_PROMPT},
+                        {"role": "user", "content": question1},
+                    ],
+                    stream=False
+                )
+
+                answer1 = response.choices[0].message.content
+
+                logger.info(f"For question {question1} llm answer is {answer1}")
+
+                if 'yes' in answer1.lower():
+
+                    response2 = client.chat.completions.create(
                         model=LLM_API_MODEL,
                         messages=[
                             {"role": "system", "content": LLM_PROMPT},
-                            {"role": "user", "content": question},
+                            {"role": "user", "content": question2},
                         ],
                         stream=False
                     )
 
-                    answer = response.choices[0].message.content
+                    answer2 = response2.choices[0].message.content
 
-                    if 'yes' in answer.lower():
+                    logger.info(f"For question {question2} llm answer is {answer2}")
 
-                        response2 = client.chat.completions.create(
-                            model=LLM_API_MODEL,
-                            messages=[
-                                {"role": "system", "content": LLM_PROMPT},
-                                {"role": "user", "content": question2},
-                            ],
-                            stream=False
-                        )
+                    result_cat = 'other'
 
-                        answer2 = response2.choices[0].message.content
+                    for cat in ['pii', 'auth', 'finance', 'other']:
+                        if cat in answer2.lower():
+                            result_cat = cat
+                    
+                    response3 = client.chat.completions.create(
+                        model=LLM_API_MODEL,
+                        messages=[
+                            {"role": "system", "content": LLM_PROMPT},
+                            {"role": "user", "content": question3},
+                        ],
+                        stream=False
+                    )
 
-                        for cat in ['pii', 'auth', 'finance', 'other']:
-                            if cat in answer2.lower():
-                                scored_list[field.field_name] = f"llm-{cat}"
-                                logger.info(f"For {object.object_name} and {field.field_name} llm answer is {answer}, cat {answer2}")
-            
-            scored_fields = []
+                    answer3 = response3.choices[0].message.content
 
-            severity = "medium"
+                    logger.info(f"For question {question3} llm answer is {answer3}")
 
-            for field in object.fields:
+                    for field in object.fields:
+                        if field.name in choosen_fields and field.name.split('.')[-1].lower() in answer3.lower():
 
-                if field.field_name in scored_list.keys():
+                            field_score = DbLLMScore(
+                                field_id=field.id,
+                                model=LLM_API_MODEL,
+                                prompt_ver=LLM_PROMPT_VER,
+                                severity='medium',
+                                tag=result_cat,             
+                            )
 
-                    excluded = False
+                            scored_fields.append(field_score)
 
-                    tag = scored_list[field.field_name]
-
-                    if not field.severity:
-                        field.severity = severity
-                        field.tags = [tag]
-                    else:
-                        if tag not in field.tags:
-                            field.tags.append(tag)
-
-                        if severities_int[severity] > severities_int[field.severity]:
-                            field.severity = severity
-
-                    if not object.severity:
-                        object.severity = severity
-                        object.tags = [tag]
-                    else:
-                        if tag not in object.tags:
-                            object.tags.append(tag)
-
-                        if severities_int[severity] > severities_int[object.severity]:
-                            object.severity = severity
-
-                scored_fields.append(field)
-            
-            object.fields = scored_fields
-
-            scored_objects.append(object)
+                            logger.info(f"For object {object.name} field {field.name} scored as {result_cat}")
 
         except Exception as ex:
             logger.error(f"Error while ai scoring: {ex}")
-            scored_objects.append(object)
 
-    return scored_objects
+    return scored_fields

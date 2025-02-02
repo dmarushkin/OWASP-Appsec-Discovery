@@ -24,6 +24,7 @@ LLM_API_MODEL = os.getenv("LLM_API_MODEL")
 LLM_LOCAL_MODEL = os.getenv("LLM_LOCAL_MODEL")
 LLM_LOCAL_FILE = os.getenv("LLM_LOCAL_FILE")
 LLM_PROMPT = os.getenv("LLM_PROMPT")
+LLM_PROMPT_VER = os.getenv("LLM_PROMPT_VER")
 
 MR_ALERTS = os.getenv("MR_ALERTS")
 

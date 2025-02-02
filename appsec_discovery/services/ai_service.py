@@ -30,120 +30,187 @@ class AiService:
 
             for object in code_objects:
 
-                object_to_score: Dict[str: List[str]] = {'field_names': []}
+                choosen_fields = []
+                fields_str = ''
+
+                scored_fields = {}
+
+                for field in object.fields.values():
+                    if ( 'int' in field.field_type.lower() or 'str' in field.field_type.lower() ) and \
+                    ( 'idempotency' not in field.field_name.lower() 
+                        and not field.field_name.endswith('Id')
+                        and not field.field_name.endswith('ID')
+                        and not field.field_name.lower().endswith('_id')
+                        and not field.field_name.lower().endswith('_ids')
+                        and not field.field_name.lower().endswith('.id')
+                        and not field.field_name.lower().endswith('.ids')
+                        and not field.field_name.lower().endswith('_date')
+                        and not field.field_name.lower().endswith('page')
+                        and not field.field_name.lower().endswith('per_page')
+                        and not field.field_name.lower().endswith('limit')
+                        and not field.field_name.lower().endswith('total')
+                        and not field.field_name.lower().endswith('total_items') 
+                        and not field.field_name.lower().endswith('_filename') 
+                        and not field.field_name.lower().endswith('_size') 
+                        and not field.field_name.lower().endswith('id_in') 
+                        and not field.field_name.lower().endswith('ids_in') 
+                        and not field.field_name.lower() == 'id') :
+                        
+                        fields_str += f" - {field.field_name}\n"
+                        choosen_fields.append(field.field_name)
+
+                question1 = f'''
+                    For object: {object.object_name}
+                    Fields: 
+                    {fields_str}
+                    Can contain private data? Answer only 'yes' or 'no',
+                '''
+
+                question2 = f'''
+                    For object: {object.object_name}
+                    Fields: 
+                    {fields_str}
+                    Choose category for private data from lost: pii, finance, auth, other 
+                    Answer only with category name word.
+                '''
+
+                question3 = f'''
+                    For object: {object.object_name}
+                    Fields: 
+                    {fields_str}
+                    Choose only fields that can contain private data.
+                    Answer only with choosen field names separated by comma.
+                '''
                 
-                scored_list = {}
+                # Local
+                if choosen_fields and self.ai_local:
 
-                for field in object.fields.values() :
+                    llm = Llama.from_pretrained(
+                        repo_id=self.ai_local.model_id,
+                        filename=self.ai_local.gguf_file,
+                        verbose=False,
+                        cache_dir=self.ai_local.model_folder,
 
-                    if field.field_name.split('.')[0].lower() in ['input','output'] and len(field.field_name.split('.')) > 1 :
-                        field_name = ".".join(field.field_name.split('.')[1:])
-                    else:
-                        field_name = field.field_name
+                    )
 
-                    question = f'''
-                        For object: {object.object_name}
-                        
-                        Field name: {field_name}
+                    response = llm.create_chat_completion(
+                        messages = [
+                            {"role": "system", "content": self.ai_local.system_prompt},
+                            {"role": "user", "content": question1 },
+                        ]
+                    )
 
-                        Can contain private data? Answer only 'yes' or 'no',
-                    '''
+                    answer1 = response['choices'][0]["message"]["content"]
 
-                    question2 = f'''
-                        For object: {object.object_name}
-                        
-                        Field name: {field_name}
+                    logger.info(f"For question {question1} llm answer is {answer1}")
 
-                        Choose category for field private data from lost: pii, finance, auth, other 
+                    if 'yes' in answer1.lower():
 
-                        Answer only with category name word.
-                    '''
-                    
-                    # Local
-                    if self.ai_local:
-
-                        llm = Llama.from_pretrained(
-                            repo_id=self.ai_local.model_id,
-                            filename=self.ai_local.gguf_file,
-                            verbose=False,
-                            cache_dir=self.ai_local.model_folder,
-                            max_tokens=5,
-                            seed=112358,
-                        )
-
-                        response = llm.create_chat_completion(
+                        response2 = llm.create_chat_completion(
                             messages = [
                                 {"role": "system", "content": self.ai_local.system_prompt},
-                                {"role": "user", "content": question },
+                                {"role": "user", "content": question2 },
                             ]
                         )
 
-                        llm.reset()
-                        llm.set_cache(None)
+                        answer2 = response2['choices'][0]["message"]["content"]
 
-                        answer = response['choices'][0]["message"]["content"]
+                        logger.info(f"For question {question2} llm answer is {answer2}")
 
-                        if 'yes' in answer.lower():
+                        result_cats = []
 
-                            response2 = llm.create_chat_completion(
-                                messages = [
-                                    {"role": "system", "content": self.ai_local.system_prompt},
-                                    {"role": "user", "content": question2 },
-                                ]
-                            )
+                        for cat in ['pii', 'auth', 'finance', 'other']:
+                            if cat in answer2.lower():
+                                result_cats.append(f'llm-{cat}')
 
-                            answer2 = response2['choices'][0]["message"]["content"]
+                        response3 = llm.create_chat_completion(
+                            messages = [
+                                {"role": "system", "content": self.ai_local.system_prompt},
+                                {"role": "user", "content": question3 },
+                            ]
+                        )
 
-                            for cat in ['pii', 'auth', 'finance', 'other']:
-                                if cat in answer2.lower():
-                                    scored_list[field.field_name] = f"llm-{cat}"
-                                    logger.info(f"For {object.object_name} and {field.field_name} llm answer is {answer}, cat {answer2}")
+                        answer3 = response3['choices'][0]["message"]["content"]
 
-                    # API
-                    if self.ai_api:
+                        logger.info(f"For question {question3} llm answer is {answer3}")
 
-                        client = OpenAI(api_key=self.ai_api.api_key, base_url=self.ai_api.base_url)
+                        for field in object.fields.values():
+                            if field.field_name in choosen_fields and field.field_name.split('.')[-1].lower() in answer3.lower():
 
-                        response = client.chat.completions.create(
+                                scored_fields[field.field_name] = result_cats
+                                logger.info(f"For object {object.object_name} field {field.field_name} scored as {result_cats}")
+
+
+                # API
+                if choosen_fields and self.ai_api and not self.ai_local:
+
+                    client = OpenAI(api_key=self.ai_api.api_key, base_url=self.ai_api.base_url)
+
+                    response1 = client.chat.completions.create(
+                        model=self.ai_api.model,
+                        messages=[
+                            {"role": "system", "content": self.ai_api.system_prompt},
+                            {"role": "user", "content": question1},
+                        ],
+                        stream=False
+                    )
+                    
+                    answer1 = response1.choices[0].message.content
+
+                    logger.info(f"For question {question1} llm answer is {answer1}")
+
+                    if 'yes' in answer1.lower():
+
+                        response2 = client.chat.completions.create(
                             model=self.ai_api.model,
                             messages=[
                                 {"role": "system", "content": self.ai_api.system_prompt},
-                                {"role": "user", "content": question},
+                                {"role": "user", "content": question2},
                             ],
                             stream=False
                         )
 
-                        answer = response.choices[0].message.content
+                        answer2 = response2.choices[0].message.content
 
-                        if 'yes' in answer.lower():
+                        logger.info(f"For question {question2} llm answer is {answer2}")
 
-                            response2 = client.chat.completions.create(
-                                model=self.ai_api.model,
-                                messages=[
-                                    {"role": "system", "content": self.ai_api.system_prompt},
-                                    {"role": "user", "content": question2},
-                                ],
-                                stream=False
-                            )
+                        result_cats = []
 
-                            answer2 = response2.choices[0].message.content
+                        for cat in ['pii', 'auth', 'finance', 'other']:
+                            if cat in answer2.lower():
+                                result_cats.append(f'llm-{cat}')
+                        
+                        response3 = client.chat.completions.create(
+                            model=self.ai_api.model,
+                            messages=[
+                                {"role": "system", "content": self.ai_api.system_prompt},
+                                {"role": "user", "content": question3},
+                            ],
+                            stream=False
+                        )
 
-                            for cat in ['pii', 'auth', 'finance', 'other']:
-                                if cat in answer2.lower():
-                                    scored_list[field.field_name] = f"llm-{cat}"
-                                    logger.info(f"For {object.object_name} and {field.field_name} llm answer is {answer}, cat {answer2}")
-                
-                scored_fields = {}
+                        answer3 = response3.choices[0].message.content
 
+                        logger.info(f"For question {question3} llm answer is {answer3}")
+
+                        for field in object.fields.values():
+                            if field.field_name in choosen_fields and field.field_name.split('.')[-1].lower() in answer3.lower():
+
+                                scored_fields[field.field_name] = result_cats
+                                logger.info(f"For object {object.object_name} field {field.field_name} scored as {result_cats}")
+                                
+                        
                 severity = "medium"
+
+                all_fields = {}
 
                 for field_name, field in object.fields.items():
 
-                    if field.field_name in scored_list.keys():
+                    if field.field_name in scored_fields.keys():
 
                         excluded = False
 
-                        tag = scored_list[field.field_name]
+                        tags = scored_fields[field.field_name]
 
                         for exclude in self.exclude_scoring:
 
@@ -156,7 +223,7 @@ class AiService:
                                 and (exclude.prop_name is None ) \
                                 and (exclude.field_name is None or re.match(exclude.field_name, field.field_name) or exclude.field_name.lower() in field.field_name.lower()) \
                                 and (exclude.field_type is None or re.match(exclude.field_type, field.field_type) or exclude.field_type.lower() in field.field_type.lower()) \
-                                and (exclude.tag is None or exclude.tag == tag ) \
+                                and (exclude.tag is None or exclude.tag in tags ) \
                                 and (exclude.keyword is None ) :
                                 
                                 excluded = True
@@ -165,27 +232,30 @@ class AiService:
 
                             if not field.severity:
                                 field.severity = severity
-                                field.tags = [tag]
+                                field.tags = tags
                             else:
-                                if tag not in field.tags:
-                                    field.tags.append(tag)
+
+                                for tag in tags:
+                                    if tag not in field.tags:
+                                        field.tags.append(tag)
 
                                 if severities_int[severity] > severities_int[field.severity]:
                                     field.severity = severity
 
                             if not object.severity:
                                 object.severity = severity
-                                object.tags = [tag]
+                                object.tags = tags
                             else:
-                                if tag not in object.tags:
-                                    object.tags.append(tag)
+                                for tag in tags:
+                                    if tag not in object.tags:
+                                        object.tags.append(tag)
 
                                 if severities_int[severity] > severities_int[object.severity]:
                                     object.severity = severity
 
-                    scored_fields[field_name] = field
+                    all_fields[field_name] = field
                 
-                object.fields = scored_fields
+                object.fields = all_fields
 
                 scored_objects.append(object)
 

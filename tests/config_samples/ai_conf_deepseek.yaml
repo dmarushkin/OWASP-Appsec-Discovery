@@ -3,6 +3,6 @@ parsers:
 
 ai_api:
   base_url: "https://api.deepseek.com"
-  api_key: "api_key"
+  api_key: "test"
   model: "deepseek-chat"
   system_prompt: "You are data security bot, for provided object and it field you must deside does it contain any personal, financial, authorization or other private data with special mesures to store and show."

@@ -1,7 +1,9 @@
+from typing import Set
 from sqlmodel import create_engine, SQLModel, Session, select
 from sqlalchemy.exc import OperationalError
-from sqlalchemy.orm import selectinload
-from models import Project, Branch, Scan, MR, DbCodeObject, DbScoreRule
+from sqlalchemy.orm import joinedload
+from sqlalchemy.dialects.postgresql import insert
+from models import Project, Branch, Scan, MR, DbObject, DbLLMScore, DbObjectField, DbScoreRule
 from datetime import datetime, timezone, timedelta
 from logger import get_logger
 from config import DATABASE_URL
@@ -319,81 +321,158 @@ def get_scan(session, scan: Scan):
         return existing_scan
     
 @retry_on_exception()
-def upsert_code_obj(session, local_code_obj: DbCodeObject):
+def upsert_obj(session, local_obj: DbObject):
 
     updated_at = datetime.now()
 
     with session:
 
-        statement = select(DbCodeObject).where(
-            DbCodeObject.project_id == local_code_obj.project_id, 
-            DbCodeObject.branch_id == local_code_obj.branch_id, 
-            DbCodeObject.object_name == local_code_obj.object_name)
+        result = 'no'
+
+        try:
+
+            obj_table = DbObject.__table__
+
+            local_obj.updated_at = updated_at
+            local_obj.created_at = updated_at
+
+            obj_data = local_obj.dict()
+
+            obj_data_for_insert = {
+                k: v for k, v in obj_data.items() 
+                if k not in ("id")
+            }
+
+            obj_data_for_update = {
+                k: v for k, v in obj_data.items() 
+                if k not in ("id", "project_id", "branch_id", "name", "type", "created_at")
+            }
+
+            stmt_obj = insert(obj_table).values(**obj_data_for_insert)
+            stmt_obj = stmt_obj.on_conflict_do_update(
+                index_elements=[obj_table.c.project_id, obj_table.c.branch_id, obj_table.c.name, obj_table.c.type],
+                set_=obj_data_for_update
+            )
         
-        existing_code_obj: DbCodeObject = session.exec(statement).first()
+            session.execute(stmt_obj)
+            session.commit()
 
-        if existing_code_obj :
+            statement = select(DbObject).where(
+                DbObject.project_id == local_obj.project_id,
+                DbObject.branch_id == local_obj.branch_id,
+                DbObject.name == local_obj.name,
+                DbObject.type == local_obj.type,
+            )
+            existing_obj = session.exec(statement).first()
+           
+            result = 'upserted'
+
+        except Exception as e:
+
+            logger.error(f"Error with upserting object: {local_obj}, error: {e}")
+            return local_obj, result
+        
+        try:
+
+            incoming_field_names: Set[str] = set()
+
+            field_table = DbObjectField.__table__
             
-            existing_code_obj.updated_at = updated_at
-            existing_code_obj.ai_processed_at = local_code_obj.ai_processed_at
-            existing_code_obj.file = local_code_obj.file
-            existing_code_obj.line = local_code_obj.line
-            existing_code_obj.severity = local_code_obj.severity
-            existing_code_obj.tags = local_code_obj.tags
+            for local_field in local_obj.fields:
+
+                incoming_field_names.add(local_field.name)
+
+                if local_field.object_id is None:
+                    local_field.object_id = existing_obj.id
+
+                field_data = local_field.dict()
+
+                field_data_for_insert = {
+                    k: v for k, v in field_data.items() 
+                    if k not in ("id")
+                }
+
+                field_data_for_update = {
+                    k: v for k, v in field_data.items() 
+                    if k not in ("id", "object_id", "name")
+                }
             
-            '''
-            for l_field in local_code_obj.fields:
+                stmt_field = insert(field_table).values(**field_data_for_insert)
+                stmt_field = stmt_field.on_conflict_do_update(
+                    index_elements=[field_table.c.object_id, field_table.c.name],
+                    set_=field_data_for_update
+                )
+            
+                session.execute(stmt_field)
+                session.commit()
+            
+            for existing_field in existing_obj.fields:
+                if existing_field.name not in incoming_field_names:
+                    session.delete(existing_field)
+                    session.commit()
 
-                l_field_exist = False
+            return existing_obj, result
 
-                for db_field in existing_code_obj.fields:
-                    if l_field.field_name == db_field.field_name:
+        except Exception as e:
 
-                        db_field.field_type = l_field.field_type
-                        db_field.file = l_field.file
-                        db_field.line = l_field.line
-                        db_field.severity = l_field.severity
-                        db_field.tags = l_field.tags
+            logger.error(f"Error with upserting object fields: {local_obj}, error: {e}")
+            return local_obj, result
 
-                        l_field_exist = True
 
-                if not l_field_exist:
-                    existing_code_obj.fields.append(l_field)
+@retry_on_exception()
+def upsert_llm_score(session, local_obj: DbLLMScore):
 
-            for db_field in existing_code_obj.fields:
-                db_field_exist = False 
+    updated_at = datetime.now()
 
-                for l_field in local_code_obj.fields:
-                    if l_field.field_name == db_field.field_name:
+    with session:
 
-                        db_field_exist = True
+        result = 'no'
 
-                if not db_field_exist:
-                    existing_code_obj.fields.remove(db_field)
-            '''
+        try:
 
-            existing_code_obj.fields.clear()
-            existing_code_obj.fields.extend(local_code_obj.fields)
-            existing_code_obj.properties.clear()
-            existing_code_obj.properties.extend(local_code_obj.properties)
+            obj_table = DbLLMScore.__table__
 
-            result = 'updated'
+            local_obj.updated_at = updated_at
+            local_obj.created_at = updated_at
 
-        else:
+            obj_data = local_obj.dict()
 
-            existing_code_obj = local_code_obj
-            existing_code_obj.updated_at = updated_at
-            existing_code_obj.created_at = updated_at
+            obj_data_for_insert = {
+                k: v for k, v in obj_data.items() 
+                if k not in ("id")
+            }
 
-            session.add(existing_code_obj)
+            obj_data_for_update = {
+                k: v for k, v in obj_data.items() 
+                if k not in ("id", "field_id", "model", "prompt_ver", "created_at")
+            }
 
-            result = 'inserted'
+            stmt_obj = insert(obj_table).values(**obj_data_for_insert)
+            stmt_obj = stmt_obj.on_conflict_do_update(
+                index_elements=[obj_table.c.field_id, obj_table.c.model, obj_table.c.prompt_ver],
+                set_=obj_data_for_update
+            )
+        
+            session.execute(stmt_obj)
+            session.commit()
 
-        session.commit()
-        session.refresh(existing_code_obj)
+            statement = select(DbLLMScore).where(
+                DbLLMScore.field_id == local_obj.field_id,
+                DbLLMScore.model == local_obj.model,
+                DbLLMScore.prompt_ver == local_obj.prompt_ver
+            )
 
-        return existing_code_obj, result
-    
+            existing_obj = session.exec(statement).first()
+           
+            result = 'upserted'
+
+            return existing_obj, result
+
+        except Exception as e:
+
+            logger.error(f"Error with upserting llm score: {local_obj}, error: {e}")
+            return local_obj, result
+
 
 @retry_on_exception()
 def get_score_rules(session):
@@ -411,16 +490,15 @@ def get_objects_to_score(session, project_id, branch_id):
 
     with session:
 
-        statement = select(DbCodeObject).where(
-            DbCodeObject.project_id == project_id, 
-            DbCodeObject.branch_id == branch_id,
+        statement = select(DbObject).where(
+            DbObject.project_id == project_id, 
+            DbObject.branch_id == branch_id,
         ).options(
-            selectinload(DbCodeObject.fields),    
-            selectinload(DbCodeObject.properties) 
+            joinedload(DbObject.fields)
         )
 
-        objects_to_score = session.exec(statement).all()
-        result_objects = [ obj for obj in objects_to_score ]
+        results = session.scalars(statement).unique().all()
+        result_objects = [ result for result in results ]
 
         return result_objects
     

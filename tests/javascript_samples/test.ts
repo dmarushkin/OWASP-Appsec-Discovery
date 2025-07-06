@@ -1,35 +1,26 @@
-const query = gql`
-	query OkfsCodesQuery {
-		okfsCodes {
-			code
-			name
-		}
-	}
-`;
+import gql from 'graphql-tag';
+import { queryFactory } from './helpers/queryFactory';
+import type { Failable } from '$types/service/failablePromise';
+import type {
+	ProfileLoginQuery as Query,
+	ProfileLoginQueryVariables as Variables,
+} from './__queryTypes/ProfileLogin';
 
-export const mutation = gql`
-	mutation ContractorCreateMutation($input: CreateContractorInput!) {
-		contractor {
-			create(input: $input) {
-				id
-			}
-		}
-	}
-`;
+type Result = { login: string };
 
-const getOzonId = gql<UserCheckQueryVariables, UserCheckQuery>`
-	query UserCheck {
-		user {
-			id
-			email
-		}
-	}
-`.pipe((data) => data.User).execute;
-
-const getBankId = gql<BankUserQueryVariables, BankUserQuery>`
-	query BankUser {
+export const query = gql`
+	query ProfileLoginQuery {
 		me {
-			id
+			login
 		}
 	}
-`.pipe((data) => data.me.id).execute;
+`;
+
+function mapper(data: Query): Failable<Result> {
+	return [data.me, null];
+}
+
+export const profileLogin = queryFactory<Query, Variables, Result>(query, mapper);
+
+export type { Result as ProfileLoginQueryResult };
+

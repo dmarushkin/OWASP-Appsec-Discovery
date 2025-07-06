@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "appsec-discovery"
-version = "0.8.1"
+version = "0.8.2"
 license = "MIT"
 description = "Discover sensitive objects in project code"
 authors = ["Dmitrii Mariushkin <d.v.marushkin@gmail.com>"]

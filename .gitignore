@@ -1,6 +1,6 @@
 .pytest_cache
 .mypy_cache
-
+__pycache__
 tests/ai_samples/hf_home/*
 
 

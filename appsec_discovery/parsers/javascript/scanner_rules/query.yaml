@@ -1,0 +1,66 @@
+rules:
+  - id: dto-pydantic-data-object
+    message: Pydantic model `Model $OBJECT, field $FIELD, type $TYPE`
+    languages: [python]
+    severity: INFO
+    patterns:
+    - pattern-inside: |
+        class $OBJECT(pydantic.BaseModel):
+          ...
+    - pattern: |
+          $FIELD: $TYPE
+  - id: dto-django-data-object
+    message: Django db `Table $OBJECT, field $FIELD, type $TYPE`
+    languages: [python]
+    severity: INFO
+    patterns:
+    - pattern-inside: |
+        class $OBJECT(...):
+          ...
+    - pattern: $FIELD = django.db.models.$TYPE(...)
+  - id: dto-sqlalchemy-data-object
+    message: sqlalchemy db `Object $OBJECT, field $FIELD, type $TYPE`
+    languages: [python]
+    severity: INFO
+    patterns:
+    - pattern-inside: |
+        class $CLASS(...):
+          ...
+          __tablename__ = '$OBJECT'
+          ...
+    - pattern-either:
+      - pattern: $SOME = Column('$FIELD', $TYPE, ...)
+      - pattern: $FIELD = Column($TYPE, ...)
+      - pattern: $SOME = relationship('$FIELD', $TYPE, ...)
+      - pattern: $FIELD = relationship($TYPE, ...)
+    - metavariable-regex:
+        metavariable: '$TYPE'
+        regex: "[^'\"]" 
+  - id: dto-mongo-data-object
+    message: mongo db `Object $OBJECT, field $FIELD, type $TYPE`
+    languages: [python]
+    severity: INFO
+    patterns:
+    - pattern-inside: |
+        class $OBJECT(..., mongoengine.$DOCTYPE, ...):
+    - pattern-either:
+      - pattern: $FIELD = mongoengine.fields.$TYPE(...)
+      - pattern: $FIELD = mongoengine.$TYPE(...)
+  - id: dto-dataclass-object
+    message: python dataclass `Object $OBJECT, field $FIELD, type $TYPE`
+    languages: [python]
+    severity: INFO
+    patterns:
+    - pattern: |
+        @dataclass
+        class $OBJECT:
+          $FIELD: $TYPE
+  - id: dto-marshmallow-data-object
+    message: python marshmallow `Object $OBJECT, field $FIELD, type $TYPE`
+    languages: [python]
+    severity: INFO
+    patterns:
+    - pattern: |
+        class $OBJECT(marshmallow.Schema):
+          ...
+          $FIELD = marshmallow.fields.$TYPE()

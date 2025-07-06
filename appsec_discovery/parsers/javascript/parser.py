@@ -43,16 +43,16 @@ class JsGqlParser(Parser):
             # parse dto rules
             if rule_id.startswith("js-graphql-queries"):
 
-                query_text = finding.get('extra').get('metavars').get('$QUERY', {}).get('abstract_content',"").trim()
+                query_text = finding.get('extra').get('metavars').get('$QUERY', {}).get('abstract_content',"").strip()
                 
                 # get only queries and mutations, no fragments
                 # mutation ContractorCreateMutation($input: CreateContractorInput!) vs query OkfsCodesQuery {
                 
                 if 'query' in query_text.lower() or 'mutation' in query_text.lower():
                     if len(query_text.split('(')[0]) < len(query_text.split('{')[0]):
-                        req_name = query_text.split('(')[0].trim()
+                        req_name = query_text.split('(')[0].strip()
                     else:
-                        req_name = query_text.split('{')[0].trim()
+                        req_name = query_text.split('{')[0].strip()
 
                 gql_type = req_name.split(' ')[0].lower()  # mutation ContractorCreateMutation => mutation
 

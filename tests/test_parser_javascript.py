@@ -28,7 +28,7 @@ def test_parser_javascript_parse_folder():
     assert len(results) > 0
 
     assert results[0].parser == 'javascript'
-    assert "Javascript" in results[0].object_name
+    assert "JS GQL Resolver" in results[0].object_name
 
 
 def test_parser_javascript_local_debug():

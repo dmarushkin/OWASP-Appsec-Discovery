@@ -29,7 +29,7 @@ def test_parser_graphql_parse_folder():
 
     assert results[0].object_name ==  'Mutation BusinessLoungesMutations.createOrder'
 
-    assert 'input.BusinessLoungesCancelOrderInput.idempotencyKey' in results[1].fields.keys()
+    assert 'input.idempotencyKey' in results[1].fields.keys()
 
 
 def test_parser_graphql_local_debug():

@@ -8,6 +8,7 @@ from appsec_discovery.models import CodeObject, CodeObjectProp
 
 logger = logging.getLogger(__name__)
 
+
 class JsGqlParser(Parser):
 
     def run_scan(self) -> List[CodeObject]:
@@ -43,44 +44,116 @@ class JsGqlParser(Parser):
             # parse dto rules
             if rule_id.startswith("js-graphql-queries"):
 
-                query_text = finding.get('extra').get('metavars').get('$QUERY', {}).get('abstract_content',"").strip()
+                request = finding.get('extra').get('metavars').get('$QUERY', {}).get('abstract_content',"").strip()
                 
                 # get only queries and mutations, no fragments
                 # mutation ContractorCreateMutation($input: CreateContractorInput!) vs query OkfsCodesQuery {
                 
-                if 'query' in query_text.lower() or 'mutation' in query_text.lower():
-                    if len(query_text.split('(')[0]) < len(query_text.split('{')[0]):
-                        req_name = query_text.split('(')[0].strip()
+                if ('query' in request.lower() or 'mutation' in request.lower()) and not 'fragment ' in request.lower() :
+
+                    if len(request.split('(')[0]) < len(request.split('{')[0]):
+                        req_name = request.split('(')[0].strip()
                     else:
-                        req_name = query_text.split('{')[0].strip()
+                        req_name = request.split('{')[0].strip()
 
-                gql_type = req_name.split(' ')[0].lower()  # mutation ContractorCreateMutation => mutation
+                    gql_type = req_name.split(' ')[0].lower()  # mutation ContractorCreateMutation => mutation
 
-                object_type=f"js-gql-{gql_type}"
-                object_name = f"Javascript graphql {req_name}"
+                    req_name = req_name.split(' ')[-1]
 
-                hash_key = self.calc_uniq_hash([finding_file, query_text])
+                    resolvers = self.find_resolvers(request)
 
-                if hash_key not in parsed_objects_dict:
+                    for resolver in resolvers:
 
-                    parsed_objects_dict[hash_key] = CodeObject(
-                        hash=hash_key,
-                        object_name=object_name,
-                        object_type=object_type,
-                        parser=self.parser,
-                        file=finding_file,
-                        line=finding_line_int,
-                        properties={},
-                        fields=[]
-                    )
+                        if len(resolver.split('(')[0]) < len(resolver.split('{')[0]):
+                            resolver_name = resolver.split('(')[0].strip()
+                        else:
+                            resolver_name = resolver.split('{')[0].strip()
 
-                    parsed_objects_dict[hash_key].properties['text'] = CodeObjectProp(
-                        prop_name='text',
-                        prop_value=query_text
-                    )
-        
+                        object_type=f"js-gql-{gql_type}"
+                        object_name = f"JS GQL Resolver {resolver_name} in {gql_type} {req_name}"
+
+                        hash_key = self.calc_uniq_hash([finding_file, request, resolver])
+
+                        if hash_key not in parsed_objects_dict:
+
+                            parsed_objects_dict[hash_key] = CodeObject(
+                                hash=hash_key,
+                                object_name=object_name,
+                                object_type=object_type,
+                                parser=self.parser,
+                                file=finding_file,
+                                line=finding_line_int,
+                                properties={},
+                                fields=[]
+                            )
+
+                        parsed_objects_dict[hash_key].properties['request_name'] = CodeObjectProp(
+                            prop_name='request_name',
+                            prop_value=req_name
+                        )
+
+                        parsed_objects_dict[hash_key].properties['request_text'] = CodeObjectProp(
+                            prop_name='request_text',
+                            prop_value=request
+                        )
+
+                        parsed_objects_dict[hash_key].properties['resolver_name'] = CodeObjectProp(
+                            prop_name='resolver_name',
+                            prop_value=resolver_name
+                        )
+
+                        parsed_objects_dict[hash_key].properties['resolver_text'] = CodeObjectProp(
+                            prop_name='resolver_text',
+                            prop_value=resolver
+                        )
+            
         if parsed_objects_dict:
             parsed_objects = list(parsed_objects_dict.values())
 
         logger.info(f"For scan {self.parser} data parse {len(parsed_objects)} objects")
         return parsed_objects
+    
+    def find_resolvers(self, all_text):
+
+        start = True
+
+        brackets_counter = 0
+        s_brackets_counter = 0
+
+        resolvers = []
+        cur_resolver = ""
+
+        some_processed = False
+
+        for char in all_text:
+
+            cur_resolver = cur_resolver + char
+
+            if char == '{' and s_brackets_counter == 0 and start:
+                cur_resolver = "" 
+
+            if s_brackets_counter > 1 and start:
+                start = False
+
+            if char == '{' and brackets_counter == 0:
+                s_brackets_counter = s_brackets_counter + 1
+
+            if char == '}' and brackets_counter == 0:
+                s_brackets_counter = s_brackets_counter - 1
+
+            if char == '(':
+                brackets_counter = brackets_counter + 1
+
+            if char == ')':
+                brackets_counter = brackets_counter - 1
+
+            if start == False and s_brackets_counter == 1 and cur_resolver.strip():
+                resolvers.append(cur_resolver.strip())
+                cur_resolver = ""
+                start = True
+                some_processed = True
+
+            if some_processed and s_brackets_counter == 0:
+                break
+
+        return resolvers

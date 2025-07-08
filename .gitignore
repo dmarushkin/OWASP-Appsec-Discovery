@@ -3,8 +3,10 @@
 __pycache__
 tests/ai_samples/hf_home/*
 
+tests/local_samples/*
 
 # UI
 appsec_discovery_service/discovery_ui/npm_modules/*
 
 appsec_discovery_service/.env
+

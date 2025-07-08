@@ -35,13 +35,15 @@ class GraphqlParser(Parser):
                     file_str = file.read()
                     gql_data[local_gql_file] = graphql.parse(file_str, no_location=False)
             except Exception as ex:
-                logger.error(f"Failed to parse {self.parser} for file {local_gql_file}: {ex}")
-
+                pass
+                # logger.error(f"Failed to parse {self.parser} for file {local_gql_file}: {ex}")
+        
+        files_count = len(gql_data)
         objects_list = self.parse_report(gql_data)
 
         return objects_list
 
-    def resolve_fields(self, type_name, types_dict, depth):
+    def resolve_fields(self, type_name, types_dict, depth, types_path):
         
         resolved_fields = {}
 
@@ -50,19 +52,24 @@ class GraphqlParser(Parser):
 
         for field_name, field in types_dict[type_name]['fields'].items():
 
-            if field['output'] in types_dict and types_dict[field['output']]['fields'] :
+            if field['output'] in types_dict and types_dict[field['output']]['fields'] and field['output'] not in types_path:
 
-                out_resolved = self.resolve_fields(field['output'], types_dict, depth + 1)
+                types_path.append(field['output'])
+
+                out_resolved = self.resolve_fields(field['output'], types_dict, depth + 1, types_path)
 
                 for out_field_name, out_field in out_resolved.items():
-                    resolved_fields[f"{type_name}.{field_name}.{field['output']}.{out_field_name}"] = out_field
+                    # resolved_fields[f"{type_name}.{field_name}.{field['output']}.{out_field_name}"] = out_field
+                    resolved_fields[f"{field_name}.{out_field_name}"] = out_field
 
             else:
-                resolved_fields[f"{type_name}.{field_name}"] = {
+
+                # resolved_fields[f"{type_name}.{field_name}"] = {
+                resolved_fields[f"{field_name}"] = {
                     'type': field['output'],
                     'file': field['file'],
                     'line': field['line'],
-                } 
+                }
 
         return resolved_fields
 
@@ -156,9 +163,12 @@ class GraphqlParser(Parser):
 
                             if input_type in types and types[input_type]['fields']:
 
-                                inputs_resolved = self.resolve_fields(input_type, types, 0)
+                                inputs_resolved = self.resolve_fields(input_type, types, 0, [input_type])
 
                                 for input_resolved_name, input_resolved in inputs_resolved.items():
+
+                                    if 'referralReward' in input_resolved_name:
+                                        pass
 
                                     result_fields[f"{input_name}.{input_resolved_name}"] = input_resolved
                             else:
@@ -171,9 +181,12 @@ class GraphqlParser(Parser):
 
                         if field['output'] in types and types[field['output']]['fields'] :
 
-                            outputs_resolved = self.resolve_fields(field['output'], types, 0)
+                            outputs_resolved = self.resolve_fields(field['output'], types, 0, [input_type])
 
                             for output_resolved_name, output_resolved in outputs_resolved.items():
+
+                                if 'referralReward' in output_resolved_name:
+                                    pass
 
                                 result_fields[f"output.{output_resolved_name}"] = output_resolved
 

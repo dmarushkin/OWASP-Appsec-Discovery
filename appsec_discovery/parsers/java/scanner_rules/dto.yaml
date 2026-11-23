@@ -1,5 +1,6 @@
 rules:
   - id: dto-javax-data-object
+    metadata: {parser: java, object_type: dto, framework: javax}
     languages:
       - java
     severity: INFO
@@ -36,8 +37,23 @@ rules:
               class $OBJECT {
               ...
               }
+      # bind $TYPE: annotated field declarations (with or without an initializer) and annotated getters (property access)
       - pattern-either:
           - pattern: |
               @javax.persistence.Column(..., name = $DB_FIELD, ...)
+              $TYPE $FIELD;
           - pattern: |
               @Column(..., name = $DB_FIELD, ...)
+              $TYPE $FIELD;
+          - pattern: |
+              @javax.persistence.Column(..., name = $DB_FIELD, ...)
+              $TYPE $FIELD = ...;
+          - pattern: |
+              @Column(..., name = $DB_FIELD, ...)
+              $TYPE $FIELD = ...;
+          - pattern: |
+              @javax.persistence.Column(..., name = $DB_FIELD, ...)
+              $TYPE $GETTER(...) { ... }
+          - pattern: |
+              @Column(..., name = $DB_FIELD, ...)
+              $TYPE $GETTER(...) { ... }

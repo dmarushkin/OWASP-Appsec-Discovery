@@ -1,1 +1,1 @@
-from .models import ScoreRule, Token, UserData
+from .models import Token, UserData

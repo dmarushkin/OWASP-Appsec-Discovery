@@ -1,10 +1,14 @@
-from .models import (
+# Models live in the shared package (P2-5); re-exported for the scanner's imports.
+from discovery_common.models import (  # noqa: F401
     Project,
-    Branch, 
-    MR, 
+    Branch,
+    MR,
     Scan,
-    DbObject,
-    DbObjectField,
-    DbLLMScore,
-    DbScoreRule
-)  #, TableObject, ProtoObject, ClientCallObject
+    ObjectVersion,
+    ObjectField,
+    BranchObject,
+    Rule,
+    RuleHit,
+    HitStatus,
+    RuleMode,
+)

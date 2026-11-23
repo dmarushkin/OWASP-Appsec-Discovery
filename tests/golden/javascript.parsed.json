@@ -1,0 +1,44 @@
+[
+  {
+    "fields": {
+      "output.login": {
+        "field_name": "output.login",
+        "field_type": "selection",
+        "file": "/test.ts",
+        "line": 11
+      }
+    },
+    "file": "/test.ts",
+    "hash": "f5671dc9391c6f5e7cd526c54cd92c61",
+    "line": 11,
+    "object_name": "ProfileLoginQuery.me",
+    "object_type": "js-gql-query",
+    "parser": "javascript",
+    "properties": {
+      "request_name": {
+        "file": "/test.ts",
+        "line": 11,
+        "prop_name": "request_name",
+        "prop_value": "ProfileLoginQuery"
+      },
+      "request_text": {
+        "file": "/test.ts",
+        "line": 11,
+        "prop_name": "request_text",
+        "prop_value": "query ProfileLoginQuery {\n\t\tme {\n\t\t\tlogin\n\t\t}\n\t}"
+      },
+      "resolver_name": {
+        "file": "/test.ts",
+        "line": 11,
+        "prop_name": "resolver_name",
+        "prop_value": "me"
+      },
+      "resolver_text": {
+        "file": "/test.ts",
+        "line": 11,
+        "prop_name": "resolver_text",
+        "prop_value": "me {\n\t\t\tlogin\n\t\t}"
+      }
+    }
+  }
+]

@@ -1,12 +1,12 @@
 from appsec_discovery.services import ScanService
 
-import os
-from pathlib import Path
+
+def find(objects, file, object_name):
+    [obj] = [o for o in objects if o.file == file and o.object_name == object_name]
+    return obj
 
 
 def test_scan_service_default_config_load():
-
-    test_folder = str(Path(__file__).resolve().parent)
 
     scan_service = ScanService(source_folder="some")
 
@@ -16,43 +16,36 @@ def test_scan_service_default_config_load():
 
     assert score_config.score_tags['pii']['high'][0] == 'full_name'
 
-def test_scan_service_custom_config_load():
 
-    test_folder = str(Path(__file__).resolve().parent)
-    config_file = os.path.join(test_folder, "config_samples/conf.yaml")
+def test_scan_service_custom_config_load(tests_dir):
 
-    with open(config_file, 'r') as conf_file:
+    with open(tests_dir / "config_samples" / "conf.yaml") as conf_file:
         scan_service = ScanService(source_folder="some", conf_file=conf_file)
 
     score_config = scan_service.config
 
     assert score_config.object_types[0] == 'all'
-    
+
     assert score_config.score_tags['pii']['high'][0] == 'firstname'
 
-def test_scan_service_run_scanners():
 
-    test_folder = str(Path(__file__).resolve().parent)
-    samples_folder = os.path.join(test_folder, "swagger_samples")
-    only_scored_objects = False
+def test_scan_service_run_scanners(samples_dir):
 
-    scan_service = ScanService(source_folder=samples_folder, only_scored_objects=only_scored_objects)
+    scan_service = ScanService(source_folder=str(samples_dir('swagger')), only_scored_objects=False)
 
     scanned_objects = scan_service.scan_folder()
-   
-    # 1st scored
 
-    assert scanned_objects[6].severity is None 
+    unscored = find(scanned_objects, '/swagger.yaml', 'GET /pet/findByStatus')
+    assert unscored.severity is None
 
-    assert scanned_objects[16].severity is not None 
+    scored = find(scanned_objects, '/swagger.yaml', 'POST /user')
 
-    assert scanned_objects[16].severity == 'high'
+    assert scored.severity == 'high'
 
-    assert scanned_objects[16].properties['path'].prop_value == '/user'
+    assert scored.properties['path'].prop_value == '/user'
 
-    assert 'auth' in scanned_objects[16].tags
+    assert 'auth' in scored.tags
 
-    assert not scanned_objects[16].fields['output.id'].severity
+    assert not scored.fields['output.id'].severity
 
-    assert scanned_objects[16].fields['input.firstName'].severity == 'high'
-
+    assert scored.fields['input.firstName'].severity == 'high'

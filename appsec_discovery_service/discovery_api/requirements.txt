@@ -1,11 +1,18 @@
-fastapi
-uvicorn
-pydantic
-databases
-psycopg2-binary
-python-jose[cryptography]
-passlib[bcrypt]
-python-dotenv
-SQLAlchemy==2.0.29
-sqlmodel==0.0.16
-python-multipart
+# The API runs on pydantic v2 (the official `mcp` SDK requires it); it does not import the
+# core package. The scanner (which does) stays on pydantic 1.10.x until the core moves:
+# discovery_common works with both (sqlmodel 0.0.22).
+fastapi==0.165.0
+uvicorn==0.54.0
+pydantic==2.14.4
+mcp==2.3.0
+psycopg2-binary==2.9.10
+python-jose[cryptography]==3.5.0
+passlib[bcrypt]==1.7.4
+# passlib 1.7.4 breaks with bcrypt >= 4.1
+bcrypt==4.0.1
+SQLAlchemy==2.0.36
+sqlmodel==0.0.22
+alembic==1.14.0
+python-multipart==0.0.34
+# user rule patterns in dry runs: re-compatible matching with a per-call timeout (P8)
+regex==2024.11.6

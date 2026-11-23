@@ -1,15 +1,17 @@
 rules:
   - id: route-fastapi-object
+    metadata: {parser: python, object_type: route, framework: fastapi}
     message: fastapi route `Object $PATH, func $FUNC, type $METHOD`
     languages: [python]
     severity: INFO
     pattern: |
       $APP = fastapi.FastAPI(...)
       ...
-      @$APP.$METHOD('$PATH')
+      @$APP.$METHOD('$PATH', ...)
       def $FUNC(...):
         ...
   - id: route-flask-object
+    metadata: {parser: python, object_type: route, framework: flask}
     message: flask route `Object $PATH, func $FUNC, type $METHOD`
     languages: [python]
     severity: INFO
@@ -18,7 +20,7 @@ rules:
       - pattern: |
           $APP = flask.Flask(...)
           ...
-          @$APP.route('$PATH',methods=[...,'$TYPE',...])
+          @$APP.route('$PATH',methods=[...,'$METHOD',...])
           def $FUNC(...):
             ...
       - pattern: |
@@ -28,6 +30,7 @@ rules:
           def $FUNC(...):
             ...
   - id: route-django-object
+    metadata: {parser: python, object_type: route, framework: django}
     message: django route `Object $PATH, func $FUNC, type $METHOD`
     languages: [python]
     severity: INFO
@@ -42,6 +45,7 @@ rules:
         - pattern: |
             $URLPATTERNS = [..., django.conf.urls.url($PATH, $FUNC, ...), ...]
   - id: route-bottle-object
+    metadata: {parser: python, object_type: route, framework: bottle}
     message: bottle route `Object $PATH, func $FUNC, type $METHOD`
     languages: [python]
     severity: INFO
@@ -60,10 +64,19 @@ rules:
           def $FUNC(...):
             ...
       - pattern: |
-          @bottle.$TYPE('$PATH')
+          @bottle.route('$PATH')
           def $FUNC(...):
             ...
+      - patterns:
+        - pattern: |
+            @bottle.$METHOD('$PATH')
+            def $FUNC(...):
+              ...
+        - metavariable-regex:
+            metavariable: $METHOD
+            regex: ^(?:get|post|put|delete|patch)$
   - id: route-starlette-object
+    metadata: {parser: python, object_type: route, framework: starlette}
     message: starlette route `Object $PATH, func $FUNC, type $METHOD`
     languages: [python]
     severity: INFO

@@ -1,4 +1,5 @@
-from appsec_discovery.models.code_object import CodeObject, CodeObjectProp, CodeObjectField
-from appsec_discovery.models.config import ScoreConfig, ExcludeScoring, AiLocal, AiApi
-from appsec_discovery.models.reports import JsonReport, DiffReport, SarifReport
-from appsec_discovery.models.uploads import DefectdojoImportScanRequest, DefectdojoProjectTypeRequest, DiscoveryImportScanRequest
+from appsec_discovery.models.code_object import CodeObject, CodeObjectProp, CodeObjectField, object_identity
+from appsec_discovery.models.rules import (
+    HitStatus, HitSubject, LlmRule, LlmTarget, RuleAction, RuleHit, RuleMode, ScoreRule,
+)
+from appsec_discovery.models.config import ScoreConfig, ExcludeScan, ExcludeScoring, AiLocal, AiApi

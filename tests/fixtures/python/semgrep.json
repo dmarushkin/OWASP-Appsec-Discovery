@@ -1,0 +1,1844 @@
+[
+  {
+    "check_id": "appsec_discovery.parsers.python.scanner_rules.dto-dataclass-object",
+    "end": {
+      "col": 12,
+      "line": 5,
+      "offset": 69
+    },
+    "extra": {
+      "engine_kind": "OSS",
+      "fingerprint": "91b7fa0c3787a051c6a10ee55d8abf9eea889c59e8adcaf56247f2ce40ea4a5158c8d40c1b284e437e18ad84ce94190703233506f673efc3c22bae7ec91b233b_0",
+      "is_ignored": false,
+      "lines": "    id: int",
+      "message": "python dataclass `Object User, field id, type int`",
+      "metadata": {
+        "framework": "dataclass",
+        "object_type": "dto",
+        "parser": "python"
+      },
+      "metavars": {
+        "$FIELD": {
+          "abstract_content": "id",
+          "end": {
+            "col": 7,
+            "line": 5,
+            "offset": 64
+          },
+          "start": {
+            "col": 5,
+            "line": 5,
+            "offset": 62
+          }
+        },
+        "$OBJECT": {
+          "abstract_content": "User",
+          "end": {
+            "col": 11,
+            "line": 4,
+            "offset": 56
+          },
+          "start": {
+            "col": 7,
+            "line": 4,
+            "offset": 52
+          }
+        },
+        "$TYPE": {
+          "abstract_content": "int",
+          "end": {
+            "col": 12,
+            "line": 5,
+            "offset": 69
+          },
+          "start": {
+            "col": 9,
+            "line": 5,
+            "offset": 66
+          }
+        }
+      },
+      "severity": "INFO",
+      "validation_state": "NO_VALIDATOR"
+    },
+    "path": "/dto/dataclass.py",
+    "start": {
+      "col": 5,
+      "line": 5,
+      "offset": 62
+    }
+  },
+  {
+    "check_id": "appsec_discovery.parsers.python.scanner_rules.dto-dataclass-object",
+    "end": {
+      "col": 14,
+      "line": 6,
+      "offset": 83
+    },
+    "extra": {
+      "engine_kind": "OSS",
+      "fingerprint": "ba2cc776150dca5e906a0505ff786d724782337e14f49936a63ffcfc9d6a957f6e1f3a7323426195041f8737440114d7515af306c98554da68736456b8e93df0_0",
+      "is_ignored": false,
+      "lines": "    name: str",
+      "message": "python dataclass `Object User, field name, type str`",
+      "metadata": {
+        "framework": "dataclass",
+        "object_type": "dto",
+        "parser": "python"
+      },
+      "metavars": {
+        "$FIELD": {
+          "abstract_content": "name",
+          "end": {
+            "col": 9,
+            "line": 6,
+            "offset": 78
+          },
+          "start": {
+            "col": 5,
+            "line": 6,
+            "offset": 74
+          }
+        },
+        "$OBJECT": {
+          "abstract_content": "User",
+          "end": {
+            "col": 11,
+            "line": 4,
+            "offset": 56
+          },
+          "start": {
+            "col": 7,
+            "line": 4,
+            "offset": 52
+          }
+        },
+        "$TYPE": {
+          "abstract_content": "str",
+          "end": {
+            "col": 14,
+            "line": 6,
+            "offset": 83
+          },
+          "start": {
+            "col": 11,
+            "line": 6,
+            "offset": 80
+          }
+        }
+      },
+      "severity": "INFO",
+      "validation_state": "NO_VALIDATOR"
+    },
+    "path": "/dto/dataclass.py",
+    "start": {
+      "col": 5,
+      "line": 6,
+      "offset": 74
+    }
+  },
+  {
+    "check_id": "appsec_discovery.parsers.python.scanner_rules.dto-dataclass-object",
+    "end": {
+      "col": 13,
+      "line": 7,
+      "offset": 96
+    },
+    "extra": {
+      "engine_kind": "OSS",
+      "fingerprint": "2cad37923eb592a5962a7cd743e770b92151f68e6316148f581bbda11a28b79cc5336e18251a0d8cbb9d82b386392e7f7b61083297213d725d5a0a062fde6263_0",
+      "is_ignored": false,
+      "lines": "    age: int",
+      "message": "python dataclass `Object User, field age, type int`",
+      "metadata": {
+        "framework": "dataclass",
+        "object_type": "dto",
+        "parser": "python"
+      },
+      "metavars": {
+        "$FIELD": {
+          "abstract_content": "age",
+          "end": {
+            "col": 8,
+            "line": 7,
+            "offset": 91
+          },
+          "start": {
+            "col": 5,
+            "line": 7,
+            "offset": 88
+          }
+        },
+        "$OBJECT": {
+          "abstract_content": "User",
+          "end": {
+            "col": 11,
+            "line": 4,
+            "offset": 56
+          },
+          "start": {
+            "col": 7,
+            "line": 4,
+            "offset": 52
+          }
+        },
+        "$TYPE": {
+          "abstract_content": "int",
+          "end": {
+            "col": 13,
+            "line": 7,
+            "offset": 96
+          },
+          "start": {
+            "col": 10,
+            "line": 7,
+            "offset": 93
+          }
+        }
+      },
+      "severity": "INFO",
+      "validation_state": "NO_VALIDATOR"
+    },
+    "path": "/dto/dataclass.py",
+    "start": {
+      "col": 5,
+      "line": 7,
+      "offset": 88
+    }
+  },
+  {
+    "check_id": "appsec_discovery.parsers.python.scanner_rules.dto-django-data-object",
+    "end": {
+      "col": 36,
+      "line": 4,
+      "offset": 94
+    },
+    "extra": {
+      "engine_kind": "OSS",
+      "fingerprint": "76ececa7c3895f6aa3d91fe6ff57b4ac35c166b916143c8a7abae6f883b60eaeb021c90cdabf69a0603192f1d509cdab531f5195e54e78f883272eec5c11a75d_0",
+      "is_ignored": false,
+      "lines": "    field1 = models.FieldType1(...)",
+      "message": "Django db `Table MyModel, field field1, type FieldType1`",
+      "metadata": {
+        "framework": "django",
+        "object_type": "dto",
+        "parser": "python"
+      },
+      "metavars": {
+        "$FIELD": {
+          "abstract_content": "field1",
+          "end": {
+            "col": 11,
+            "line": 4,
+            "offset": 69
+          },
+          "start": {
+            "col": 5,
+            "line": 4,
+            "offset": 63
+          }
+        },
+        "$OBJECT": {
+          "abstract_content": "MyModel",
+          "end": {
+            "col": 14,
+            "line": 3,
+            "offset": 43
+          },
+          "start": {
+            "col": 7,
+            "line": 3,
+            "offset": 36
+          }
+        },
+        "$TYPE": {
+          "abstract_content": "FieldType1",
+          "end": {
+            "col": 31,
+            "line": 4,
+            "offset": 89
+          },
+          "start": {
+            "col": 21,
+            "line": 4,
+            "offset": 79
+          }
+        }
+      },
+      "severity": "INFO",
+      "validation_state": "NO_VALIDATOR"
+    },
+    "path": "/dto/django.py",
+    "start": {
+      "col": 5,
+      "line": 4,
+      "offset": 63
+    }
+  },
+  {
+    "check_id": "appsec_discovery.parsers.python.scanner_rules.dto-django-data-object",
+    "end": {
+      "col": 36,
+      "line": 5,
+      "offset": 130
+    },
+    "extra": {
+      "engine_kind": "OSS",
+      "fingerprint": "41fd0a72578a04e939f2776344c4319f859c10ad557fb11f948af26d0ffe5f5122dafcfbca33f797f07cca012fa9b441dfde23525a2e9f2d789beac3927fd1f1_0",
+      "is_ignored": false,
+      "lines": "    field2 = models.FieldType2(...)",
+      "message": "Django db `Table MyModel, field field2, type FieldType2`",
+      "metadata": {
+        "framework": "django",
+        "object_type": "dto",
+        "parser": "python"
+      },
+      "metavars": {
+        "$FIELD": {
+          "abstract_content": "field2",
+          "end": {
+            "col": 11,
+            "line": 5,
+            "offset": 105
+          },
+          "start": {
+            "col": 5,
+            "line": 5,
+            "offset": 99
+          }
+        },
+        "$OBJECT": {
+          "abstract_content": "MyModel",
+          "end": {
+            "col": 14,
+            "line": 3,
+            "offset": 43
+          },
+          "start": {
+            "col": 7,
+            "line": 3,
+            "offset": 36
+          }
+        },
+        "$TYPE": {
+          "abstract_content": "FieldType2",
+          "end": {
+            "col": 31,
+            "line": 5,
+            "offset": 125
+          },
+          "start": {
+            "col": 21,
+            "line": 5,
+            "offset": 115
+          }
+        }
+      },
+      "severity": "INFO",
+      "validation_state": "NO_VALIDATOR"
+    },
+    "path": "/dto/django.py",
+    "start": {
+      "col": 5,
+      "line": 5,
+      "offset": 99
+    }
+  },
+  {
+    "check_id": "appsec_discovery.parsers.python.scanner_rules.dto-marshmallow-data-object",
+    "end": {
+      "col": 23,
+      "line": 6,
+      "offset": 134
+    },
+    "extra": {
+      "engine_kind": "OSS",
+      "fingerprint": "48ebcd8d31cb67a3ff7332abf551e7c8338a0d5996119a51be21583d022aa575bb25f906c33b54bde27ed7ea9c1eee7b19764d325578f22474481429d1c17267_0",
+      "is_ignored": false,
+      "lines": "class UserSchema(Schema):\n    id = fields.Int()\n    name = fields.Str()\n    age = fields.Int()",
+      "message": "python marshmallow `Object UserSchema, field age, type Int`",
+      "metadata": {
+        "framework": "marshmallow",
+        "object_type": "dto",
+        "parser": "python"
+      },
+      "metavars": {
+        "$FIELD": {
+          "abstract_content": "age",
+          "end": {
+            "col": 8,
+            "line": 6,
+            "offset": 119
+          },
+          "start": {
+            "col": 5,
+            "line": 6,
+            "offset": 116
+          }
+        },
+        "$OBJECT": {
+          "abstract_content": "UserSchema",
+          "end": {
+            "col": 17,
+            "line": 3,
+            "offset": 56
+          },
+          "start": {
+            "col": 7,
+            "line": 3,
+            "offset": 46
+          }
+        },
+        "$TYPE": {
+          "abstract_content": "Int",
+          "end": {
+            "col": 21,
+            "line": 6,
+            "offset": 132
+          },
+          "start": {
+            "col": 18,
+            "line": 6,
+            "offset": 129
+          }
+        }
+      },
+      "severity": "INFO",
+      "validation_state": "NO_VALIDATOR"
+    },
+    "path": "/dto/marshmallow.py",
+    "start": {
+      "col": 1,
+      "line": 3,
+      "offset": 40
+    }
+  },
+  {
+    "check_id": "appsec_discovery.parsers.python.scanner_rules.dto-marshmallow-data-object",
+    "end": {
+      "col": 23,
+      "line": 6,
+      "offset": 134
+    },
+    "extra": {
+      "engine_kind": "OSS",
+      "fingerprint": "5667b590a740d447eda3a4a798e3cafca192160310a0c827db3420a6446a1400e0c100ad7af907d24499e8f1d4ec8f70dbe4b9e712d6a1e030fce6ba1a58b544_0",
+      "is_ignored": false,
+      "lines": "class UserSchema(Schema):\n    id = fields.Int()\n    name = fields.Str()\n    age = fields.Int()",
+      "message": "python marshmallow `Object UserSchema, field id, type Int`",
+      "metadata": {
+        "framework": "marshmallow",
+        "object_type": "dto",
+        "parser": "python"
+      },
+      "metavars": {
+        "$FIELD": {
+          "abstract_content": "id",
+          "end": {
+            "col": 7,
+            "line": 4,
+            "offset": 72
+          },
+          "start": {
+            "col": 5,
+            "line": 4,
+            "offset": 70
+          }
+        },
+        "$OBJECT": {
+          "abstract_content": "UserSchema",
+          "end": {
+            "col": 17,
+            "line": 3,
+            "offset": 56
+          },
+          "start": {
+            "col": 7,
+            "line": 3,
+            "offset": 46
+          }
+        },
+        "$TYPE": {
+          "abstract_content": "Int",
+          "end": {
+            "col": 20,
+            "line": 4,
+            "offset": 85
+          },
+          "start": {
+            "col": 17,
+            "line": 4,
+            "offset": 82
+          }
+        }
+      },
+      "severity": "INFO",
+      "validation_state": "NO_VALIDATOR"
+    },
+    "path": "/dto/marshmallow.py",
+    "start": {
+      "col": 1,
+      "line": 3,
+      "offset": 40
+    }
+  },
+  {
+    "check_id": "appsec_discovery.parsers.python.scanner_rules.dto-marshmallow-data-object",
+    "end": {
+      "col": 23,
+      "line": 6,
+      "offset": 134
+    },
+    "extra": {
+      "engine_kind": "OSS",
+      "fingerprint": "5535dd2d323afea1caccd71c38d9134d373c6a1e153733dd93ab46951968729510e877fb0fd98a84a3d5bf8c83a16c155e3034e8310cbcc9d6cdc8e8f5e6e33d_0",
+      "is_ignored": false,
+      "lines": "class UserSchema(Schema):\n    id = fields.Int()\n    name = fields.Str()\n    age = fields.Int()",
+      "message": "python marshmallow `Object UserSchema, field name, type Str`",
+      "metadata": {
+        "framework": "marshmallow",
+        "object_type": "dto",
+        "parser": "python"
+      },
+      "metavars": {
+        "$FIELD": {
+          "abstract_content": "name",
+          "end": {
+            "col": 9,
+            "line": 5,
+            "offset": 96
+          },
+          "start": {
+            "col": 5,
+            "line": 5,
+            "offset": 92
+          }
+        },
+        "$OBJECT": {
+          "abstract_content": "UserSchema",
+          "end": {
+            "col": 17,
+            "line": 3,
+            "offset": 56
+          },
+          "start": {
+            "col": 7,
+            "line": 3,
+            "offset": 46
+          }
+        },
+        "$TYPE": {
+          "abstract_content": "Str",
+          "end": {
+            "col": 22,
+            "line": 5,
+            "offset": 109
+          },
+          "start": {
+            "col": 19,
+            "line": 5,
+            "offset": 106
+          }
+        }
+      },
+      "severity": "INFO",
+      "validation_state": "NO_VALIDATOR"
+    },
+    "path": "/dto/marshmallow.py",
+    "start": {
+      "col": 1,
+      "line": 3,
+      "offset": 40
+    }
+  },
+  {
+    "check_id": "appsec_discovery.parsers.python.scanner_rules.dto-mongo-data-object",
+    "end": {
+      "col": 27,
+      "line": 4,
+      "offset": 108
+    },
+    "extra": {
+      "engine_kind": "OSS",
+      "fingerprint": "c5b91378fb54639f68a5eb35719ec6dbdd8a25521f073f9e8f066cefe74c9fbd4c8f168bee5e460d4ea41addb79f06ebe2b7626cb1176067d80008b1b87680fe_0",
+      "is_ignored": false,
+      "lines": "    field1 = StringField()",
+      "message": "mongo db `Object MyModel, field field1, type StringField`",
+      "metadata": {
+        "framework": "mongo",
+        "object_type": "dto",
+        "parser": "python"
+      },
+      "metavars": {
+        "$DOCTYPE": {
+          "abstract_content": "Document",
+          "end": {
+            "col": 23,
+            "line": 3,
+            "offset": 79
+          },
+          "start": {
+            "col": 15,
+            "line": 3,
+            "offset": 71
+          }
+        },
+        "$FIELD": {
+          "abstract_content": "field1",
+          "end": {
+            "col": 11,
+            "line": 4,
+            "offset": 92
+          },
+          "start": {
+            "col": 5,
+            "line": 4,
+            "offset": 86
+          }
+        },
+        "$OBJECT": {
+          "abstract_content": "MyModel",
+          "end": {
+            "col": 14,
+            "line": 3,
+            "offset": 70
+          },
+          "start": {
+            "col": 7,
+            "line": 3,
+            "offset": 63
+          }
+        },
+        "$TYPE": {
+          "abstract_content": "StringField",
+          "end": {
+            "col": 25,
+            "line": 4,
+            "offset": 106
+          },
+          "start": {
+            "col": 14,
+            "line": 4,
+            "offset": 95
+          }
+        }
+      },
+      "severity": "INFO",
+      "validation_state": "NO_VALIDATOR"
+    },
+    "path": "/dto/mongo.py",
+    "start": {
+      "col": 5,
+      "line": 4,
+      "offset": 86
+    }
+  },
+  {
+    "check_id": "appsec_discovery.parsers.python.scanner_rules.dto-mongo-data-object",
+    "end": {
+      "col": 24,
+      "line": 5,
+      "offset": 132
+    },
+    "extra": {
+      "engine_kind": "OSS",
+      "fingerprint": "7cb705d41354d6d608db104e519c951325f00654abbcb983a36f16f3fa6ffc19c98d1f0ac95b4e71aa7d560d7953758ac88d8f09341459889ca78241958b7e7d_0",
+      "is_ignored": false,
+      "lines": "    field2 = IntField()",
+      "message": "mongo db `Object MyModel, field field2, type IntField`",
+      "metadata": {
+        "framework": "mongo",
+        "object_type": "dto",
+        "parser": "python"
+      },
+      "metavars": {
+        "$DOCTYPE": {
+          "abstract_content": "Document",
+          "end": {
+            "col": 23,
+            "line": 3,
+            "offset": 79
+          },
+          "start": {
+            "col": 15,
+            "line": 3,
+            "offset": 71
+          }
+        },
+        "$FIELD": {
+          "abstract_content": "field2",
+          "end": {
+            "col": 11,
+            "line": 5,
+            "offset": 119
+          },
+          "start": {
+            "col": 5,
+            "line": 5,
+            "offset": 113
+          }
+        },
+        "$OBJECT": {
+          "abstract_content": "MyModel",
+          "end": {
+            "col": 14,
+            "line": 3,
+            "offset": 70
+          },
+          "start": {
+            "col": 7,
+            "line": 3,
+            "offset": 63
+          }
+        },
+        "$TYPE": {
+          "abstract_content": "IntField",
+          "end": {
+            "col": 22,
+            "line": 5,
+            "offset": 130
+          },
+          "start": {
+            "col": 14,
+            "line": 5,
+            "offset": 122
+          }
+        }
+      },
+      "severity": "INFO",
+      "validation_state": "NO_VALIDATOR"
+    },
+    "path": "/dto/mongo.py",
+    "start": {
+      "col": 5,
+      "line": 5,
+      "offset": 113
+    }
+  },
+  {
+    "check_id": "appsec_discovery.parsers.python.scanner_rules.dto-pydantic-data-object",
+    "end": {
+      "col": 16,
+      "line": 4,
+      "offset": 73
+    },
+    "extra": {
+      "engine_kind": "OSS",
+      "fingerprint": "5ab2b80869680350325d1b32416a757e171dd6fe813c0cd0ce9a9c25d2e770e7d58c46e482e8b7998ae3e88d7eab0f724068e1d957c312acd1438449fca69841_0",
+      "is_ignored": false,
+      "lines": "    field1: str",
+      "message": "Pydantic model `Model MyModel, field field1, type str`",
+      "metadata": {
+        "framework": "pydantic",
+        "object_type": "dto",
+        "parser": "python"
+      },
+      "metavars": {
+        "$FIELD": {
+          "abstract_content": "field1",
+          "end": {
+            "col": 11,
+            "line": 4,
+            "offset": 68
+          },
+          "start": {
+            "col": 5,
+            "line": 4,
+            "offset": 62
+          }
+        },
+        "$OBJECT": {
+          "abstract_content": "MyModel",
+          "end": {
+            "col": 14,
+            "line": 3,
+            "offset": 45
+          },
+          "start": {
+            "col": 7,
+            "line": 3,
+            "offset": 38
+          }
+        },
+        "$TYPE": {
+          "abstract_content": "str",
+          "end": {
+            "col": 16,
+            "line": 4,
+            "offset": 73
+          },
+          "start": {
+            "col": 13,
+            "line": 4,
+            "offset": 70
+          }
+        }
+      },
+      "severity": "INFO",
+      "validation_state": "NO_VALIDATOR"
+    },
+    "path": "/dto/pydantic.py",
+    "start": {
+      "col": 5,
+      "line": 4,
+      "offset": 62
+    }
+  },
+  {
+    "check_id": "appsec_discovery.parsers.python.scanner_rules.dto-pydantic-data-object",
+    "end": {
+      "col": 16,
+      "line": 5,
+      "offset": 89
+    },
+    "extra": {
+      "engine_kind": "OSS",
+      "fingerprint": "fef1f8ecc3a1b983973961567bbfb41eeb73c7d69d6283f411de4e08aebaab07f5bddc8709e1dcafc4242df5bb37656a9e2f3ac8d08993df40888d50402e24a2_0",
+      "is_ignored": false,
+      "lines": "    field2: int",
+      "message": "Pydantic model `Model MyModel, field field2, type int`",
+      "metadata": {
+        "framework": "pydantic",
+        "object_type": "dto",
+        "parser": "python"
+      },
+      "metavars": {
+        "$FIELD": {
+          "abstract_content": "field2",
+          "end": {
+            "col": 11,
+            "line": 5,
+            "offset": 84
+          },
+          "start": {
+            "col": 5,
+            "line": 5,
+            "offset": 78
+          }
+        },
+        "$OBJECT": {
+          "abstract_content": "MyModel",
+          "end": {
+            "col": 14,
+            "line": 3,
+            "offset": 45
+          },
+          "start": {
+            "col": 7,
+            "line": 3,
+            "offset": 38
+          }
+        },
+        "$TYPE": {
+          "abstract_content": "int",
+          "end": {
+            "col": 16,
+            "line": 5,
+            "offset": 89
+          },
+          "start": {
+            "col": 13,
+            "line": 5,
+            "offset": 86
+          }
+        }
+      },
+      "severity": "INFO",
+      "validation_state": "NO_VALIDATOR"
+    },
+    "path": "/dto/pydantic.py",
+    "start": {
+      "col": 5,
+      "line": 5,
+      "offset": 78
+    }
+  },
+  {
+    "check_id": "appsec_discovery.parsers.python.scanner_rules.dto-sqlalchemy-data-object",
+    "end": {
+      "col": 43,
+      "line": 9,
+      "offset": 220
+    },
+    "extra": {
+      "engine_kind": "OSS",
+      "fingerprint": "ed204a63fed4844f965d98953eff09e91fb251f66d74e3c4fa42139c9b38de9c329027e00024b62c11406b59bf76168e5ef84395451f8920afb2917de921879c_0",
+      "is_ignored": false,
+      "lines": "    id = Column(Integer, primary_key=True)",
+      "message": "sqlalchemy db `Object users, field id, type Integer`",
+      "metadata": {
+        "framework": "sqlalchemy",
+        "object_type": "dto",
+        "parser": "python"
+      },
+      "metavars": {
+        "$CLASS": {
+          "abstract_content": "User",
+          "end": {
+            "col": 11,
+            "line": 6,
+            "offset": 141
+          },
+          "start": {
+            "col": 7,
+            "line": 6,
+            "offset": 137
+          }
+        },
+        "$FIELD": {
+          "abstract_content": "id",
+          "end": {
+            "col": 7,
+            "line": 9,
+            "offset": 184
+          },
+          "start": {
+            "col": 5,
+            "line": 9,
+            "offset": 182
+          }
+        },
+        "$OBJECT": {
+          "abstract_content": "users",
+          "end": {
+            "col": 27,
+            "line": 7,
+            "offset": 175
+          },
+          "start": {
+            "col": 22,
+            "line": 7,
+            "offset": 170
+          }
+        },
+        "$TYPE": {
+          "abstract_content": "Integer Integer",
+          "end": {
+            "col": 24,
+            "line": 9,
+            "offset": 201
+          },
+          "start": {
+            "col": 17,
+            "line": 9,
+            "offset": 194
+          }
+        }
+      },
+      "severity": "INFO",
+      "validation_state": "NO_VALIDATOR"
+    },
+    "path": "/dto/sqlalchemy.py",
+    "start": {
+      "col": 5,
+      "line": 9,
+      "offset": 182
+    }
+  },
+  {
+    "check_id": "appsec_discovery.parsers.python.scanner_rules.dto-sqlalchemy-data-object",
+    "end": {
+      "col": 26,
+      "line": 10,
+      "offset": 246
+    },
+    "extra": {
+      "engine_kind": "OSS",
+      "fingerprint": "5782203895cd636a38a11928ca1ce7fe5a7f8fb249c4f2c0adfc65c203f5f228df00b931357f79eb02243bd896d6d85a48a598f3dbe3673668147adecd81a507_0",
+      "is_ignored": false,
+      "lines": "    name = Column(String)",
+      "message": "sqlalchemy db `Object users, field name, type String`",
+      "metadata": {
+        "framework": "sqlalchemy",
+        "object_type": "dto",
+        "parser": "python"
+      },
+      "metavars": {
+        "$CLASS": {
+          "abstract_content": "User",
+          "end": {
+            "col": 11,
+            "line": 6,
+            "offset": 141
+          },
+          "start": {
+            "col": 7,
+            "line": 6,
+            "offset": 137
+          }
+        },
+        "$FIELD": {
+          "abstract_content": "name",
+          "end": {
+            "col": 9,
+            "line": 10,
+            "offset": 229
+          },
+          "start": {
+            "col": 5,
+            "line": 10,
+            "offset": 225
+          }
+        },
+        "$OBJECT": {
+          "abstract_content": "users",
+          "end": {
+            "col": 27,
+            "line": 7,
+            "offset": 175
+          },
+          "start": {
+            "col": 22,
+            "line": 7,
+            "offset": 170
+          }
+        },
+        "$TYPE": {
+          "abstract_content": "String String",
+          "end": {
+            "col": 25,
+            "line": 10,
+            "offset": 245
+          },
+          "start": {
+            "col": 19,
+            "line": 10,
+            "offset": 239
+          }
+        }
+      },
+      "severity": "INFO",
+      "validation_state": "NO_VALIDATOR"
+    },
+    "path": "/dto/sqlalchemy.py",
+    "start": {
+      "col": 5,
+      "line": 10,
+      "offset": 225
+    }
+  },
+  {
+    "check_id": "appsec_discovery.parsers.python.scanner_rules.dto-sqlalchemy-data-object",
+    "end": {
+      "col": 43,
+      "line": 11,
+      "offset": 289
+    },
+    "extra": {
+      "engine_kind": "OSS",
+      "fingerprint": "f5f627587b24371d09a20bffc4b5d05281d1b9f7a1e086698c0130816709d6a564cbe04e5bbfc71c72d63c1b05890f67ebab0c1c6a0a7ffe12e3ae74fc8b5086_0",
+      "is_ignored": false,
+      "lines": "    fullname = Column('full_name', String)",
+      "message": "sqlalchemy db `Object users, field full_name, type String`",
+      "metadata": {
+        "framework": "sqlalchemy",
+        "object_type": "dto",
+        "parser": "python"
+      },
+      "metavars": {
+        "$CLASS": {
+          "abstract_content": "User",
+          "end": {
+            "col": 11,
+            "line": 6,
+            "offset": 141
+          },
+          "start": {
+            "col": 7,
+            "line": 6,
+            "offset": 137
+          }
+        },
+        "$FIELD": {
+          "abstract_content": "full_name",
+          "end": {
+            "col": 33,
+            "line": 11,
+            "offset": 279
+          },
+          "start": {
+            "col": 24,
+            "line": 11,
+            "offset": 270
+          }
+        },
+        "$OBJECT": {
+          "abstract_content": "users",
+          "end": {
+            "col": 27,
+            "line": 7,
+            "offset": 175
+          },
+          "start": {
+            "col": 22,
+            "line": 7,
+            "offset": 170
+          }
+        },
+        "$SOME": {
+          "abstract_content": "fullname",
+          "end": {
+            "col": 13,
+            "line": 11,
+            "offset": 259
+          },
+          "start": {
+            "col": 5,
+            "line": 11,
+            "offset": 251
+          }
+        },
+        "$TYPE": {
+          "abstract_content": "String String",
+          "end": {
+            "col": 42,
+            "line": 11,
+            "offset": 288
+          },
+          "start": {
+            "col": 36,
+            "line": 11,
+            "offset": 282
+          }
+        }
+      },
+      "severity": "INFO",
+      "validation_state": "NO_VALIDATOR"
+    },
+    "path": "/dto/sqlalchemy.py",
+    "start": {
+      "col": 5,
+      "line": 11,
+      "offset": 251
+    }
+  },
+  {
+    "check_id": "appsec_discovery.parsers.python.scanner_rules.dto-sqlalchemy-data-object",
+    "end": {
+      "col": 30,
+      "line": 12,
+      "offset": 319
+    },
+    "extra": {
+      "engine_kind": "OSS",
+      "fingerprint": "cdeddedd08220cbe4ae2907cec10e1c193b52664b814fb11857efe9d179f710ee2cdf98f0e82268682b7f4f854a42f60c5d100b4a4dd59147bcb89a0aaacd6bc_0",
+      "is_ignored": false,
+      "lines": "    nickname = Column(String)",
+      "message": "sqlalchemy db `Object users, field nickname, type String`",
+      "metadata": {
+        "framework": "sqlalchemy",
+        "object_type": "dto",
+        "parser": "python"
+      },
+      "metavars": {
+        "$CLASS": {
+          "abstract_content": "User",
+          "end": {
+            "col": 11,
+            "line": 6,
+            "offset": 141
+          },
+          "start": {
+            "col": 7,
+            "line": 6,
+            "offset": 137
+          }
+        },
+        "$FIELD": {
+          "abstract_content": "nickname",
+          "end": {
+            "col": 13,
+            "line": 12,
+            "offset": 302
+          },
+          "start": {
+            "col": 5,
+            "line": 12,
+            "offset": 294
+          }
+        },
+        "$OBJECT": {
+          "abstract_content": "users",
+          "end": {
+            "col": 27,
+            "line": 7,
+            "offset": 175
+          },
+          "start": {
+            "col": 22,
+            "line": 7,
+            "offset": 170
+          }
+        },
+        "$TYPE": {
+          "abstract_content": "String String",
+          "end": {
+            "col": 29,
+            "line": 12,
+            "offset": 318
+          },
+          "start": {
+            "col": 23,
+            "line": 12,
+            "offset": 312
+          }
+        }
+      },
+      "severity": "INFO",
+      "validation_state": "NO_VALIDATOR"
+    },
+    "path": "/dto/sqlalchemy.py",
+    "start": {
+      "col": 5,
+      "line": 12,
+      "offset": 294
+    }
+  },
+  {
+    "check_id": "appsec_discovery.parsers.python.scanner_rules.route-bottle-object",
+    "end": {
+      "col": 26,
+      "line": 5,
+      "offset": 91
+    },
+    "extra": {
+      "engine_kind": "OSS",
+      "fingerprint": "94d35da32d4e1956f3af8e18ee3441c9e2ffd9748e5b6a56592c797597e5624471e03fa3a8b85d8e125c9558956c19f33aeb0531c4117efb0f77486acda4fcac_0",
+      "is_ignored": false,
+      "lines": "@route('/hello')\ndef hello():\n    return \"Hello World!\"",
+      "message": "bottle route `Object /hello, func hello, type $METHOD`",
+      "metadata": {
+        "framework": "bottle",
+        "object_type": "route",
+        "parser": "python"
+      },
+      "metavars": {
+        "$FUNC": {
+          "abstract_content": "hello",
+          "end": {
+            "col": 10,
+            "line": 4,
+            "offset": 62
+          },
+          "start": {
+            "col": 5,
+            "line": 4,
+            "offset": 57
+          }
+        },
+        "$PATH": {
+          "abstract_content": "/hello",
+          "end": {
+            "col": 15,
+            "line": 3,
+            "offset": 50
+          },
+          "start": {
+            "col": 9,
+            "line": 3,
+            "offset": 44
+          }
+        }
+      },
+      "severity": "INFO",
+      "validation_state": "NO_VALIDATOR"
+    },
+    "path": "/route/bottle.py",
+    "start": {
+      "col": 1,
+      "line": 3,
+      "offset": 36
+    }
+  },
+  {
+    "check_id": "appsec_discovery.parsers.python.scanner_rules.route-bottle-object",
+    "end": {
+      "col": 26,
+      "line": 9,
+      "offset": 144
+    },
+    "extra": {
+      "engine_kind": "OSS",
+      "fingerprint": "a7dcbd4145b12814a5aa5b6eb0a80041babfdb865982bf19c1eed72ddc0078ae05a066e06468de0f363c71ab06b9a4a1e48bf8909dd9de4db9f924a1d1bd6ef8_0",
+      "is_ignored": false,
+      "lines": "@get('/get')\ndef hello():\n    return \"Hello World!\"",
+      "message": "bottle route `Object /get, func hello, type get`",
+      "metadata": {
+        "framework": "bottle",
+        "object_type": "route",
+        "parser": "python"
+      },
+      "metavars": {
+        "$FUNC": {
+          "abstract_content": "hello",
+          "end": {
+            "col": 10,
+            "line": 8,
+            "offset": 115
+          },
+          "start": {
+            "col": 5,
+            "line": 8,
+            "offset": 110
+          }
+        },
+        "$METHOD": {
+          "abstract_content": "get",
+          "end": {
+            "col": 5,
+            "line": 7,
+            "offset": 97
+          },
+          "start": {
+            "col": 2,
+            "line": 7,
+            "offset": 94
+          }
+        },
+        "$PATH": {
+          "abstract_content": "/get",
+          "end": {
+            "col": 11,
+            "line": 7,
+            "offset": 103
+          },
+          "start": {
+            "col": 7,
+            "line": 7,
+            "offset": 99
+          }
+        }
+      },
+      "severity": "INFO",
+      "validation_state": "NO_VALIDATOR"
+    },
+    "path": "/route/bottle.py",
+    "start": {
+      "col": 1,
+      "line": 7,
+      "offset": 93
+    }
+  },
+  {
+    "check_id": "appsec_discovery.parsers.python.scanner_rules.route-django-object",
+    "end": {
+      "col": 2,
+      "line": 7,
+      "offset": 169
+    },
+    "extra": {
+      "engine_kind": "OSS",
+      "fingerprint": "652c27a1a89f7c9ba35ce8ba345d0342f528dd119a8e85dda404e9ebf19f625aa6708e44d2be3332389938c6de99acfc1cfb31cb0047b3f9b11abb55f746675c_0",
+      "is_ignored": false,
+      "lines": "urlpatterns = [\n    path(\"polls/\", include(\"polls.urls\")),\n    path(\"admin/\", admin.site.urls),\n]",
+      "message": "django route `Object \"admin/\", func admin.site.urls, type $METHOD`",
+      "metadata": {
+        "framework": "django",
+        "object_type": "route",
+        "parser": "python"
+      },
+      "metavars": {
+        "$FUNC": {
+          "abstract_content": "admin.site.urls",
+          "end": {
+            "col": 35,
+            "line": 6,
+            "offset": 165
+          },
+          "start": {
+            "col": 20,
+            "line": 6,
+            "offset": 150
+          }
+        },
+        "$PATH": {
+          "abstract_content": "\"admin/\"",
+          "end": {
+            "col": 18,
+            "line": 6,
+            "offset": 148
+          },
+          "start": {
+            "col": 10,
+            "line": 6,
+            "offset": 140
+          }
+        },
+        "$URLPATTERNS": {
+          "abstract_content": "urlpatterns",
+          "end": {
+            "col": 12,
+            "line": 4,
+            "offset": 83
+          },
+          "start": {
+            "col": 1,
+            "line": 4,
+            "offset": 72
+          }
+        }
+      },
+      "severity": "INFO",
+      "validation_state": "NO_VALIDATOR"
+    },
+    "path": "/route/django.py",
+    "start": {
+      "col": 1,
+      "line": 4,
+      "offset": 72
+    }
+  },
+  {
+    "check_id": "appsec_discovery.parsers.python.scanner_rules.route-django-object",
+    "end": {
+      "col": 2,
+      "line": 7,
+      "offset": 169
+    },
+    "extra": {
+      "engine_kind": "OSS",
+      "fingerprint": "7c31c5ec13e6a9dc24b245330a5b013dc07cf5e0ed764b5d85ea6310979a503ddb9063cd87090a456ba8b9da5b27fac12ea1c87cea84c2f821b2b14930f7450d_0",
+      "is_ignored": false,
+      "lines": "urlpatterns = [\n    path(\"polls/\", include(\"polls.urls\")),\n    path(\"admin/\", admin.site.urls),\n]",
+      "message": "django route `Object \"polls/\", func include(\"polls.urls\"), type $METHOD`",
+      "metadata": {
+        "framework": "django",
+        "object_type": "route",
+        "parser": "python"
+      },
+      "metavars": {
+        "$FUNC": {
+          "abstract_content": "include(\"polls.urls\")",
+          "end": {
+            "col": 41,
+            "line": 5,
+            "offset": 128
+          },
+          "start": {
+            "col": 20,
+            "line": 5,
+            "offset": 107
+          }
+        },
+        "$PATH": {
+          "abstract_content": "\"polls/\"",
+          "end": {
+            "col": 18,
+            "line": 5,
+            "offset": 105
+          },
+          "start": {
+            "col": 10,
+            "line": 5,
+            "offset": 97
+          }
+        },
+        "$URLPATTERNS": {
+          "abstract_content": "urlpatterns",
+          "end": {
+            "col": 12,
+            "line": 4,
+            "offset": 83
+          },
+          "start": {
+            "col": 1,
+            "line": 4,
+            "offset": 72
+          }
+        }
+      },
+      "severity": "INFO",
+      "validation_state": "NO_VALIDATOR"
+    },
+    "path": "/route/django.py",
+    "start": {
+      "col": 1,
+      "line": 4,
+      "offset": 72
+    }
+  },
+  {
+    "check_id": "appsec_discovery.parsers.python.scanner_rules.route-fastapi-object",
+    "end": {
+      "col": 38,
+      "line": 7,
+      "offset": 115
+    },
+    "extra": {
+      "engine_kind": "OSS",
+      "fingerprint": "848151660ab2902f38f6d9900d6855ef9bc3ef5e218ae61976952d7669a43a674280e2e6e413d437bb90f4336e44387d533b5a69b36aee473fc8d3cc6f59d05d_0",
+      "is_ignored": false,
+      "lines": "app = FastAPI()\n\n@app.get(\"/\")\nasync def root():\n    return {\"message\": \"Hello World\"}",
+      "message": "fastapi route `Object /, func root, type get`",
+      "metadata": {
+        "framework": "fastapi",
+        "object_type": "route",
+        "parser": "python"
+      },
+      "metavars": {
+        "$APP": {
+          "abstract_content": "app",
+          "end": {
+            "col": 4,
+            "line": 3,
+            "offset": 32
+          },
+          "start": {
+            "col": 1,
+            "line": 3,
+            "offset": 29
+          }
+        },
+        "$FUNC": {
+          "abstract_content": "root",
+          "end": {
+            "col": 15,
+            "line": 6,
+            "offset": 74
+          },
+          "start": {
+            "col": 11,
+            "line": 6,
+            "offset": 70
+          }
+        },
+        "$METHOD": {
+          "abstract_content": "get",
+          "end": {
+            "col": 9,
+            "line": 5,
+            "offset": 54
+          },
+          "start": {
+            "col": 6,
+            "line": 5,
+            "offset": 51
+          }
+        },
+        "$PATH": {
+          "abstract_content": "/",
+          "end": {
+            "col": 12,
+            "line": 5,
+            "offset": 57
+          },
+          "start": {
+            "col": 11,
+            "line": 5,
+            "offset": 56
+          }
+        }
+      },
+      "severity": "INFO",
+      "validation_state": "NO_VALIDATOR"
+    },
+    "path": "/route/fastapi.py",
+    "start": {
+      "col": 1,
+      "line": 3,
+      "offset": 29
+    }
+  },
+  {
+    "check_id": "appsec_discovery.parsers.python.scanner_rules.route-flask-object",
+    "end": {
+      "col": 38,
+      "line": 13,
+      "offset": 353
+    },
+    "extra": {
+      "engine_kind": "OSS",
+      "fingerprint": "ae715e24daa2b5b96e7a20705ff30f1b33594f318ffe27e066da898e3ce64312c246e8b9bea9930016dd4924cbb9ac5fdcb71f59c67ba512638c5ff90c745c5e_0",
+      "is_ignored": false,
+      "lines": "app = Flask(__name__)\n\n# Define a route that accepts both GET and POST requests\n@app.route('/submit', methods=['GET', 'POST'])\ndef submit():\n    if request.method == 'POST':\n        # Handle POST request\n        return 'Handling POST request'\n    else:\n        # Handle GET request\n        return 'Handling GET request'",
+      "message": "flask route `Object /submit, func submit, type GET`",
+      "metadata": {
+        "framework": "flask",
+        "object_type": "route",
+        "parser": "python"
+      },
+      "metavars": {
+        "$APP": {
+          "abstract_content": "app",
+          "end": {
+            "col": 4,
+            "line": 3,
+            "offset": 37
+          },
+          "start": {
+            "col": 1,
+            "line": 3,
+            "offset": 34
+          }
+        },
+        "$FUNC": {
+          "abstract_content": "submit",
+          "end": {
+            "col": 11,
+            "line": 7,
+            "offset": 171
+          },
+          "start": {
+            "col": 5,
+            "line": 7,
+            "offset": 165
+          }
+        },
+        "$METHOD": {
+          "abstract_content": "GET",
+          "end": {
+            "col": 36,
+            "line": 6,
+            "offset": 149
+          },
+          "start": {
+            "col": 33,
+            "line": 6,
+            "offset": 146
+          }
+        },
+        "$PATH": {
+          "abstract_content": "/submit",
+          "end": {
+            "col": 20,
+            "line": 6,
+            "offset": 133
+          },
+          "start": {
+            "col": 13,
+            "line": 6,
+            "offset": 126
+          }
+        }
+      },
+      "severity": "INFO",
+      "validation_state": "NO_VALIDATOR"
+    },
+    "path": "/route/flask.py",
+    "start": {
+      "col": 1,
+      "line": 3,
+      "offset": 34
+    }
+  },
+  {
+    "check_id": "appsec_discovery.parsers.python.scanner_rules.route-flask-object",
+    "end": {
+      "col": 38,
+      "line": 13,
+      "offset": 353
+    },
+    "extra": {
+      "engine_kind": "OSS",
+      "fingerprint": "bfaa3b7094a6fa5064febd06c10cc789198f9defe7209c3193ad2938c5c2826e03edd2ec99a5e2791cfe335b0a4d32940bc317d80c569ea4202051c25f656e24_0",
+      "is_ignored": false,
+      "lines": "app = Flask(__name__)\n\n# Define a route that accepts both GET and POST requests\n@app.route('/submit', methods=['GET', 'POST'])\ndef submit():\n    if request.method == 'POST':\n        # Handle POST request\n        return 'Handling POST request'\n    else:\n        # Handle GET request\n        return 'Handling GET request'",
+      "message": "flask route `Object /submit, func submit, type POST`",
+      "metadata": {
+        "framework": "flask",
+        "object_type": "route",
+        "parser": "python"
+      },
+      "metavars": {
+        "$APP": {
+          "abstract_content": "app",
+          "end": {
+            "col": 4,
+            "line": 3,
+            "offset": 37
+          },
+          "start": {
+            "col": 1,
+            "line": 3,
+            "offset": 34
+          }
+        },
+        "$FUNC": {
+          "abstract_content": "submit",
+          "end": {
+            "col": 11,
+            "line": 7,
+            "offset": 171
+          },
+          "start": {
+            "col": 5,
+            "line": 7,
+            "offset": 165
+          }
+        },
+        "$METHOD": {
+          "abstract_content": "POST",
+          "end": {
+            "col": 44,
+            "line": 6,
+            "offset": 157
+          },
+          "start": {
+            "col": 40,
+            "line": 6,
+            "offset": 153
+          }
+        },
+        "$PATH": {
+          "abstract_content": "/submit",
+          "end": {
+            "col": 20,
+            "line": 6,
+            "offset": 133
+          },
+          "start": {
+            "col": 13,
+            "line": 6,
+            "offset": 126
+          }
+        }
+      },
+      "severity": "INFO",
+      "validation_state": "NO_VALIDATOR"
+    },
+    "path": "/route/flask.py",
+    "start": {
+      "col": 1,
+      "line": 3,
+      "offset": 34
+    }
+  },
+  {
+    "check_id": "appsec_discovery.parsers.python.scanner_rules.route-flask-object",
+    "end": {
+      "col": 38,
+      "line": 19,
+      "offset": 508
+    },
+    "extra": {
+      "engine_kind": "OSS",
+      "fingerprint": "3c828baeec86b125a7e2734e086908f6e36a33c694cb909c6d66afd3e278fd01deadfe27c78240e76cb1ca099f6f50e75c94a2a844fa52d0371e1f670b9113b3_0",
+      "is_ignored": false,
+      "lines": "app = Flask(__name__)\n\n# Define a route that accepts both GET and POST requests\n@app.route('/submit', methods=['GET', 'POST'])\ndef submit():\n    if request.method == 'POST':\n        # Handle POST request\n        return 'Handling POST request'\n    else:\n        # Handle GET request\n        return 'Handling GET request'\n\n# Define a route that accepts both GET and POST requests\n@app.route('/get')\ndef get():\n        # Handle GET request\n        return 'Handling GET request'",
+      "message": "flask route `Object /get, func get, type $METHOD`",
+      "metadata": {
+        "framework": "flask",
+        "object_type": "route",
+        "parser": "python"
+      },
+      "metavars": {
+        "$APP": {
+          "abstract_content": "app",
+          "end": {
+            "col": 4,
+            "line": 3,
+            "offset": 37
+          },
+          "start": {
+            "col": 1,
+            "line": 3,
+            "offset": 34
+          }
+        },
+        "$FUNC": {
+          "abstract_content": "get",
+          "end": {
+            "col": 8,
+            "line": 17,
+            "offset": 438
+          },
+          "start": {
+            "col": 5,
+            "line": 17,
+            "offset": 435
+          }
+        },
+        "$PATH": {
+          "abstract_content": "/get",
+          "end": {
+            "col": 17,
+            "line": 16,
+            "offset": 428
+          },
+          "start": {
+            "col": 13,
+            "line": 16,
+            "offset": 424
+          }
+        }
+      },
+      "severity": "INFO",
+      "validation_state": "NO_VALIDATOR"
+    },
+    "path": "/route/flask.py",
+    "start": {
+      "col": 1,
+      "line": 3,
+      "offset": 34
+    }
+  },
+  {
+    "check_id": "appsec_discovery.parsers.python.scanner_rules.route-starlette-object",
+    "end": {
+      "col": 44,
+      "line": 12,
+      "offset": 342
+    },
+    "extra": {
+      "engine_kind": "OSS",
+      "fingerprint": "e292afe1116209dab8b031fb186bf05ac8064880b549b1bae202460835bb5a48fe29b66fac45fa8ea5098cf06d97e07e2b50b443204f64b17d3051d1e9c037bd_0",
+      "is_ignored": false,
+      "lines": "app = Starlette(routes=[Route(\"/\", hello)])",
+      "message": "starlette route `Object \"/\", func hello, type $METHOD`",
+      "metadata": {
+        "framework": "starlette",
+        "object_type": "route",
+        "parser": "python"
+      },
+      "metavars": {
+        "$APP": {
+          "abstract_content": "app",
+          "end": {
+            "col": 4,
+            "line": 12,
+            "offset": 302
+          },
+          "start": {
+            "col": 1,
+            "line": 12,
+            "offset": 299
+          }
+        },
+        "$FUNC": {
+          "abstract_content": "hello",
+          "end": {
+            "col": 41,
+            "line": 12,
+            "offset": 339
+          },
+          "start": {
+            "col": 36,
+            "line": 12,
+            "offset": 334
+          }
+        },
+        "$PATH": {
+          "abstract_content": "\"/\"",
+          "end": {
+            "col": 34,
+            "line": 12,
+            "offset": 332
+          },
+          "start": {
+            "col": 31,
+            "line": 12,
+            "offset": 329
+          }
+        }
+      },
+      "severity": "INFO",
+      "validation_state": "NO_VALIDATOR"
+    },
+    "path": "/route/starlette.py",
+    "start": {
+      "col": 1,
+      "line": 12,
+      "offset": 299
+    }
+  }
+]

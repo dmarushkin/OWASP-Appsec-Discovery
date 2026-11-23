@@ -1,0 +1,114 @@
+[
+  {
+    "fields": {
+      "output.login": {
+        "field_name": "output.login",
+        "field_type": "selection",
+        "file": "/test.ts",
+        "line": 11,
+        "severity": "medium",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "file": "/test.ts",
+    "hash": "f5671dc9391c6f5e7cd526c54cd92c61",
+    "hits": [
+      {
+        "keyword": "login",
+        "prop_name": "request_name",
+        "rule": "score_tags/auth/medium",
+        "rule_type": "keyword",
+        "severity": "medium",
+        "status": "match",
+        "subject": "prop",
+        "tags": [
+          "auth"
+        ]
+      },
+      {
+        "keyword": "login",
+        "prop_name": "request_text",
+        "rule": "score_tags/auth/medium",
+        "rule_type": "keyword",
+        "severity": "medium",
+        "status": "match",
+        "subject": "prop",
+        "tags": [
+          "auth"
+        ]
+      },
+      {
+        "keyword": "login",
+        "prop_name": "resolver_text",
+        "rule": "score_tags/auth/medium",
+        "rule_type": "keyword",
+        "severity": "medium",
+        "status": "match",
+        "subject": "prop",
+        "tags": [
+          "auth"
+        ]
+      },
+      {
+        "field_name": "output.login",
+        "keyword": "login",
+        "rule": "score_tags/auth/medium",
+        "rule_type": "keyword",
+        "severity": "medium",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "auth"
+        ]
+      }
+    ],
+    "line": 11,
+    "object_name": "ProfileLoginQuery.me",
+    "object_type": "js-gql-query",
+    "parser": "javascript",
+    "properties": {
+      "request_name": {
+        "file": "/test.ts",
+        "line": 11,
+        "prop_name": "request_name",
+        "prop_value": "ProfileLoginQuery",
+        "severity": "medium",
+        "tags": [
+          "auth"
+        ]
+      },
+      "request_text": {
+        "file": "/test.ts",
+        "line": 11,
+        "prop_name": "request_text",
+        "prop_value": "query ProfileLoginQuery {\n\t\tme {\n\t\t\tlogin\n\t\t}\n\t}",
+        "severity": "medium",
+        "tags": [
+          "auth"
+        ]
+      },
+      "resolver_name": {
+        "file": "/test.ts",
+        "line": 11,
+        "prop_name": "resolver_name",
+        "prop_value": "me"
+      },
+      "resolver_text": {
+        "file": "/test.ts",
+        "line": 11,
+        "prop_name": "resolver_text",
+        "prop_value": "me {\n\t\t\tlogin\n\t\t}",
+        "severity": "medium",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "severity": "medium",
+    "tags": [
+      "auth"
+    ]
+  }
+]

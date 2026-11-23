@@ -1,0 +1,50 @@
+[
+  {
+    "fields": {
+      "acSampleRate": {
+        "field_name": "acSampleRate",
+        "field_type": "String",
+        "file": "/javax.java",
+        "line": 38
+      },
+      "acState": {
+        "field_name": "acState",
+        "field_type": "String",
+        "file": "/javax.java",
+        "line": 50
+      },
+      "counter": {
+        "field_name": "counter",
+        "field_type": "int",
+        "file": "/javax.java",
+        "line": 14
+      },
+      "id": {
+        "field_name": "id",
+        "field_type": "String",
+        "file": "/javax.java",
+        "line": 26
+      }
+    },
+    "file": "/javax.java",
+    "hash": "b96518a4751c63c3ecbd270f70093bce",
+    "line": 14,
+    "object_name": "AudioEntity",
+    "object_type": "dto",
+    "parser": "java",
+    "properties": {
+      "db_table": {
+        "prop_name": "db_table",
+        "prop_value": "audio"
+      },
+      "framework": {
+        "prop_name": "framework",
+        "prop_value": "javax"
+      },
+      "object": {
+        "prop_name": "object",
+        "prop_value": "AudioEntity"
+      }
+    }
+  }
+]

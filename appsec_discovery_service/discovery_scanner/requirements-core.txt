@@ -1,0 +1,4 @@
+# The scanner is built against the core package of the same repository (installed from the
+# sources by the Dockerfile); it uses the 1.x public API (appsec_discovery.api / runner /
+# CodeObject.comment and samples), so a source tree with another major version fails the build.
+appsec-discovery>=1.1.0,<2.0.0

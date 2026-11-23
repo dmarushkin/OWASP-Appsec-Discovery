@@ -1,12 +1,30 @@
+# Network perimeter (P3-2): only discovery_nginx publishes a port (HTTP_PORT, default 80).
+#   edge     nginx <-> ui / api
+#   backend  internal network (no route outside): postgres, migrate, api, scanner, llm
+#   egress   outbound access for the scanner (GitLab) and the llm (model download)
+# Postgres, the API and the LLM server are not reachable from the host; for local debugging
+# publish Postgres on 127.0.0.1 with `docker compose -f docker-compose.yml -f docker-compose.dev.yml up`.
+
+# Container logs are rotated by Docker (json-file driver, LOG_MAX_SIZE x LOG_MAX_FILE per container, 50m x 5 by
+# default): the scanner logs every job and every LLM object; without a cap the log files grow without bound.
+x-logging: &default-logging
+  driver: json-file
+  options:
+    max-size: "${LOG_MAX_SIZE:-50m}"
+    max-file: "${LOG_MAX_FILE:-5}"
+
 services:
 
   discovery_scanner:
     container_name: discovery_scanner
     platform: "linux/amd64"
-    build: 
-      context: ./discovery_scanner
+    build:
+      # Repo root, so the image installs the core package from the current sources (P1-2).
+      context: ..
+      dockerfile: appsec_discovery_service/discovery_scanner/Dockerfile
       platforms:
         - "linux/amd64"
+    logging: *default-logging
     environment:
       - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}/${POSTGRES_DB}
       - GITLAB_URL=${GITLAB_URL}
@@ -14,61 +32,247 @@ services:
       - GITLAB_PROJECTS_PREFIX=${GITLAB_PROJECTS_PREFIX}
       - GITLAB_SCAN_TYPES=${GITLAB_SCAN_TYPES}
       - PARSERS=${PARSERS}
-      - CACHE_SIZE_GB=${CACHE_SIZE_GB}
-      - MAX_WORKERS=${MAX_WORKERS}
-      - LLM_API_URL=${LLM_API_URL}
+      # Worker pools (docs/service/jobs.md): MAX_WORKERS scan workers, SYNC_WORKERS GitLab sync workers,
+      # CONTROL_WORKERS control workers (verify / apply / rollout / relabel / stats / cleanup), LLM_WORKERS llm workers
+      # (the code default of MAX_WORKERS is 2; .env.example sets 5)
+      - MAX_WORKERS=${MAX_WORKERS:-2}
+      - SYNC_WORKERS=${SYNC_WORKERS:-2}
+      - CONTROL_WORKERS=${CONTROL_WORKERS:-1}
+      - LLM_WORKERS=${LLM_WORKERS:-1}
+      # LLM throughput: calls in flight per LLM worker, calls per minute of all workers (0 = no limit)
+      - LLM_CONCURRENCY=${LLM_CONCURRENCY:-2}
+      - LLM_RATE_PER_MIN=${LLM_RATE_PER_MIN:-0}
+      - PROJECTS_POLL_INTERVAL_S=${PROJECTS_POLL_INTERVAL_S:-300}
+      - SYNC_UNCHANGED_EVERY_H=${SYNC_UNCHANGED_EVERY_H:-24}
+      - GITLAB_CACHE_TTL_S=${GITLAB_CACHE_TTL_S:-300}
+      - GITLAB_TIMEOUT_S=${GITLAB_TIMEOUT_S:-30}
+      - GIT_TIMEOUT_S=${GIT_TIMEOUT_S:-1800}
+      # Clones of the running scan jobs (removed when a job ends) live in their own volume, /workspace;
+      # SCAN_WORKSPACE_VOLUME=/path/on/another/disk keeps them off the disk of Postgres. No clone starts with
+      # less than WORKSPACE_MIN_FREE_GB free there; SCAN_MAX_REPO_MB (0 = no limit) skips huge repositories.
+      - WORKSPACE_DIR=${WORKSPACE_DIR:-/workspace}
+      - WORKSPACE_MIN_FREE_GB=${WORKSPACE_MIN_FREE_GB:-5}
+      - SCAN_MAX_REPO_MB=${SCAN_MAX_REPO_MB:-0}
+      - GIT_PARTIAL_CLONE=${GIT_PARTIAL_CLONE:-true}
+      - LLM_COVERAGE_INTERVAL_S=${LLM_COVERAGE_INTERVAL_S:-300}
+      - STATS_REFRESH_S=${STATS_REFRESH_S:-60}
+      # tiered workflow: service need_more_info verdicts (at most LLM_ESCALATION_DAILY_MAX per rule a day) + a QA
+      # sample of confident ones go to the harness model
+      - LLM_VERIFY_ESCALATE=${LLM_VERIFY_ESCALATE:-true}
+      - LLM_ESCALATION_DAILY_MAX=${LLM_ESCALATION_DAILY_MAX:-2000}
+      - LLM_QA_SAMPLE_RATE=${LLM_QA_SAMPLE_RATE:-0.05}
+      - LLM_QA_DAILY_MAX=${LLM_QA_DAILY_MAX:-500}
+      - LLM_QA_AGREEMENT_MIN=${LLM_QA_AGREEMENT_MIN:-0.9}
+      - LLM_EXTERNAL_RESERVE_H=${LLM_EXTERNAL_RESERVE_H:-1}
+      # LLM rule lifecycle (README "LLM rules lifecycle"): stale verdicts migrate by budgeted rule rollouts
+      - LLM_REASK_INLINE=${LLM_REASK_INLINE:-false}
+      - LLM_CORE_BUMP_MODE=${LLM_CORE_BUMP_MODE:-canary}
+      - LLM_MODEL_CHANGE_POLICY=${LLM_MODEL_CHANGE_POLICY:-rollout}
+      - LLM_ROLLOUT_TICK_S=${LLM_ROLLOUT_TICK_S:-60}
+      - LLM_ROLLOUT_CALLS_PER_HOUR=${LLM_ROLLOUT_CALLS_PER_HOUR:-2000}
+      - LLM_ROLLOUT_MAX_PARALLEL_JOBS=${LLM_ROLLOUT_MAX_PARALLEL_JOBS:-1}
+      - LLM_ROLLOUT_FRESH_BACKLOG_MAX=${LLM_ROLLOUT_FRESH_BACKLOG_MAX:-20}
+      - LLM_ROLLOUT_SLICE_OBJECTS=${LLM_ROLLOUT_SLICE_OBJECTS:-200}
+      - LLM_ROLLOUT_QA_MIN_SAMPLES=${LLM_ROLLOUT_QA_MIN_SAMPLES:-20}
+      - LLM_ROLLOUT_QA_AGREEMENT_MIN=${LLM_ROLLOUT_QA_AGREEMENT_MIN:-0.8}
+      - LLM_ROLLOUT_QA_MAX_DROP=${LLM_ROLLOUT_QA_MAX_DROP:-0.1}
+      - HIT_HISTORY_DAYS=${HIT_HISTORY_DAYS:-180}
+      - JOB_LEASE_S=${JOB_LEASE_S:-300}
+      - JOB_POLL_S=${JOB_POLL_S:-5}
+      - JOB_MAX_ATTEMPTS=${JOB_MAX_ATTEMPTS:-5}
+      - JOB_BACKOFF_BASE_S=${JOB_BACKOFF_BASE_S:-30}
+      - JOB_BACKOFF_MAX_S=${JOB_BACKOFF_MAX_S:-3600}
+      - JOBS_RETENTION_DAYS=${JOBS_RETENTION_DAYS:-7}
+      - SHUTDOWN_TIMEOUT_S=${SHUTDOWN_TIMEOUT_S:-150}
+      # Any OpenAI-compatible endpoint; defaults to the bundled llama.cpp server below.
+      # Set LLM_API_URL= (empty) to disable the LLM rule.
+      - LLM_API_URL=${LLM_API_URL-http://discovery_llm:8080/v1}
       - LLM_API_KEY=${LLM_API_KEY}
-      - LLM_API_MODEL=${LLM_API_MODEL}
-      - LLM_LOCAL_MODEL=${LLM_LOCAL_MODEL}
-      - LLM_LOCAL_FILE=${LLM_LOCAL_FILE}
-      - LLM_PROMPT=${LLM_PROMPT}
-      - LLM_PROMPT_VER=${LLM_PROMPT_VER}
-      - MR_ALERTS=${MR_ALERTS}
-      - TG_CHAT_ID=${TG_CHAT_ID}
-      - TG_ALERT_TOKEN=${TG_ALERT_TOKEN}
-      - TG_CHAT_ID=${TG_CHAT_ID}
+      - LLM_API_MODEL=${LLM_API_MODEL:-local-model}
+      - LLM_TIMEOUT_S=${LLM_TIMEOUT_S:-120}
+      - LLM_MAX_RETRIES=${LLM_MAX_RETRIES:-2}
+      - LLM_MAX_TOKENS=${LLM_MAX_TOKENS:-8192}
+      - LLM_STRUCTURED=${LLM_STRUCTURED:-auto}
+      - SCAN_LANGS=${SCAN_LANGS:-all}
+      # Diff-based scan skip (README "Service mode"): no clone / parse when no parser file changed since the snapshot
+      - SCAN_DIFF_SKIP=${SCAN_DIFF_SKIP:-true}
+      - SCAN_DIFF_SKIP_MRS=${SCAN_DIFF_SKIP_MRS:-true}
+      - SCAN_FULL_RESCAN_DAYS=${SCAN_FULL_RESCAN_DAYS:-7}
+      - SCAN_DIFF_MAX_FILES=${SCAN_DIFF_MAX_FILES:-1000}
+      - SCAN_ALWAYS_RESCAN_GLOBS=${SCAN_ALWAYS_RESCAN_GLOBS:-}
+      # Retention / GC (defaults in config.py)
+      - MR_STALE_DAYS=${MR_STALE_DAYS:-30}
+      - MR_ROW_RETENTION_DAYS=${MR_ROW_RETENTION_DAYS:-7}
+      - GC_INTERVAL_HOURS=${GC_INTERVAL_HOURS:-24}
+      - GC_BATCH_SIZE=${GC_BATCH_SIZE:-5000}
+      - HITS_PENDING_ORPHAN_DAYS=${HITS_PENDING_ORPHAN_DAYS:-14}
+      - HITS_DECIDED_UNSEEN_DAYS=${HITS_DECIDED_UNSEEN_DAYS:-180}
+      - HITS_REJECTED_UNSEEN_DAYS=${HITS_REJECTED_UNSEEN_DAYS:-365}
+      - SCANS_KEEP_PER_BRANCH=${SCANS_KEEP_PER_BRANCH:-20}
+      - LLM_VERIFICATIONS_RETENTION_DAYS=${LLM_VERIFICATIONS_RETENTION_DAYS:-365}
+      - PROMPT_TRIALS_RETENTION_DAYS=${PROMPT_TRIALS_RETENTION_DAYS:-90}
     restart: always
     volumes:
-      - "${HOME}/hf_models:/hf_models"
+      - ${SCAN_WORKSPACE_VOLUME:-scan_workspace}:/workspace
+    # SIGTERM: the running jobs are requeued at their next safe point (an LLM run after storing the
+    # verdicts it got, a scan before clone / parse / save), workers still busy after
+    # SHUTDOWN_TIMEOUT_S are killed and their jobs re-queued. Keep this above SHUTDOWN_TIMEOUT_S
+    # (+ ~30s margin), or Docker kills the scanner first.
+    stop_grace_period: 180s
+    networks:
+      - backend
+      - egress
     depends_on:
-      - discovery_db
+      discovery_migrate:
+        condition: service_completed_successfully
+      discovery_llm:
+        condition: service_healthy
+        # not needed when LLM_API_URL points elsewhere: `docker compose up --scale discovery_llm=0`
+        required: false
+
+  # Local LLM, out of process: the official llama.cpp server (OpenAI-compatible API on :8080/v1).
+  # The model is pulled from Hugging Face (LLM_HF_REPO, "<repo>[:quant]") into the llm_cache volume
+  # on first start, or loaded from a GGUF file mounted from LLM_MODELS_DIR: set
+  # LLM_MODEL_FILE=/models/<file>.gguf and LLM_HF_REPO= (empty).
+  discovery_llm:
+    container_name: discovery_llm
+    image: ghcr.io/ggml-org/llama.cpp:server-b12098
+    logging: *default-logging
+    environment:
+      - LLAMA_ARG_HF_REPO=${LLM_HF_REPO-Qwen/Qwen2.5-3B-Instruct-GGUF:Q4_K_M}
+      - LLAMA_ARG_MODEL=${LLM_MODEL_FILE:-}
+      - LLAMA_ARG_ALIAS=${LLM_API_MODEL:-local-model}
+      - LLAMA_ARG_CTX_SIZE=${LLM_CTX_SIZE:-8192}
+      - LLAMA_ARG_N_PARALLEL=${LLM_PARALLEL:-2}
+      - LLAMA_ARG_HOST=0.0.0.0
+      - LLAMA_ARG_PORT=8080
+      - HF_TOKEN=${HF_TOKEN:-}
+    volumes:
+      - llm_cache:/root/.cache
+      - "${LLM_MODELS_DIR:-./llm_models}:/models:ro"
+    restart: always
+    # not published: only the scanner calls it (backend); egress for the model download
+    networks:
+      - backend
+      - egress
+    healthcheck:
+      # /health answers 503 while the model is downloading / loading
+      test: ["CMD", "curl", "-fsS", "http://localhost:8080/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+      start_period: 600s
+
+  # One-shot schema migration (Alembic); scanner and API start after it succeeded.
+  discovery_migrate:
+    container_name: discovery_migrate
+    platform: "linux/amd64"
+    logging: *default-logging
+    build:
+      context: .
+      dockerfile: discovery_api/Dockerfile
+      platforms:
+        - "linux/amd64"
+    command: ["python", "-m", "discovery_common.migrate"]
+    environment:
+      - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}/${POSTGRES_DB}
+    restart: "no"
+    networks:
+      - backend
+    depends_on:
+      discovery_db:
+        condition: service_healthy
 
   discovery_api:
     container_name: discovery_api
     platform: "linux/amd64"
-    build: 
-      context: ./discovery_api
+    logging: *default-logging
+    build:
+      # Service root, so the image gets the shared discovery_common package (P2-5).
+      context: .
+      dockerfile: discovery_api/Dockerfile
       platforms:
         - "linux/amd64"
     environment:
       - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}/${POSTGRES_DB}
       - UI_ADMIN_EMAIL=${UI_ADMIN_EMAIL}
-      - UI_ADMIN_PASSWORD=${UI_ADMIN_PASSWORD}
+      - UI_ADMIN_PASSWORD_HASH=${UI_ADMIN_PASSWORD_HASH}
       - UI_JWT_KEY=${UI_JWT_KEY}
+      - UI_TOKEN_TTL_MINUTES=${UI_TOKEN_TTL_MINUTES:-30}
+      # local stands only: accept a well-known admin password (e.g. admin)
+      - UI_ALLOW_WEAK_PASSWORD=${UI_ALLOW_WEAK_PASSWORD:-false}
+      # prompt trials (service model on a few subjects): subjects per trial, model calls per UTC day
+      - LLM_TRIAL_MAX_SUBJECTS=${LLM_TRIAL_MAX_SUBJECTS:-200}
+      - LLM_TRIAL_DAILY_CALLS=${LLM_TRIAL_DAILY_CALLS:-2000}
+      - LLM_QA_AGREEMENT_MIN=${LLM_QA_AGREEMENT_MIN:-0.9}
+      - LLM_ROLLOUT_DEFAULT=${LLM_ROLLOUT_DEFAULT:-canary}
+      # statistics snapshots written by the scanner (stats_refresh job): a snapshot older than twice this is stale
+      - STATS_REFRESH_S=${STATS_REFRESH_S:-60}
+      # MCP: byte cap of one tool result (0 = no cap), tool calls per minute per client (0 = no limit),
+      # base of the ui_url deep links (empty: paths only)
+      - MCP_MAX_RESPONSE_BYTES=${MCP_MAX_RESPONSE_BYTES:-200000}
+      - MCP_RATE_LIMIT_PER_MINUTE=${MCP_RATE_LIMIT_PER_MINUTE:-600}
+      - UI_BASE_URL=${UI_BASE_URL:-}
     restart: always
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=3)"]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+      start_period: 20s
+    networks:
+      - edge
+      - backend
     depends_on:
-      - discovery_db
+      discovery_migrate:
+        condition: service_completed_successfully
 
   discovery_ui:
     container_name: discovery_ui
     platform: "linux/amd64"
+    logging: *default-logging
     build:
       context: ./discovery_ui
       platforms:
         - "linux/amd64"
     restart: always
+    networks:
+      - edge
 
   discovery_db:
     container_name: discovery_postgres
     image: postgres:13
-    platform: "linux/amd64"     
+    platform: "linux/amd64"
+    logging: *default-logging
     environment:
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-    ports:
-      - "54321:5432"
+    # Memory and planner settings (docs/service/index.md, "Postgres settings"), overridable from .env. The image's
+    # defaults (128 MB shared_buffers, 4 MB work_mem, random_page_cost 4) make the planner pick sequential scans and
+    # on-disk sorts once the tables hold millions of rows; these defaults suit an 8 GB host shared with the scanner
+    # and the LLM server - on a dedicated database host raise them (shared_buffers ~25% of RAM, effective_cache_size
+    # ~75%).
+    command: >
+      postgres
+      -c shared_buffers=${PG_SHARED_BUFFERS:-1GB}
+      -c work_mem=${PG_WORK_MEM:-32MB}
+      -c maintenance_work_mem=${PG_MAINTENANCE_WORK_MEM:-256MB}
+      -c effective_cache_size=${PG_EFFECTIVE_CACHE_SIZE:-3GB}
+      -c random_page_cost=${PG_RANDOM_PAGE_COST:-1.1}
+      -c max_wal_size=${PG_MAX_WAL_SIZE:-2GB}
+    # parallel query workers exchange data through /dev/shm (Docker's default is 64 MB)
+    shm_size: ${PG_SHM_SIZE:-512mb}
+    # not published (P3-2): reachable only on the internal backend network
+    # (docker-compose.dev.yml publishes it on 127.0.0.1:54321 for local debugging)
     restart: always
+    networks:
+      - backend
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
     volumes:
       - "${HOME}/db_data:/var/lib/postgresql/data"
 
@@ -76,12 +280,30 @@ services:
     container_name: discovery_nginx
     image: nginx:alpine
     platform: "linux/amd64"     
+    logging: *default-logging
     restart: always
+    # the only published port
     ports:
-      - 80:80
+      - "${HTTP_PORT:-80}:80"
+    networks:
+      - edge
     volumes:
       - ./discovery_nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      # optional *.conf snippets (real_ip.conf behind a TLS terminator, see its .example)
+      - ./discovery_nginx/conf.d:/etc/nginx/discovery.d:ro
       - ./discovery_ui/build:/usr/share/nginx/html
     depends_on:
-      - discovery_api
-      - discovery_ui
+      discovery_api:
+        condition: service_healthy
+      discovery_ui:
+        condition: service_started
+
+networks:
+  edge:
+  backend:
+    internal: true
+  egress:
+
+volumes:
+  llm_cache:
+  scan_workspace:

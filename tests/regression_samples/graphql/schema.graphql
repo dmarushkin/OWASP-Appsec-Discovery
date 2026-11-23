@@ -1,0 +1,33 @@
+type Money {
+    units: Int
+    currency: String
+}
+
+type Person {
+    name: String
+    account: Account
+}
+
+type Account {
+    id: ID!
+    owner: Person
+    balance: Money!
+    limit: Money
+}
+
+type Bank
+
+type Shop
+
+extend type Query {
+    bank: Bank!
+    shop: Shop!
+}
+
+extend type Bank {
+    account: Account
+}
+
+extend type Shop {
+    account: [Account!]!
+}

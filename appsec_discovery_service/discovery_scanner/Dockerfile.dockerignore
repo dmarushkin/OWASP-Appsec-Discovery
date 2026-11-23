@@ -1,0 +1,24 @@
+# Build-context exclusions for appsec_discovery_service/discovery_scanner/Dockerfile
+# (BuildKit picks up <Dockerfile>.dockerignore instead of the root .dockerignore, which
+# excludes README.md that pyproject.toml needs).
+**/__pycache__
+**/*.pyc
+**/.pytest_cache
+**/.mypy_cache
+**/.venv
+**/node_modules
+**/.env
+.git
+dist
+docs
+tests
+appsec_discovery_service/.env
+appsec_discovery_service/discovery_api
+appsec_discovery_service/discovery_ui
+appsec_discovery_service/discovery_nginx
+appsec_discovery_service/discovery_scanner/tests
+appsec_discovery_service/discovery_common/tests
+appsec_discovery_service/llm_models
+appsec_discovery_service/discovery_scanner/code
+appsec_discovery_service/discovery_scanner/scans
+/*.png

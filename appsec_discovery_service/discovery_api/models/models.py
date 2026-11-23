@@ -1,8 +1,6 @@
-from typing import Optional
-from sqlmodel import SQLModel, Field
+from typing import List, Optional
 
-from enum import Enum
-
+from sqlmodel import SQLModel
 
 
 ####################################################
@@ -15,22 +13,18 @@ class Token(SQLModel, table=False):
 
 class UserData(SQLModel, table=False):
     username: str
+    # service tokens (POST /tokens): scope "ingest" on project path prefixes; None for the admin
+    scopes: Optional[List[str]] = None
+    project_prefixes: Optional[List[str]] = None
 
+    @property
+    def is_service(self) -> bool:
+        return self.scopes is not None
 
-####################################################
-#   Scoring rules                               ####
-####################################################
-
-class ScoreRuleStatus(str, Enum):
-    active = "active"
-    skip = "skip"
-
-class ScoreRule(SQLModel, table=True):
-    id: Optional[int] = Field(default=None, primary_key=True)
-    service_re: Optional[str]
-    object_type_re: Optional[str]
-    object_re: Optional[str]
-    field_re: Optional[str]
-    field_type_re: Optional[str]
-    risk_score: int
-    status: ScoreRuleStatus = ScoreRuleStatus.active
+    def may_ingest(self, project_path: str) -> bool:
+        """The admin may push to any external project, a service token to its prefixes only."""
+        if not self.is_service:
+            return True
+        return "ingest" in (self.scopes or []) and any(
+            project_path == p.rstrip("/") or project_path.startswith(p.rstrip("/") + "/")
+            for p in self.project_prefixes or [])

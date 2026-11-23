@@ -1,5 +1,6 @@
 rules:
   - id: dto-pydantic-data-object
+    metadata: {parser: python, object_type: dto, framework: pydantic}
     message: Pydantic model `Model $OBJECT, field $FIELD, type $TYPE`
     languages: [python]
     severity: INFO
@@ -7,9 +8,23 @@ rules:
     - pattern-inside: |
         class $OBJECT(pydantic.BaseModel):
           ...
-    - pattern: |
+    # annotated locals of methods and the fields of a nested ``class Config`` are not model fields
+    - pattern-not-inside: |
+        def $_(...):
+          ...
+    - pattern-not-inside: |
+        class Config:
+          ...
+    - pattern-not-inside: |
+        class Meta:
+          ...
+    - pattern-either:
+      - pattern: |
           $FIELD: $TYPE
+      - pattern: |
+          $FIELD: $TYPE = ...
   - id: dto-django-data-object
+    metadata: {parser: python, object_type: dto, framework: django}
     message: Django db `Table $OBJECT, field $FIELD, type $TYPE`
     languages: [python]
     severity: INFO
@@ -19,6 +34,7 @@ rules:
           ...
     - pattern: $FIELD = django.db.models.$TYPE(...)
   - id: dto-sqlalchemy-data-object
+    metadata: {parser: python, object_type: dto, framework: sqlalchemy}
     message: sqlalchemy db `Object $OBJECT, field $FIELD, type $TYPE`
     languages: [python]
     severity: INFO
@@ -37,6 +53,7 @@ rules:
         metavariable: '$TYPE'
         regex: "[^'\"]" 
   - id: dto-mongo-data-object
+    metadata: {parser: python, object_type: dto, framework: mongo}
     message: mongo db `Object $OBJECT, field $FIELD, type $TYPE`
     languages: [python]
     severity: INFO
@@ -47,15 +64,38 @@ rules:
       - pattern: $FIELD = mongoengine.fields.$TYPE(...)
       - pattern: $FIELD = mongoengine.$TYPE(...)
   - id: dto-dataclass-object
+    metadata: {parser: python, object_type: dto, framework: dataclass}
     message: python dataclass `Object $OBJECT, field $FIELD, type $TYPE`
     languages: [python]
     severity: INFO
     patterns:
-    - pattern: |
-        @dataclass
-        class $OBJECT:
+    - pattern-either:
+      - pattern-inside: |
+          @dataclass
+          class $OBJECT:
+            ...
+      - pattern-inside: |
+          @dataclass(...)
+          class $OBJECT:
+            ...
+      - pattern-inside: |
+          @dataclasses.dataclass
+          class $OBJECT:
+            ...
+      - pattern-inside: |
+          @dataclasses.dataclass(...)
+          class $OBJECT:
+            ...
+    - pattern-not-inside: |
+        def $_(...):
+          ...
+    - pattern-either:
+      - pattern: |
           $FIELD: $TYPE
+      - pattern: |
+          $FIELD: $TYPE = ...
   - id: dto-marshmallow-data-object
+    metadata: {parser: python, object_type: dto, framework: marshmallow}
     message: python marshmallow `Object $OBJECT, field $FIELD, type $TYPE`
     languages: [python]
     severity: INFO

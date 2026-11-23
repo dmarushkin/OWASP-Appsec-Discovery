@@ -1,19 +1,39 @@
 rules:
   - id: dto-struct-data-object
+    metadata: {parser: golang, object_type: dto, framework: struct}
     severity: INFO
     languages:
       - generic
+    options:
+      # // and /* */ are comments, not code: a commented-out field is no field, ``struct { // note`` still matches
+      generic_comment_style: cpp
     patterns:
-      - pattern-inside: |
-          type $OBJECT struct {
-            ...
-          }
+      - pattern-either:
+          - pattern-inside: |
+              type $OBJECT struct {
+                ...
+              }
+          # generic structs: type Page[T any] struct { ... }
+          - pattern-inside: |
+              type $OBJECT[...] struct {
+                ...
+              }
+          # grouped declarations: type ( A struct { ... } ... )
+          - patterns:
+              - pattern-inside: |
+                  type (
+                    ...
+                  )
+              - pattern-inside: |
+                  $OBJECT struct {
+                    ...
+                  }
       - pattern-either:
           - pattern: |
               $FIELD $TYPE
       - metavariable-regex:
           metavariable: $TYPE
-          regex: (bool|string|int|int8|int16|int32|int64|uint|uint8|uint16|uint32|uint64|time|float32|float64|byte)
+          regex: ^(?:bool|string|u?int(?:8|16|32|64)?|float(?:32|64)|byte|time)$
     message: $OBJECT $FIELD $TYPE
     paths:
       include:

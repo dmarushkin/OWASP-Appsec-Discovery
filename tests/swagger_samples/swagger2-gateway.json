@@ -1,0 +1,297 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "library/v1/library.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "LibraryService"
+    }
+  ],
+  "basePath": "/api",
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/books": {
+      "get": {
+        "summary": "List books",
+        "description": "Books of the library, filtered by status.",
+        "operationId": "LibraryService_ListBooks",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ListBooksResponse"
+            },
+            "examples": {
+              "application/json": {
+                "books": [
+                  {
+                    "isbn": "978-3-16-148410-0"
+                  }
+                ]
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "status",
+            "description": "Status filter.",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "AVAILABLE",
+                "BORROWED"
+              ]
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "default": 20
+          },
+          {
+            "name": "authorId",
+            "description": "Author filter.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64",
+            "x-example": "42"
+          }
+        ],
+        "tags": [
+          "LibraryService"
+        ]
+      },
+      "post": {
+        "summary": "Add a book",
+        "operationId": "LibraryService_CreateBook",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1Book"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1Book"
+            }
+          }
+        ],
+        "tags": [
+          "LibraryService"
+        ]
+      }
+    },
+    "/v1/books/{isbn}": {
+      "parameters": [
+        {
+          "name": "isbn",
+          "description": "Path-level ISBN.",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "delete": {
+        "summary": "Remove a book",
+        "operationId": "LibraryService_DeleteBook",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "isbn",
+            "description": "ISBN of the book to remove.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "X-Request-Id",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "LibraryService"
+        ]
+      }
+    },
+    "/v1/books/{isbn}/cover": {
+      "put": {
+        "summary": "Upload a cover",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "parameters": [
+          {
+            "name": "isbn",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "image",
+            "description": "Cover image.",
+            "in": "formData",
+            "required": true,
+            "type": "file"
+          },
+          {
+            "name": "caption",
+            "in": "formData",
+            "type": "string",
+            "x-example": "First edition"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Stored."
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "BookStatus": {
+      "type": "string",
+      "enum": [
+        "AVAILABLE",
+        "BORROWED"
+      ],
+      "default": "AVAILABLE",
+      "description": "- AVAILABLE: on the shelf\n - BORROWED: lent to a reader",
+      "title": "Book status"
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    },
+    "v1Author": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64",
+          "description": "Author id."
+        },
+        "name": {
+          "type": "string",
+          "example": "Jane Doe"
+        },
+        "mentor": {
+          "$ref": "#/definitions/v1Author",
+          "description": "Who taught the author (recursive)."
+        }
+      }
+    },
+    "v1Book": {
+      "type": "object",
+      "properties": {
+        "isbn": {
+          "type": "string",
+          "title": "ISBN of the book"
+        },
+        "status": {
+          "$ref": "#/definitions/BookStatus",
+          "description": "Current status of this copy."
+        },
+        "previousStatus": {
+          "$ref": "#/definitions/BookStatus",
+          "title": "Status before the last change"
+        },
+        "author": {
+          "$ref": "#/definitions/v1Author"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "description": "One tag."
+          },
+          "description": "Shelf tags."
+        },
+        "readerIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "int64",
+            "description": "Reader id."
+          }
+        }
+      },
+      "title": "A book"
+    },
+    "v1ListBooksResponse": {
+      "type": "object",
+      "properties": {
+        "books": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1Book"
+          }
+        },
+        "nextPageToken": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

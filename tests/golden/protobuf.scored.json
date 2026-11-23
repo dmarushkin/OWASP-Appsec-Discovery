@@ -1,0 +1,194 @@
+[
+  {
+    "fields": {
+      "input.GetBookRequest.isbn": {
+        "field_name": "input.GetBookRequest.isbn",
+        "field_type": "int64",
+        "file": "/test.proto"
+      },
+      "output.Book.author": {
+        "field_name": "output.Book.author",
+        "field_type": "string",
+        "file": "/test.proto"
+      },
+      "output.Book.isbn": {
+        "field_name": "output.Book.isbn",
+        "field_type": "int64",
+        "file": "/test.proto"
+      },
+      "output.Book.title": {
+        "field_name": "output.Book.title",
+        "field_type": "string",
+        "file": "/test.proto"
+      }
+    },
+    "file": "/test.proto",
+    "hash": "bb1d5c30846654e974775aede5a06694",
+    "line": 20,
+    "object_name": "/com.book.BookService/GetBook",
+    "object_type": "rpc",
+    "parser": "protobuf",
+    "properties": {}
+  },
+  {
+    "fields": {
+      "input.GetBookViaAuthor.author": {
+        "field_name": "input.GetBookViaAuthor.author",
+        "field_type": "string",
+        "file": "/test.proto"
+      },
+      "output.Book.author": {
+        "field_name": "output.Book.author",
+        "field_type": "string",
+        "file": "/test.proto"
+      },
+      "output.Book.isbn": {
+        "field_name": "output.Book.isbn",
+        "field_type": "int64",
+        "file": "/test.proto"
+      },
+      "output.Book.title": {
+        "field_name": "output.Book.title",
+        "field_type": "string",
+        "file": "/test.proto"
+      }
+    },
+    "file": "/test.proto",
+    "hash": "859288567514e86b336e94526c945f50",
+    "line": 21,
+    "object_name": "/com.book.BookService/GetBooksViaAuthor",
+    "object_type": "rpc",
+    "parser": "protobuf",
+    "properties": {}
+  },
+  {
+    "fields": {
+      "input.GetBookRequest.isbn": {
+        "field_name": "input.GetBookRequest.isbn",
+        "field_type": "int64",
+        "file": "/test.proto"
+      },
+      "output.Book.author": {
+        "field_name": "output.Book.author",
+        "field_type": "string",
+        "file": "/test.proto"
+      },
+      "output.Book.isbn": {
+        "field_name": "output.Book.isbn",
+        "field_type": "int64",
+        "file": "/test.proto"
+      },
+      "output.Book.title": {
+        "field_name": "output.Book.title",
+        "field_type": "string",
+        "file": "/test.proto"
+      }
+    },
+    "file": "/test.proto",
+    "hash": "e4de51bba620b4e6d44eac2733c0c6e1",
+    "line": 22,
+    "object_name": "/com.book.BookService/GetGreatestBook",
+    "object_type": "rpc",
+    "parser": "protobuf",
+    "properties": {}
+  },
+  {
+    "fields": {
+      "input.GetBookRequest.isbn": {
+        "field_name": "input.GetBookRequest.isbn",
+        "field_type": "int64",
+        "file": "/test.proto"
+      },
+      "output.Book.author": {
+        "field_name": "output.Book.author",
+        "field_type": "string",
+        "file": "/test.proto"
+      },
+      "output.Book.isbn": {
+        "field_name": "output.Book.isbn",
+        "field_type": "int64",
+        "file": "/test.proto"
+      },
+      "output.Book.title": {
+        "field_name": "output.Book.title",
+        "field_type": "string",
+        "file": "/test.proto"
+      }
+    },
+    "file": "/test.proto",
+    "hash": "691cc4cd8119035559c54ebfab2471dd",
+    "line": 23,
+    "object_name": "/com.book.BookService/GetBooks",
+    "object_type": "rpc",
+    "parser": "protobuf",
+    "properties": {}
+  },
+  {
+    "fields": {
+      "input.SumInput.n1": {
+        "field_name": "input.SumInput.n1",
+        "field_type": "int32",
+        "file": "/test2.proto"
+      },
+      "input.SumInput.n2": {
+        "field_name": "input.SumInput.n2",
+        "field_type": "int32",
+        "file": "/test2.proto"
+      },
+      "output.SumOutput.result": {
+        "field_name": "output.SumOutput.result",
+        "field_type": "int32",
+        "file": "/test2.proto"
+      }
+    },
+    "file": "/test2.proto",
+    "hash": "d43f9777b80e250392c1bf199275f834",
+    "line": 6,
+    "object_name": "/com.surajgharat.practice.grpc.service.SumService/Sum",
+    "object_type": "rpc",
+    "parser": "protobuf",
+    "properties": {}
+  },
+  {
+    "fields": {
+      "input.SearchRequest.keyword": {
+        "field_name": "input.SearchRequest.keyword",
+        "field_type": "string",
+        "file": "/test3.proto"
+      },
+      "output.SearchResponse.result": {
+        "field_name": "output.SearchResponse.result",
+        "field_type": "string",
+        "file": "/test3.proto"
+      }
+    },
+    "file": "/test3.proto",
+    "hash": "08a7e9b94be659d6b31edeb49d2bfe1e",
+    "line": 19,
+    "object_name": "/search.SearchService/search",
+    "object_type": "rpc",
+    "parser": "protobuf",
+    "properties": {}
+  },
+  {
+    "fields": {
+      "input.ExtendedSearchRequest.keywords": {
+        "field_name": "input.ExtendedSearchRequest.keywords",
+        "field_type": "string",
+        "file": "/test3.proto"
+      },
+      "output.SearchResponse.result": {
+        "field_name": "output.SearchResponse.result",
+        "field_type": "string",
+        "file": "/test3.proto"
+      }
+    },
+    "file": "/test3.proto",
+    "hash": "a1ab103da520f63c538b3ee6262ed6d8",
+    "line": 20,
+    "object_name": "/search.SearchService/extendedSearch",
+    "object_type": "rpc",
+    "parser": "protobuf",
+    "properties": {}
+  }
+]

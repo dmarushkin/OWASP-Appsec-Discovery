@@ -1,0 +1,636 @@
+{
+ "golang": [
+  {
+   "file": "/main.go",
+   "hash": "14b14002d06a93fb03e93d32d389d0a8",
+   "legacy_name": "Struct dto CreateFullAccessRecoveryAuthorizedCmd",
+   "object_name": "CreateFullAccessRecoveryAuthorizedCmd",
+   "object_type": "dto"
+  },
+  {
+   "file": "/main.go",
+   "hash": "9325ca34665612466d534c8b5d7265d8",
+   "legacy_name": "Struct dto FullAccessRecoveryComment",
+   "object_name": "FullAccessRecoveryComment",
+   "object_type": "dto"
+  },
+  {
+   "file": "/main.go",
+   "hash": "a0c87fdec3f5c05e54006369c9bb0b96",
+   "legacy_name": "Struct dto PreSavePincodeCmd",
+   "object_name": "PreSavePincodeCmd",
+   "object_type": "dto"
+  },
+  {
+   "file": "/main.go",
+   "hash": "d32a36c43abdbac62079b02337d0a529",
+   "legacy_name": "Struct dto PreSavePincodeResult",
+   "object_name": "PreSavePincodeResult",
+   "object_type": "dto"
+  },
+  {
+   "file": "/main.go",
+   "hash": "ef02fce064d825f6ad386c1f04c6ae88",
+   "legacy_name": "Struct dto UpdateCodewordCmd",
+   "object_name": "UpdateCodewordCmd",
+   "object_type": "dto"
+  },
+  {
+   "file": "/main.go",
+   "hash": "64392b4ba5c7714344c41148dedc7096",
+   "legacy_name": "Struct dto UserDTO",
+   "object_name": "UserDTO",
+   "object_type": "dto"
+  }
+ ],
+ "graphql": [
+  {
+   "file": "/mutation.graphql",
+   "hash": "0ef1eab5ce118ee69253d6a01b4df924",
+   "legacy_name": "Mutation BusinessLoungesMutations.cancelOrder",
+   "object_name": "BusinessLoungesMutations.cancelOrder",
+   "object_type": "mutation"
+  },
+  {
+   "file": "/mutation.graphql",
+   "hash": "b16539fd1e1476ec41e3d2f6e3a1a455",
+   "legacy_name": "Mutation BusinessLoungesMutations.createOrder",
+   "object_name": "BusinessLoungesMutations.createOrder",
+   "object_type": "mutation"
+  },
+  {
+   "file": "/query.graphql",
+   "hash": "8b28b980a4a5f54b5f32c20ddbee5e3d",
+   "legacy_name": "Query MgmQueries.offer",
+   "object_name": "MgmQueries.offer",
+   "object_type": "query"
+  },
+  {
+   "file": "/query.graphql",
+   "hash": "dbcf1f5521bf65563f8fdbdfba075e98",
+   "legacy_name": "Query MgmQueries.promoterInfo",
+   "object_name": "MgmQueries.promoterInfo",
+   "object_type": "query"
+  }
+ ],
+ "java": [
+  {
+   "file": "/javax.java",
+   "hash": "b96518a4751c63c3ecbd270f70093bce",
+   "legacy_name": "Javax dto AudioEntity",
+   "object_name": "AudioEntity",
+   "object_type": "dto"
+  }
+ ],
+ "javascript": [
+  {
+   "file": "/test.ts",
+   "hash": "f5671dc9391c6f5e7cd526c54cd92c61",
+   "legacy_name": "JS GQL Resolver me in query ProfileLoginQuery",
+   "object_name": "ProfileLoginQuery.me",
+   "object_type": "js-gql-query"
+  }
+ ],
+ "migrations": [
+  {
+   "file": "/migrations/accounts",
+   "hash": "fc9a43ef80cae37341ff6375586b2347",
+   "legacy_name": "Table billing.accounts",
+   "object_name": "billing.accounts",
+   "object_type": "table"
+  },
+  {
+   "file": "/migrations/accounts",
+   "hash": "bd560c428546842f550842f5bc0b8ed5",
+   "legacy_name": "Table public.clients",
+   "object_name": "public.clients",
+   "object_type": "table"
+  },
+  {
+   "file": "/migrations/accounts",
+   "hash": "2810dcb0b3d0774eb8f7062c0bdce759",
+   "legacy_name": "Table public.payment_imports",
+   "object_name": "public.payment_imports",
+   "object_type": "table"
+  },
+  {
+   "file": "/migrations/accounts",
+   "hash": "b5df8035492516b79c963acba1bc46a9",
+   "legacy_name": "Table public.payments",
+   "object_name": "public.payments",
+   "object_type": "table"
+  },
+  {
+   "file": "/migrations/reporting",
+   "hash": "1957e163b586a0d589118ef9a9db34ca",
+   "legacy_name": "Table public.reports",
+   "object_name": "public.reports",
+   "object_type": "table"
+  }
+ ],
+ "protobuf": [
+  {
+   "file": "/test.proto",
+   "hash": "bb1d5c30846654e974775aede5a06694",
+   "legacy_name": "Rpc /com.book.BookService/GetBook",
+   "object_name": "/com.book.BookService/GetBook",
+   "object_type": "rpc"
+  },
+  {
+   "file": "/test.proto",
+   "hash": "691cc4cd8119035559c54ebfab2471dd",
+   "legacy_name": "Rpc /com.book.BookService/GetBooks",
+   "object_name": "/com.book.BookService/GetBooks",
+   "object_type": "rpc"
+  },
+  {
+   "file": "/test.proto",
+   "hash": "859288567514e86b336e94526c945f50",
+   "legacy_name": "Rpc /com.book.BookService/GetBooksViaAuthor",
+   "object_name": "/com.book.BookService/GetBooksViaAuthor",
+   "object_type": "rpc"
+  },
+  {
+   "file": "/test.proto",
+   "hash": "e4de51bba620b4e6d44eac2733c0c6e1",
+   "legacy_name": "Rpc /com.book.BookService/GetGreatestBook",
+   "object_name": "/com.book.BookService/GetGreatestBook",
+   "object_type": "rpc"
+  },
+  {
+   "file": "/test2.proto",
+   "hash": "d43f9777b80e250392c1bf199275f834",
+   "legacy_name": "Rpc /com.surajgharat.practice.grpc.service.SumService/Sum",
+   "object_name": "/com.surajgharat.practice.grpc.service.SumService/Sum",
+   "object_type": "rpc"
+  },
+  {
+   "file": "/test3.proto",
+   "hash": "a1ab103da520f63c538b3ee6262ed6d8",
+   "legacy_name": "Rpc /search.SearchService/extendedSearch",
+   "object_name": "/search.SearchService/extendedSearch",
+   "object_type": "rpc"
+  },
+  {
+   "file": "/test3.proto",
+   "hash": "08a7e9b94be659d6b31edeb49d2bfe1e",
+   "legacy_name": "Rpc /search.SearchService/search",
+   "object_name": "/search.SearchService/search",
+   "object_type": "rpc"
+  }
+ ],
+ "python": [
+  {
+   "file": "/dto/dataclass.py",
+   "hash": "8ae1f3ff6162753287a851eaf2092db9",
+   "legacy_name": "Dataclass dto User",
+   "object_name": "User",
+   "object_type": "dto"
+  },
+  {
+   "file": "/dto/django.py",
+   "hash": "6cdce6ed7dccb97d235e7b42884938fc",
+   "legacy_name": "Django dto MyModel",
+   "object_name": "MyModel",
+   "object_type": "dto"
+  },
+  {
+   "file": "/dto/marshmallow.py",
+   "hash": "65a4c0dee9d303a069428984fe3d49c4",
+   "legacy_name": "Marshmallow dto UserSchema",
+   "object_name": "UserSchema",
+   "object_type": "dto"
+  },
+  {
+   "file": "/dto/mongo.py",
+   "hash": "08f80458469f28dde5da5635fe606b4f",
+   "legacy_name": "Mongo dto MyModel",
+   "object_name": "MyModel",
+   "object_type": "dto"
+  },
+  {
+   "file": "/dto/pydantic.py",
+   "hash": "264da214085084460f3932dedba2b1f7",
+   "legacy_name": "Pydantic dto MyModel",
+   "object_name": "MyModel",
+   "object_type": "dto"
+  },
+  {
+   "file": "/dto/sqlalchemy.py",
+   "hash": "c3a7035889e565fae63994ef266f376b",
+   "legacy_name": "Sqlalchemy dto users",
+   "object_name": "users",
+   "object_type": "dto"
+  },
+  {
+   "file": "/route/bottle.py",
+   "hash": "3015ae96b48258f06f5188141cb5b4b6",
+   "legacy_name": "Bottle route /hello calls Hello handler",
+   "object_name": "/hello (hello)",
+   "object_type": "route"
+  },
+  {
+   "file": "/route/bottle.py",
+   "hash": "6840aa5d9124329c7974c4278cc27e2e",
+   "legacy_name": "Bottle route /get calls Hello handler (GET)",
+   "object_name": "GET /get (hello)",
+   "object_type": "route"
+  },
+  {
+   "file": "/route/django.py",
+   "hash": "97f570dd253dd588d257e7de72b50c54",
+   "legacy_name": "Django route admin/ calls Admin.Site.Urls handler",
+   "object_name": "admin/ (admin.site.urls)",
+   "object_type": "route"
+  },
+  {
+   "file": "/route/django.py",
+   "hash": "12a6b4e439319d650671eff7365cd12e",
+   "legacy_name": "Django route polls/ calls Include(\"Polls.Urls\") handler",
+   "object_name": "polls/ (include(\"polls.urls\"))",
+   "object_type": "route"
+  },
+  {
+   "file": "/route/fastapi.py",
+   "hash": "7ed4ec726f6bf5f69e5ae88c283276dc",
+   "legacy_name": "Fastapi route / calls Root handler (GET)",
+   "object_name": "GET / (root)",
+   "object_type": "route"
+  },
+  {
+   "file": "/route/flask.py",
+   "hash": "74d945762573a1c70db9e048e93c1b73",
+   "legacy_name": "Flask route /get calls Get handler",
+   "object_name": "/get (get)",
+   "object_type": "route"
+  },
+  {
+   "file": "/route/flask.py",
+   "hash": "182f02fde33cb6d5325974ea34304934",
+   "legacy_name": "Flask route /submit calls Submit handler (GET)",
+   "object_name": "GET /submit (submit)",
+   "object_type": "route"
+  },
+  {
+   "file": "/route/flask.py",
+   "hash": "c75b95d831b35d9f8cdc09009d3c36f8",
+   "legacy_name": "Flask route /submit calls Submit handler (POST)",
+   "object_name": "POST /submit (submit)",
+   "object_type": "route"
+  },
+  {
+   "file": "/route/starlette.py",
+   "hash": "7d44b67e76eb5a9205de6fbd61494620",
+   "legacy_name": "Starlette route / calls Hello handler",
+   "object_name": "/ (hello)",
+   "object_type": "route"
+  }
+ ],
+ "swagger": [
+  {
+   "file": "/swagger.json",
+   "hash": "9241211db427ba3ba2817e339b6bac9e",
+   "legacy_name": "Route /users (GET)",
+   "object_name": "GET /users",
+   "object_type": "route"
+  },
+  {
+   "file": "/swagger.json",
+   "hash": "716c333ea2892f369a4a9ae3f0faa415",
+   "legacy_name": "Route /users/{uuid} (GET)",
+   "object_name": "GET /users/{uuid}",
+   "object_type": "route"
+  },
+  {
+   "file": "/swagger.json",
+   "hash": "dc367889afd4e1dccbaf7a08043f1523",
+   "legacy_name": "Route /users (POST)",
+   "object_name": "POST /users",
+   "object_type": "route"
+  },
+  {
+   "file": "/swagger.json",
+   "hash": "2678b47bdfc6cc13fa788adb72d904ff",
+   "legacy_name": "Route /users/{uuid} (PUT)",
+   "object_name": "PUT /users/{uuid}",
+   "object_type": "route"
+  },
+  {
+   "file": "/swagger.yaml",
+   "hash": "f021d84120f807da82aec8fc09c7823f",
+   "legacy_name": "Route /pet/{petId} (DELETE)",
+   "object_name": "DELETE /pet/{petId}",
+   "object_type": "route"
+  },
+  {
+   "file": "/swagger.yaml",
+   "hash": "8007ca55870d84813332dee028a3c3ad",
+   "legacy_name": "Route /store/order/{orderId} (DELETE)",
+   "object_name": "DELETE /store/order/{orderId}",
+   "object_type": "route"
+  },
+  {
+   "file": "/swagger.yaml",
+   "hash": "a6588a4ab27d9fc76a4bf9ff35b4b4c0",
+   "legacy_name": "Route /user/{username} (DELETE)",
+   "object_name": "DELETE /user/{username}",
+   "object_type": "route"
+  },
+  {
+   "file": "/swagger.yaml",
+   "hash": "833199dd67269522b87c6ef6876ab225",
+   "legacy_name": "Route /pet/findByStatus (GET)",
+   "object_name": "GET /pet/findByStatus",
+   "object_type": "route"
+  },
+  {
+   "file": "/swagger.yaml",
+   "hash": "1518f7a5b0ddfb01fbe0d9d407391a87",
+   "legacy_name": "Route /pet/findByTags (GET)",
+   "object_name": "GET /pet/findByTags",
+   "object_type": "route"
+  },
+  {
+   "file": "/swagger.yaml",
+   "hash": "fc191a39a9e67231c52650d2f494325c",
+   "legacy_name": "Route /pet/{petId} (GET)",
+   "object_name": "GET /pet/{petId}",
+   "object_type": "route"
+  },
+  {
+   "file": "/swagger.yaml",
+   "hash": "f9d7786be585047dfd4786fcfd30b264",
+   "legacy_name": "Route /store/inventory (GET)",
+   "object_name": "GET /store/inventory",
+   "object_type": "route"
+  },
+  {
+   "file": "/swagger.yaml",
+   "hash": "136cbbd7be984565a87ae03391d59cd8",
+   "legacy_name": "Route /store/order/{orderId} (GET)",
+   "object_name": "GET /store/order/{orderId}",
+   "object_type": "route"
+  },
+  {
+   "file": "/swagger.yaml",
+   "hash": "a3e81120a3b14900e90e2fa397efe37f",
+   "legacy_name": "Route /user/login (GET)",
+   "object_name": "GET /user/login",
+   "object_type": "route"
+  },
+  {
+   "file": "/swagger.yaml",
+   "hash": "b96f4dfcc78691c3265487b1a02d1693",
+   "legacy_name": "Route /user/logout (GET)",
+   "object_name": "GET /user/logout",
+   "object_type": "route"
+  },
+  {
+   "file": "/swagger.yaml",
+   "hash": "dfada72072d2a6128621abed6f26407a",
+   "legacy_name": "Route /user/{username} (GET)",
+   "object_name": "GET /user/{username}",
+   "object_type": "route"
+  },
+  {
+   "file": "/swagger.yaml",
+   "hash": "a08bf00f7cb8f0cce8cbe643a8295fa5",
+   "legacy_name": "Route /pet (POST)",
+   "object_name": "POST /pet",
+   "object_type": "route"
+  },
+  {
+   "file": "/swagger.yaml",
+   "hash": "80758ab397050c08dcbd39ace5ba9473",
+   "legacy_name": "Route /pet/{petId} (POST)",
+   "object_name": "POST /pet/{petId}",
+   "object_type": "route"
+  },
+  {
+   "file": "/swagger.yaml",
+   "hash": "d04030f781c077b6388d1cae51c3acd8",
+   "legacy_name": "Route /pet/{petId}/uploadImage (POST)",
+   "object_name": "POST /pet/{petId}/uploadImage",
+   "object_type": "route"
+  },
+  {
+   "file": "/swagger.yaml",
+   "hash": "c7633f7dd336b6e2f6735ae1903c171e",
+   "legacy_name": "Route /store/order (POST)",
+   "object_name": "POST /store/order",
+   "object_type": "route"
+  },
+  {
+   "file": "/swagger.yaml",
+   "hash": "57cd400c3944760b3ab130e29cb981f9",
+   "legacy_name": "Route /user (POST)",
+   "object_name": "POST /user",
+   "object_type": "route"
+  },
+  {
+   "file": "/swagger.yaml",
+   "hash": "3a1ad8a6f7682b72a2b2c276b7ed8750",
+   "legacy_name": "Route /user/createWithList (POST)",
+   "object_name": "POST /user/createWithList",
+   "object_type": "route"
+  },
+  {
+   "file": "/swagger.yaml",
+   "hash": "463515bfdc490b7b98557b4f0d6c83b6",
+   "legacy_name": "Route /pet (PUT)",
+   "object_name": "PUT /pet",
+   "object_type": "route"
+  },
+  {
+   "file": "/swagger.yaml",
+   "hash": "4430c72344cc9a682f35708c08d53f36",
+   "legacy_name": "Route /user/{username} (PUT)",
+   "object_name": "PUT /user/{username}",
+   "object_type": "route"
+  },
+  {
+   "file": "/swagger2-gateway.json",
+   "hash": "391d8eaa1a893e512a267f8cc4cb833a",
+   "legacy_name": "Route /v1/books/{isbn} (DELETE)",
+   "object_name": "DELETE /v1/books/{isbn}",
+   "object_type": "route"
+  },
+  {
+   "file": "/swagger2-gateway.json",
+   "hash": "921a93b34ca00874715c0fd000c12ff9",
+   "legacy_name": "Route /v1/books (GET)",
+   "object_name": "GET /v1/books",
+   "object_type": "route"
+  },
+  {
+   "file": "/swagger2-gateway.json",
+   "hash": "064208515338b986a369afce59cc7dd1",
+   "legacy_name": "Route /v1/books (POST)",
+   "object_name": "POST /v1/books",
+   "object_type": "route"
+  },
+  {
+   "file": "/swagger2-gateway.json",
+   "hash": "a46cce027934f85f02ff381a61bc7b19",
+   "legacy_name": "Route /v1/books/{isbn}/cover (PUT)",
+   "object_name": "PUT /v1/books/{isbn}/cover",
+   "object_type": "route"
+  },
+  {
+   "file": "/swagger2.yaml",
+   "hash": "6712b23e1ee202035e6f4ec6c4fd7b38",
+   "legacy_name": "Route /users (GET)",
+   "object_name": "GET /users",
+   "object_type": "route"
+  },
+  {
+   "file": "/swagger2.yaml",
+   "hash": "53a65eb88a80e2755ef8ea485ede485c",
+   "legacy_name": "Route /users/{uuid} (GET)",
+   "object_name": "GET /users/{uuid}",
+   "object_type": "route"
+  },
+  {
+   "file": "/swagger2.yaml",
+   "hash": "913cfa4242779e37a5325587cb23faec",
+   "legacy_name": "Route /users (POST)",
+   "object_name": "POST /users",
+   "object_type": "route"
+  },
+  {
+   "file": "/swagger2.yaml",
+   "hash": "03c6658f52f317a394305d1632158841",
+   "legacy_name": "Route /users/{uuid} (PUT)",
+   "object_name": "PUT /users/{uuid}",
+   "object_type": "route"
+  }
+ ],
+ "terraform": [
+  {
+   "file": "/network/main.tf",
+   "hash": "2c95534ef107dded86aa35fa6309437f",
+   "legacy_name": "Data aws_ami.ubuntu",
+   "object_name": "aws_ami.ubuntu",
+   "object_type": "data"
+  },
+  {
+   "file": "/network/main.tf",
+   "hash": "6f3e15213c5bbfbf5fe963b9b54c0d35",
+   "legacy_name": "Module vpc",
+   "object_name": "vpc",
+   "object_type": "module"
+  },
+  {
+   "file": "/network/variables.tf",
+   "hash": "115e1bfe86f2c64629e78d1a4719f6a7",
+   "legacy_name": "Output db_endpoint",
+   "object_name": "db_endpoint",
+   "object_type": "output"
+  },
+  {
+   "file": "/network/main.tf",
+   "hash": "7117801d3cdcd5e42f6350e33b28612f",
+   "legacy_name": "Provider aws",
+   "object_name": "aws",
+   "object_type": "provider"
+  },
+  {
+   "file": "/network/main.tf",
+   "hash": "4e702f2b2bba69759018745ce2ff0e4f",
+   "legacy_name": "Provider aws.us",
+   "object_name": "aws.us",
+   "object_type": "provider"
+  },
+  {
+   "file": "/network/broken.tf",
+   "hash": "20eeb105dcbc4a2417b11c138140467d",
+   "legacy_name": "Resource aws_iam_group.ops",
+   "object_name": "aws_iam_group.ops",
+   "object_type": "resource"
+  },
+  {
+   "file": "/network/broken.tf",
+   "hash": "5efc8f16bc40f5685968ab9095c960c1",
+   "legacy_name": "Resource aws_iam_user.deploy",
+   "object_name": "aws_iam_user.deploy",
+   "object_type": "resource"
+  },
+  {
+   "file": "/network/main.tf",
+   "hash": "dbe9e9a00618e0e4cf9ae6dcff32ade8",
+   "legacy_name": "Resource aws_db_instance.orders",
+   "object_name": "aws_db_instance.orders",
+   "object_type": "resource"
+  },
+  {
+   "file": "/network/main.tf",
+   "hash": "2f04d27444f18d89f1029578d8dad0a1",
+   "legacy_name": "Resource aws_s3_bucket.logs",
+   "object_name": "aws_s3_bucket.logs",
+   "object_type": "resource"
+  },
+  {
+   "file": "/network/queue.tf.json",
+   "hash": "43e344589a621615a2663b74eb8a762f",
+   "legacy_name": "Resource aws_sqs_queue.orders",
+   "object_name": "aws_sqs_queue.orders",
+   "object_type": "resource"
+  },
+  {
+   "file": "/network/queue.tf.json",
+   "hash": "6718f03d231b0cd15fac5afba0f4dc08",
+   "legacy_name": "Variable queue_secret",
+   "object_name": "queue_secret",
+   "object_type": "variable"
+  },
+  {
+   "file": "/network/variables.tf",
+   "hash": "b90ec800f6db45667744f8e6935cd9c3",
+   "legacy_name": "Variable admin_login",
+   "object_name": "admin_login",
+   "object_type": "variable"
+  },
+  {
+   "file": "/network/variables.tf",
+   "hash": "f8bb7a2118e86562c9e7d77f47e753b8",
+   "legacy_name": "Variable db_password",
+   "object_name": "db_password",
+   "object_type": "variable"
+  },
+  {
+   "file": "/network/variables.tf",
+   "hash": "80360eb664c4b32200ca900a082fa297",
+   "legacy_name": "Variable ingress_ports",
+   "object_name": "ingress_ports",
+   "object_type": "variable"
+  },
+  {
+   "file": "/network/variables.tf",
+   "hash": "0acbda161a8ff1c994fbbcab437202db",
+   "legacy_name": "Variable prefix",
+   "object_name": "prefix",
+   "object_type": "variable"
+  },
+  {
+   "file": "/main.tf",
+   "hash": "c2d407bcc4b08774efe923c9afb13bf5",
+   "legacy_name": "Virtual machine keycloak01-dc1.v.pci-prod.example.local",
+   "object_name": "keycloak01-dc1.v.pci-prod.example.local",
+   "object_type": "vm"
+  },
+  {
+   "file": "/main.tf",
+   "hash": "ba91697d8f9f945c57c0acdaab6484cc",
+   "legacy_name": "Virtual machine keycloak01-dc2.v.pci-prod.example.local",
+   "object_name": "keycloak01-dc2.v.pci-prod.example.local",
+   "object_type": "vm"
+  },
+  {
+   "file": "/main.tf",
+   "hash": "066d60eb27c2b2c4ab3fb5fa47a1956b",
+   "legacy_name": "Virtual machine keycloak01-dc4.v.pci-prod.example.local",
+   "object_name": "keycloak01-dc4.v.pci-prod.example.local",
+   "object_type": "vm"
+  }
+ ]
+}

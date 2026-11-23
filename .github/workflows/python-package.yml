@@ -12,45 +12,213 @@ on:
 
 jobs:
   test:
+    # Core + scanner + discovery_common + collectors in the core env, with a real Postgres:
+    # the job queue, Alembic migrations, query plans, scanner storage / ingest tests need it.
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_PASSWORD: ci
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 20
+
+    env:
+      TEST_DATABASE_URL: postgresql://postgres:ci@127.0.0.1:5432/postgres
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          version: "0.8.13"
+          python-version: "3.12"
+          enable-cache: true
+
+      - name: Install dependencies
+        run: uv sync --locked
+
+      - name: Run tests
+        shell: bash     # -eo pipefail
+        run: |
+          uv run pytest -rs | tee "$RUNNER_TEMP/tests.txt"
+          # the Postgres integration tests must run here, not skip
+          if grep -E "SKIPPED .*TEST_DATABASE_URL" "$RUNNER_TEMP/tests.txt"; then exit 1; fi
+
+      - name: Docs links resolve
+        # The README is short and links into docs/: every relative link of README.md and docs/**/*.md
+        # must point at an existing file, and every page of the mkdocs nav must exist.
+        shell: bash
+        run: |
+          uv run python - <<'EOF'
+          import pathlib, re, sys, yaml      # pyyaml is a dependency of the package
+          root = pathlib.Path(".")
+          pages = [root / "README.md", *sorted((root / "docs").rglob("*.md"))]
+          link = re.compile(r"(?<!!)\[[^\]]*\]\(([^)\s]+)\)")
+          bad = []
+          for page in pages:
+              for target in link.findall(page.read_text(encoding="utf-8")):
+                  if target.startswith(("http://", "https://", "mailto:", "#")):
+                      continue
+                  path = (page.parent / target.split("#", 1)[0]).resolve()
+                  if not path.exists():
+                      bad.append(f"{page}: {target}")
+          nav = yaml.safe_load((root / "mkdocs.yml").read_text(encoding="utf-8"))["nav"]
+          def walk(node):
+              if isinstance(node, str):
+                  yield node
+              elif isinstance(node, dict):
+                  for value in node.values():
+                      yield from walk(value)
+              elif isinstance(node, list):
+                  for item in node:
+                      yield from walk(item)
+          for entry in walk(nav):
+              if not (root / "docs" / entry).exists():
+                  bad.append(f"mkdocs.yml nav: {entry}")
+          print(f"checked {len(pages)} pages")
+          if bad:
+              print("\n".join("broken link: " + b for b in bad))
+              sys.exit(1)
+          EOF
+
+      - name: Build and smoke-test package
+        run: |
+          uv build
+          uvx twine check dist/*
+          uv venv /tmp/smoke
+          VIRTUAL_ENV=/tmp/smoke uv pip install dist/*.whl
+          /tmp/smoke/bin/appsec-discovery --help
+
+  api-tests:
+    # The API runs on pydantic v2 + FastAPI + mcp (not in the core env): REST, MCP, ingest,
+    # jobs and settings tests in their own env, against a real Postgres.
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_PASSWORD: ci
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 20
+
+    env:
+      TEST_DATABASE_URL: postgresql://postgres:ci@127.0.0.1:5432/postgres
+
+    defaults:
+      run:
+        working-directory: appsec_discovery_service
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          version: "0.8.13"
+          python-version: "3.12"
+          enable-cache: true
+
+      - name: Run API / MCP tests
+        shell: bash     # -eo pipefail
+        run: |
+          uv run --no-project --with-requirements discovery_api/requirements-dev.txt \
+            pytest -rs discovery_api/tests | tee "$RUNNER_TEMP/api-tests.txt"
+          # the suite must not pass by skipping (missing deps / no database)
+          if grep -E "SKIPPED .*(No module named|TEST_DATABASE_URL|postgres)" "$RUNNER_TEMP/api-tests.txt"; then exit 1; fi
+
+      - name: Run discovery_common and collector tests in the API env
+        # discovery_common is shared by the API (pydantic v2) and the scanner (pydantic 1)
+        run: |
+          uv run --no-project --with-requirements discovery_api/requirements-dev.txt \
+            pytest -rs discovery_common/tests collectors/tests
+
+  service-images:
+    # Images of the API (also runs the migrations) and the UI, built without pushing.
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
+      - name: Build API image
+        run: docker build -f appsec_discovery_service/discovery_api/Dockerfile -t discovery-api:ci appsec_discovery_service
 
-      - name: Install dependencies
+      - name: Smoke-test API image
         run: |
-          pip install poetry
-          poetry install
-  
-      - name: Run tests
+          docker run --rm discovery-api:ci python -c "
+          import main, mcp_server, discovery_common.migrate
+          print('api ok')
+          "
+
+      - name: Build UI image
+        run: docker build -t discovery-ui:ci appsec_discovery_service/discovery_ui
+
+      - name: Check the nginx config
         run: |
-          poetry run pytest
+          docker run --rm --add-host discovery_api:127.0.0.1 --add-host discovery_ui:127.0.0.1 \
+            -v "$PWD/appsec_discovery_service/discovery_nginx/nginx.conf:/etc/nginx/nginx.conf:ro" \
+            -v "$PWD/appsec_discovery_service/discovery_nginx/conf.d:/etc/nginx/discovery.d:ro" \
+            nginx:alpine nginx -t
+
+  scanner-image:
+    # Builds the discovery_scanner image against the core sources at HEAD (P1-2).
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build scanner image
+        run: docker build -f appsec_discovery_service/discovery_scanner/Dockerfile -t discovery-scanner:ci .
+
+      - name: Smoke-test scanner image
+        run: |
+          expected=$(sed -n 's/^version = "\(.*\)"$/\1/p' pyproject.toml | head -n1)
+          # Importing main with no env set also checks that nothing reads env at import time.
+          docker run --rm -e EXPECTED_VERSION="$expected" discovery-scanner:ci python -c "
+          import os, sys
+          import appsec_discovery, main
+          from appsec_discovery.parsers import ParserFactory
+          print('core', appsec_discovery.__version__, 'parsers', ParserFactory.get_parser_types())
+          sys.exit(appsec_discovery.__version__ != os.environ['EXPECTED_VERSION'])
+          "
+          docker run --rm discovery-scanner:ci git --version
 
   publish:
     runs-on: ubuntu-latest
-    needs: test
+    needs: [test, api-tests, service-images, scanner-image]
+    if: github.event_name == 'release'
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v6
         with:
-          python-version: '3.12'
+          version: "0.8.13"
+          python-version: "3.12"
 
-      - name: Install dependencies
-        run: |
-          pip install poetry
+      - name: Build
+        run: uv build
 
       - name: Publish to PyPI
-        run: |
-          poetry config pypi-token.pypi ${{ secrets.PYPI_TOKEN }}
-          poetry build
-          poetry publish
+        env:
+          UV_PUBLISH_TOKEN: ${{ secrets.PYPI_TOKEN }}
+        run: uv publish

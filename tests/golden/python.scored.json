@@ -1,0 +1,466 @@
+[
+  {
+    "fields": {
+      "age": {
+        "field_name": "age",
+        "field_type": "int",
+        "file": "/dto/dataclass.py",
+        "line": 7
+      },
+      "id": {
+        "field_name": "id",
+        "field_type": "int",
+        "file": "/dto/dataclass.py",
+        "line": 5
+      },
+      "name": {
+        "field_name": "name",
+        "field_type": "str",
+        "file": "/dto/dataclass.py",
+        "line": 6
+      }
+    },
+    "file": "/dto/dataclass.py",
+    "hash": "8ae1f3ff6162753287a851eaf2092db9",
+    "line": 5,
+    "object_name": "User",
+    "object_type": "dto",
+    "parser": "python",
+    "properties": {
+      "framework": {
+        "prop_name": "framework",
+        "prop_value": "dataclass"
+      },
+      "object": {
+        "prop_name": "object",
+        "prop_value": "User"
+      }
+    }
+  },
+  {
+    "fields": {
+      "field1": {
+        "field_name": "field1",
+        "field_type": "FieldType1",
+        "file": "/dto/django.py",
+        "line": 4
+      },
+      "field2": {
+        "field_name": "field2",
+        "field_type": "FieldType2",
+        "file": "/dto/django.py",
+        "line": 5
+      }
+    },
+    "file": "/dto/django.py",
+    "hash": "6cdce6ed7dccb97d235e7b42884938fc",
+    "line": 4,
+    "object_name": "MyModel",
+    "object_type": "dto",
+    "parser": "python",
+    "properties": {
+      "framework": {
+        "prop_name": "framework",
+        "prop_value": "django"
+      },
+      "object": {
+        "prop_name": "object",
+        "prop_value": "MyModel"
+      }
+    }
+  },
+  {
+    "fields": {
+      "age": {
+        "field_name": "age",
+        "field_type": "Int",
+        "file": "/dto/marshmallow.py",
+        "line": 6
+      },
+      "id": {
+        "field_name": "id",
+        "field_type": "Int",
+        "file": "/dto/marshmallow.py",
+        "line": 4
+      },
+      "name": {
+        "field_name": "name",
+        "field_type": "Str",
+        "file": "/dto/marshmallow.py",
+        "line": 5
+      }
+    },
+    "file": "/dto/marshmallow.py",
+    "hash": "65a4c0dee9d303a069428984fe3d49c4",
+    "line": 6,
+    "object_name": "UserSchema",
+    "object_type": "dto",
+    "parser": "python",
+    "properties": {
+      "framework": {
+        "prop_name": "framework",
+        "prop_value": "marshmallow"
+      },
+      "object": {
+        "prop_name": "object",
+        "prop_value": "UserSchema"
+      }
+    }
+  },
+  {
+    "fields": {
+      "field1": {
+        "field_name": "field1",
+        "field_type": "StringField",
+        "file": "/dto/mongo.py",
+        "line": 4
+      },
+      "field2": {
+        "field_name": "field2",
+        "field_type": "IntField",
+        "file": "/dto/mongo.py",
+        "line": 5
+      }
+    },
+    "file": "/dto/mongo.py",
+    "hash": "08f80458469f28dde5da5635fe606b4f",
+    "line": 4,
+    "object_name": "MyModel",
+    "object_type": "dto",
+    "parser": "python",
+    "properties": {
+      "framework": {
+        "prop_name": "framework",
+        "prop_value": "mongo"
+      },
+      "object": {
+        "prop_name": "object",
+        "prop_value": "MyModel"
+      }
+    }
+  },
+  {
+    "fields": {
+      "field1": {
+        "field_name": "field1",
+        "field_type": "str",
+        "file": "/dto/pydantic.py",
+        "line": 4
+      },
+      "field2": {
+        "field_name": "field2",
+        "field_type": "int",
+        "file": "/dto/pydantic.py",
+        "line": 5
+      }
+    },
+    "file": "/dto/pydantic.py",
+    "hash": "264da214085084460f3932dedba2b1f7",
+    "line": 4,
+    "object_name": "MyModel",
+    "object_type": "dto",
+    "parser": "python",
+    "properties": {
+      "framework": {
+        "prop_name": "framework",
+        "prop_value": "pydantic"
+      },
+      "object": {
+        "prop_name": "object",
+        "prop_value": "MyModel"
+      }
+    }
+  },
+  {
+    "fields": {
+      "full_name": {
+        "field_name": "full_name",
+        "field_type": "String String",
+        "file": "/dto/sqlalchemy.py",
+        "line": 11,
+        "severity": "high",
+        "tags": [
+          "pii"
+        ]
+      },
+      "id": {
+        "field_name": "id",
+        "field_type": "Integer Integer",
+        "file": "/dto/sqlalchemy.py",
+        "line": 9
+      },
+      "name": {
+        "field_name": "name",
+        "field_type": "String String",
+        "file": "/dto/sqlalchemy.py",
+        "line": 10
+      },
+      "nickname": {
+        "field_name": "nickname",
+        "field_type": "String String",
+        "file": "/dto/sqlalchemy.py",
+        "line": 12
+      }
+    },
+    "file": "/dto/sqlalchemy.py",
+    "hash": "c3a7035889e565fae63994ef266f376b",
+    "hits": [
+      {
+        "field_name": "full_name",
+        "keyword": "full_name",
+        "rule": "score_tags/pii/high",
+        "rule_type": "keyword",
+        "severity": "high",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "pii"
+        ]
+      }
+    ],
+    "line": 9,
+    "object_name": "users",
+    "object_type": "dto",
+    "parser": "python",
+    "properties": {
+      "framework": {
+        "prop_name": "framework",
+        "prop_value": "sqlalchemy"
+      },
+      "object": {
+        "prop_name": "object",
+        "prop_value": "users"
+      }
+    },
+    "severity": "high",
+    "tags": [
+      "pii"
+    ]
+  },
+  {
+    "fields": {},
+    "file": "/route/bottle.py",
+    "hash": "3015ae96b48258f06f5188141cb5b4b6",
+    "line": 3,
+    "object_name": "/hello (hello)",
+    "object_type": "route",
+    "parser": "python",
+    "properties": {
+      "framework": {
+        "prop_name": "framework",
+        "prop_value": "Bottle"
+      },
+      "func": {
+        "prop_name": "func",
+        "prop_value": "hello"
+      },
+      "path": {
+        "prop_name": "path",
+        "prop_value": "/hello"
+      }
+    }
+  },
+  {
+    "fields": {},
+    "file": "/route/bottle.py",
+    "hash": "6840aa5d9124329c7974c4278cc27e2e",
+    "line": 7,
+    "object_name": "GET /get (hello)",
+    "object_type": "route",
+    "parser": "python",
+    "properties": {
+      "framework": {
+        "prop_name": "framework",
+        "prop_value": "Bottle"
+      },
+      "func": {
+        "prop_name": "func",
+        "prop_value": "hello"
+      },
+      "method": {
+        "prop_name": "method",
+        "prop_value": "get"
+      },
+      "path": {
+        "prop_name": "path",
+        "prop_value": "/get"
+      }
+    }
+  },
+  {
+    "fields": {},
+    "file": "/route/django.py",
+    "hash": "12a6b4e439319d650671eff7365cd12e",
+    "line": 5,
+    "object_name": "polls/ (include(\"polls.urls\"))",
+    "object_type": "route",
+    "parser": "python",
+    "properties": {
+      "framework": {
+        "prop_name": "framework",
+        "prop_value": "Django"
+      },
+      "func": {
+        "prop_name": "func",
+        "prop_value": "include(\"polls.urls\")"
+      },
+      "path": {
+        "prop_name": "path",
+        "prop_value": "polls/"
+      }
+    }
+  },
+  {
+    "fields": {},
+    "file": "/route/django.py",
+    "hash": "97f570dd253dd588d257e7de72b50c54",
+    "line": 6,
+    "object_name": "admin/ (admin.site.urls)",
+    "object_type": "route",
+    "parser": "python",
+    "properties": {
+      "framework": {
+        "prop_name": "framework",
+        "prop_value": "Django"
+      },
+      "func": {
+        "prop_name": "func",
+        "prop_value": "admin.site.urls"
+      },
+      "path": {
+        "prop_name": "path",
+        "prop_value": "admin/"
+      }
+    }
+  },
+  {
+    "fields": {},
+    "file": "/route/fastapi.py",
+    "hash": "7ed4ec726f6bf5f69e5ae88c283276dc",
+    "line": 5,
+    "object_name": "GET / (root)",
+    "object_type": "route",
+    "parser": "python",
+    "properties": {
+      "framework": {
+        "prop_name": "framework",
+        "prop_value": "Fastapi"
+      },
+      "func": {
+        "prop_name": "func",
+        "prop_value": "root"
+      },
+      "method": {
+        "prop_name": "method",
+        "prop_value": "get"
+      },
+      "path": {
+        "prop_name": "path",
+        "prop_value": "/"
+      }
+    }
+  },
+  {
+    "comment": "Define a route that accepts both GET and POST requests",
+    "fields": {},
+    "file": "/route/flask.py",
+    "hash": "182f02fde33cb6d5325974ea34304934",
+    "line": 6,
+    "object_name": "GET /submit (submit)",
+    "object_type": "route",
+    "parser": "python",
+    "properties": {
+      "framework": {
+        "prop_name": "framework",
+        "prop_value": "Flask"
+      },
+      "func": {
+        "prop_name": "func",
+        "prop_value": "submit"
+      },
+      "method": {
+        "prop_name": "method",
+        "prop_value": "GET"
+      },
+      "path": {
+        "prop_name": "path",
+        "prop_value": "/submit"
+      }
+    }
+  },
+  {
+    "comment": "Define a route that accepts both GET and POST requests",
+    "fields": {},
+    "file": "/route/flask.py",
+    "hash": "c75b95d831b35d9f8cdc09009d3c36f8",
+    "line": 6,
+    "object_name": "POST /submit (submit)",
+    "object_type": "route",
+    "parser": "python",
+    "properties": {
+      "framework": {
+        "prop_name": "framework",
+        "prop_value": "Flask"
+      },
+      "func": {
+        "prop_name": "func",
+        "prop_value": "submit"
+      },
+      "method": {
+        "prop_name": "method",
+        "prop_value": "POST"
+      },
+      "path": {
+        "prop_name": "path",
+        "prop_value": "/submit"
+      }
+    }
+  },
+  {
+    "comment": "Define a route that accepts both GET and POST requests",
+    "fields": {},
+    "file": "/route/flask.py",
+    "hash": "74d945762573a1c70db9e048e93c1b73",
+    "line": 16,
+    "object_name": "/get (get)",
+    "object_type": "route",
+    "parser": "python",
+    "properties": {
+      "framework": {
+        "prop_name": "framework",
+        "prop_value": "Flask"
+      },
+      "func": {
+        "prop_name": "func",
+        "prop_value": "get"
+      },
+      "path": {
+        "prop_name": "path",
+        "prop_value": "/get"
+      }
+    }
+  },
+  {
+    "fields": {},
+    "file": "/route/starlette.py",
+    "hash": "7d44b67e76eb5a9205de6fbd61494620",
+    "line": 12,
+    "object_name": "/ (hello)",
+    "object_type": "route",
+    "parser": "python",
+    "properties": {
+      "framework": {
+        "prop_name": "framework",
+        "prop_value": "Starlette"
+      },
+      "func": {
+        "prop_name": "func",
+        "prop_value": "hello"
+      },
+      "path": {
+        "prop_name": "path",
+        "prop_value": "/"
+      }
+    }
+  }
+]

@@ -1,0 +1,12 @@
+# Trust the client address forwarded by your TLS terminator / load balancer, so the
+# /api/token rate limit and the logs see real clients instead of the proxy.
+#
+#   cp real_ip.conf.example real_ip.conf     # files *.conf here are included by nginx.conf
+#   # set the proxy's address / CIDR below, then: docker compose restart discovery_nginx
+#
+# Only list proxies you control: X-Forwarded-For from any other peer is ignored, so a
+# client cannot spoof its address. Never trust 0.0.0.0/0.
+
+set_real_ip_from 10.0.0.10/32;       # the TLS terminator (one line per proxy address / CIDR)
+real_ip_header X-Forwarded-For;
+real_ip_recursive on;

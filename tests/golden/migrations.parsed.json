@@ -1,0 +1,230 @@
+[
+  {
+    "fields": {
+      "balance": {
+        "field_name": "balance",
+        "field_type": "numeric(20,2)",
+        "file": "/migrations/accounts/00002_create_accounts.sql",
+        "line": 2,
+        "samples": [
+          "0"
+        ]
+      },
+      "client_id": {
+        "field_name": "client_id",
+        "field_type": "bigint",
+        "file": "/migrations/accounts/00002_create_accounts.sql",
+        "line": 2
+      },
+      "currency": {
+        "field_name": "currency",
+        "field_type": "char(3)",
+        "file": "/migrations/accounts/00002_create_accounts.sql",
+        "line": 2
+      },
+      "id": {
+        "field_name": "id",
+        "field_type": "uuid",
+        "file": "/migrations/accounts/00002_create_accounts.sql",
+        "line": 2
+      }
+    },
+    "file": "/migrations/accounts",
+    "hash": "fc9a43ef80cae37341ff6375586b2347",
+    "line": 2,
+    "object_name": "billing.accounts",
+    "object_type": "table",
+    "parser": "migrations",
+    "properties": {
+      "created_in": {
+        "prop_name": "created_in",
+        "prop_value": "/migrations/accounts/00002_create_accounts.sql"
+      },
+      "migrations": {
+        "prop_name": "migrations",
+        "prop_value": "/migrations/accounts"
+      }
+    }
+  },
+  {
+    "fields": {
+      "account_id": {
+        "field_name": "account_id",
+        "field_type": "uuid",
+        "file": "/migrations/accounts/00010_payments.sql",
+        "line": 2
+      },
+      "amount": {
+        "field_name": "amount",
+        "field_type": "numeric(20,2)",
+        "file": "/migrations/accounts/00010_payments.sql",
+        "line": 2
+      },
+      "card_pan": {
+        "field_name": "card_pan",
+        "field_type": "bigint[]",
+        "file": "/migrations/accounts/00010_payments.sql",
+        "line": 2
+      },
+      "created_at": {
+        "field_name": "created_at",
+        "field_type": "timestamptz",
+        "file": "/migrations/accounts/00010_payments.sql",
+        "line": 2
+      },
+      "id": {
+        "field_name": "id",
+        "field_type": "bigint",
+        "file": "/migrations/accounts/00010_payments.sql",
+        "line": 2
+      }
+    },
+    "file": "/migrations/accounts",
+    "hash": "b5df8035492516b79c963acba1bc46a9",
+    "line": 2,
+    "object_name": "public.payments",
+    "object_type": "table",
+    "parser": "migrations",
+    "properties": {
+      "created_in": {
+        "prop_name": "created_in",
+        "prop_value": "/migrations/accounts/00010_payments.sql"
+      },
+      "migrations": {
+        "prop_name": "migrations",
+        "prop_value": "/migrations/accounts"
+      }
+    }
+  },
+  {
+    "comment": "Bank clients",
+    "fields": {
+      "created_at": {
+        "field_name": "created_at",
+        "field_type": "timestamptz",
+        "file": "/migrations/accounts/00001_create_clients.sql",
+        "line": 3
+      },
+      "email": {
+        "field_name": "email",
+        "field_type": "varchar(320)",
+        "file": "/migrations/accounts/00001_create_clients.sql",
+        "line": 3
+      },
+      "id": {
+        "field_name": "id",
+        "field_type": "bigserial",
+        "file": "/migrations/accounts/00001_create_clients.sql",
+        "line": 3
+      },
+      "name": {
+        "field_name": "name",
+        "field_type": "varchar(255)",
+        "file": "/migrations/accounts/00001_create_clients.sql",
+        "line": 3
+      },
+      "passport_number": {
+        "comment": "Identity document number",
+        "field_name": "passport_number",
+        "field_type": "text",
+        "file": "/migrations/accounts/00003_alter_clients.sql",
+        "line": 2
+      },
+      "phone": {
+        "field_name": "phone",
+        "field_type": "varchar(20)",
+        "file": "/migrations/accounts/00003_alter_clients.sql",
+        "line": 2
+      }
+    },
+    "file": "/migrations/accounts",
+    "hash": "bd560c428546842f550842f5bc0b8ed5",
+    "line": 3,
+    "object_name": "public.clients",
+    "object_type": "table",
+    "parser": "migrations",
+    "properties": {
+      "created_in": {
+        "prop_name": "created_in",
+        "prop_value": "/migrations/accounts/00001_create_clients.sql"
+      },
+      "migrations": {
+        "prop_name": "migrations",
+        "prop_value": "/migrations/accounts"
+      }
+    }
+  },
+  {
+    "fields": {
+      "id": {
+        "field_name": "id",
+        "field_type": "int",
+        "file": "/migrations/accounts/00010_payments.sql",
+        "line": 14
+      },
+      "payload": {
+        "field_name": "payload",
+        "field_type": "jsonb",
+        "file": "/migrations/accounts/00010_payments.sql",
+        "line": 14
+      }
+    },
+    "file": "/migrations/accounts",
+    "hash": "2810dcb0b3d0774eb8f7062c0bdce759",
+    "line": 14,
+    "object_name": "public.payment_imports",
+    "object_type": "table",
+    "parser": "migrations",
+    "properties": {
+      "created_in": {
+        "prop_name": "created_in",
+        "prop_value": "/migrations/accounts/00010_payments.sql"
+      },
+      "migrations": {
+        "prop_name": "migrations",
+        "prop_value": "/migrations/accounts"
+      }
+    }
+  },
+  {
+    "fields": {
+      "Owner": {
+        "field_name": "Owner",
+        "field_type": "varchar(64)",
+        "file": "/migrations/reporting/1_init.up.sql",
+        "line": 1
+      },
+      "id": {
+        "field_name": "id",
+        "field_type": "serial",
+        "file": "/migrations/reporting/1_init.up.sql",
+        "line": 1
+      },
+      "status": {
+        "field_name": "status",
+        "field_type": "smallint",
+        "file": "/migrations/reporting/2_add_status.up.sql",
+        "line": 1,
+        "samples": [
+          "0"
+        ]
+      }
+    },
+    "file": "/migrations/reporting",
+    "hash": "1957e163b586a0d589118ef9a9db34ca",
+    "line": 1,
+    "object_name": "public.reports",
+    "object_type": "table",
+    "parser": "migrations",
+    "properties": {
+      "created_in": {
+        "prop_name": "created_in",
+        "prop_value": "/migrations/reporting/1_init.up.sql"
+      },
+      "migrations": {
+        "prop_name": "migrations",
+        "prop_value": "/migrations/reporting"
+      }
+    }
+  }
+]

@@ -1,0 +1,9 @@
+# Build-context exclusions for discovery_api/Dockerfile (context: appsec_discovery_service/).
+**/__pycache__
+**/*.pyc
+**/.pytest_cache
+**/tests
+.env
+discovery_ui
+discovery_nginx
+discovery_scanner

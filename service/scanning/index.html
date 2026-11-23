@@ -1,0 +1,1396 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../config/">
+      
+      
+        <link rel="next" href="../jobs/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.2">
+    
+    
+      
+        <title>Scanning and change detection - AppSec Discovery</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#scanning-and-change-detection" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="AppSec Discovery" class="md-header__button md-logo" aria-label="AppSec Discovery" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            AppSec Discovery
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Scanning and change detection
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="AppSec Discovery" class="md-nav__button md-logo" aria-label="AppSec Discovery" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    AppSec Discovery
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../cli/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI and package
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    CLI and package
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cli/config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration (conf.yaml)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cli/llm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM scoring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parsers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parsers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../scoring/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Objects, hits and scoring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Service
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Service
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration (.env)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scanning and change detection
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scanning and change detection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#projects-and-branches" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Projects and branches
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#re-parsing-on-demand" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Re-parsing on demand
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scan-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scan modes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#diff-based-scan-skip" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diff-based scan skip
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#disk-space-of-clones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Disk space of clones
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#progress-of-parse-scans" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Progress of parse scans
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../jobs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Jobs and workers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rules and hits
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tiers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tiered review
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../llm-lifecycle/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM rule lifecycle
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../external-executor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    External executor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ui/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mcp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCP server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    REST API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ingest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    External parsers (ingest)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data-model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data model and migrations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../retention/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Retention
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contrib/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#projects-and-branches" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Projects and branches
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#re-parsing-on-demand" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Re-parsing on demand
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scan-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scan modes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#diff-based-scan-skip" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diff-based scan skip
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#disk-space-of-clones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Disk space of clones
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#progress-of-parse-scans" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Progress of parse scans
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+  
+
+
+
+
+<h1 id="scanning-and-change-detection">Scanning and change detection</h1>
+<p>The scanner polls GitLab; there are no webhooks. Everything it does is a job of the Postgres queue (see
+<a href="../jobs/">Jobs and workers</a>).</p>
+<div class="highlight"><pre><span></span><code>scheduler -&gt; sync_projects (every PROJECTS_POLL_INTERVAL_S, a full sync first after start-up)
+          -&gt; sync_branches_mrs      per new / changed project
+               -&gt; scan_branch       main branch with a new commit            (GITLAB_SCAN_TYPES mains)
+                    -&gt; llm_score    after a successful main scan (LLM_API_URL set; not after a diff-based skip)
+                         -&gt; llm_verify   verify items for the harness model
+               -&gt; scan_mr           open MR with activity in the last day    (GITLAB_SCAN_TYPES mrs)
+scheduler -&gt; cleanup (every GC_INTERVAL_HOURS), llm_coverage (every LLM_COVERAGE_INTERVAL_S),
+             llm_rollout (every LLM_ROLLOUT_TICK_S)
+</code></pre></div>
+<h2 id="projects-and-branches">Projects and branches</h2>
+<p><code>sync_projects</code> lists the projects of every <code>GITLAB_PROJECTS_PREFIX</code> (matched on path segments: <code>grp/</code> is the
+group, <code>grp/proj</code> that project only, <code>grp/proj*</code> a plain string prefix) and queues <code>sync_branches_mrs</code> for the
+projects whose GitLab activity (<code>last_activity_at</code>) is newer than what was processed, and for the ones not re-read
+for <code>SYNC_UNCHANGED_EVERY_H</code> (24 h: stale MRs are released and deleted branches noticed even without activity; the
+full sync after start-up follows the same rule, every project only with the setting at 0). That job reads the
+project, its open MRs (one page of 100), the default branch (the project's <strong>main</strong>) and the branches of the
+non-stale open MRs <strong>by name</strong> - not every branch of the repository, which cost a page of 20 per call - and the
+states of the MRs that left the open list in one batched call per 100 (<code>iids[]</code>); it tracks the MR source branches
+and queues the scans. The sync runs on its own worker pool (<code>SYNC_WORKERS</code>), so the harness verify items, external
+answers and rollouts of the control pool never wait behind it. Projects of a prefix removed from the configuration
+stay in the database until deleted.</p>
+<p><strong>Main branch</strong>: <code>scan_branch</code> clones the branch at its head commit into a temporary workspace of the job, runs the
+parsers of <code>PARSERS</code> (when <code>SCAN_LANGS</code> lists the project's language, or is <code>all</code>), applies the keyword rules of
+the project and saves the <strong>snapshot</strong> in one transaction: objects and fields (content-addressed, see
+<a href="../data-model/">Data model</a>), the diff to the previous snapshot, keyword hits, <code>scanned_commit</code>, the deltas of
+MRs now merged. When <code>LLM_API_URL</code> is set an <code>llm_score</code> job follows with every enabled LLM rule. Dedup keys
+contain the commit, so a commit pushed while a scan runs is queued as a new job.</p>
+<p><strong>Merge requests</strong>: <code>scan_mr</code> makes sure the target's snapshot is current (scans the target main first if needed),
+scans the source branch and stores only the <strong>delta</strong> against the target - objects added, modified or removed by
+the MR (<code>branch_objects.change</code>) - then runs the LLM rules on the delta. MRs are scanned automatically only when
+they were updated in the last day; <code>POST /mrs/{id}/scan</code> / MCP <code>scan_mr</code> scans one at any time. Hits on MR
+objects are reviewed like any other (presence "Only in open MRs"); the MR itself is reached through
+<code>GET /mrs</code>, <code>GET /mrs/{id}</code> and MCP <code>list_mrs</code> / <code>get_mr</code>. Closed / merged MRs lose their tracked source branch
+and delta, stale open ones (<code>MR_STALE_DAYS</code>) likewise.</p>
+<p><strong>Hits are branch-agnostic</strong>: one hit per rule and subject, whatever branch the subject is in; a decision made on
+the MR version of an object holds for the main version.</p>
+<h2 id="re-parsing-on-demand">Re-parsing on demand</h2>
+<p><code>POST /projects/parse</code> (MCP <code>parse_projects</code>, UI Projects page "Parse"): <code>{"project_ids": [1, 5], "parsers":
+["protobuf"], "mains": true, "mrs": true, "llm": false, "force": false}</code> clones and parses projects again, e.g.
+after a keyword rule edit. Without <code>project_ids</code> every project; with <code>parsers</code> only those run and only their
+objects are replaced (the other parsers' objects are kept). LLM rules are off by default. A keyword rule edit also
+makes the branches rescan once by itself (scan markers carry the rules' versions).</p>
+<h2 id="scan-modes">Scan modes</h2>
+<p><code>PATCH /projects/{id}</code> <code>{"scan_mode": "inventory"}</code> (MCP <code>set_scan_mode</code>, UI Projects page): an <strong>inventory</strong>
+project is parsed without categorisation - no keyword or LLM rules - and labelled by hand
+(<a href="../rules/#manual-labels-and-inventory-mode">Rules: manual labels</a>). The default mode is <code>rules</code>.</p>
+<h2 id="diff-based-scan-skip">Diff-based scan skip</h2>
+<p>Every new commit of a main branch used to mean a full clone and every parser, although most commits touch no file a
+parser reads. Before cloning, the scanner asks the GitLab compare API (polling, no webhooks) which files changed since
+the commit its snapshot reflects (<code>gitlab_branches.scanned_commit</code>) and checks them against the files each parser
+declares it reads (core <code>Parser.file_patterns</code>: <code>*.proto</code>; <code>*.graphql</code> / <code>*.gql</code>; <code>*.js</code> / <code>*.jsx</code> / <code>*.ts</code> / <code>*.tsx</code> /
+<code>*.mjs</code> / <code>*.cjs</code>; <code>*.sql</code>; <code>*.go</code>; <code>*.java</code>; <code>*.py</code> / <code>*.pyi</code>; <code>*.yaml</code> / <code>*.yml</code> / <code>*.json</code>; <code>*.tf</code> / <code>*.tf.json</code>;
+<code>appsec_discovery.affected_parsers</code>). When no changed file is read by a parser of the scan, the snapshot is moved to the
+new commit (<code>scanned_commit</code>, a scan marker and the LLM coverage rows; objects, hits and verdicts untouched, no LLM run)
+and the job ends in seconds with <code>progress = {"phase": "skipped", "skipped": "no parser files changed",
+"changed_files": N}</code>.</p>
+<p>A full scan happens anyway (the clone phase records why in <code>progress.full_scan_reason</code>) when:</p>
+<ul>
+<li>the snapshot is missing, or was made with another scan configuration (<code>gitlab_branches.scan_fingerprint</code>: core
+  package version, parsers, keyword rules, scan mode; stored with every full scan, so an upgrade or a rule edit rescans
+  every branch once);</li>
+<li>the last full scan is older than <code>SCAN_FULL_RESCAN_DAYS</code> (default 7; <code>0</code> = never on time alone);</li>
+<li>the scanned commit is not an ancestor of the new one (force push / rebase, GitLab merge base API);</li>
+<li>the compare is truncated (<code>compare_timeout</code>, or <code>SCAN_DIFF_MAX_FILES</code> files or more, default 1000);</li>
+<li>a changed file matches <code>SCAN_ALWAYS_RESCAN_GLOBS</code> (comma separated globs, default empty; a pattern with <code>/</code> matches
+  the repository path, one without matches the file name); <code>go.mod</code> / <code>package.json</code> count while the <code>SCAN_LANGS</code> gate
+  is on, because the language detection reads them;</li>
+<li>the compare API fails for any reason (logged with the cause, credentials stripped; the shortcut never fails a job).</li>
+</ul>
+<p>Merge requests (<code>SCAN_DIFF_SKIP_MRS</code>, default <code>true</code>): the stored delta is kept only when neither the source (since the
+scanned source commit) nor the target (since the target commit the delta was computed against,
+<code>gitlab_branches.delta_target_commit</code>) moved in parser files; the same fingerprint / age / ancestry rules apply to the
+source branch. A full MR scan takes the files the MR changes from the compare of the merge base (the same set as
+<code>git diff --name-only &lt;merge-base&gt; HEAD</code>, both paths of a rename) and clones the source shallow; the git diff in a
+history clone stays the fallback when that compare is truncated or fails. A main target behind its snapshot is moved
+the same way instead of being cloned and scanned for the MR.</p>
+<p>Visibility: the Jobs page shows <code>skipped: no parser files changed (N files)</code> or <code>full scan: &lt;reason&gt;</code>;
+<code>GET /scan_progress</code> counts a skipped branch as <code>scanned_current</code> (its snapshot is at the head commit); <code>GET /jobs/health</code>
+(MCP <code>job_health</code>) adds <code>skipped_24h</code> per kind and <code>scans</code> (<code>scan_branch</code> / <code>scan_mr</code>: <code>full</code> vs <code>skipped</code> in the last
+24 hours), shown on the Pipeline health page (Parse tile "24 h: X full, Y skipped scans", queue table "Done 1h / 24h
+(N skipped)"). No <code>llm_score</code> job follows a skipped scan.</p>
+<p>Settings (scanner): <code>SCAN_DIFF_SKIP=true</code> (<code>false</code> restores the previous behaviour exactly: every commit cloned and
+parsed, MR sources cloned with history), <code>SCAN_DIFF_SKIP_MRS=true</code>, <code>SCAN_FULL_RESCAN_DAYS=7</code>,
+<code>SCAN_DIFF_MAX_FILES=1000</code>, <code>SCAN_ALWAYS_RESCAN_GLOBS=</code>. Migration <code>0029_diff_skip</code> adds the branch columns; existing
+branches are fully scanned once at their next commit and skipped from then on. Core 1.1.0 adds <code>Parser.file_patterns</code>
+and <code>appsec_discovery.affected_parsers</code> / <code>parser_file_patterns</code>.</p>
+<h2 id="disk-space-of-clones">Disk space of clones</h2>
+<p>Every scan job clones into its own directory under <code>WORKSPACE_DIR</code> and removes it when the job ends, success or not;
+a worker that died leaves its directory behind, and the supervisor removes it (at once, and all of them at start-up).
+Clones do not pile up: the disk holds at most the clones of the running scan jobs (<code>MAX_WORKERS</code>, an MR scan holds
+the source and the target). Main branches and MR targets are cloned with <code>--depth 1</code>; an MR source whose changed files
+the compare API could not give keeps its history as a partial clone (<code>--filter=blob:none</code>: all commits and trees,
+the file contents of the checkout only; <code>GIT_PARTIAL_CLONE=false</code> clones the full history).</p>
+<p>Guards before a clone:</p>
+<ul>
+<li><code>WORKSPACE_MIN_FREE_GB=5</code>: no clone starts while the file system of the workspace has less free space. The job
+  fails with <code>not enough disk space for a clone: N GB free in the workspace</code> and is retried with backoff; the cause is
+  one row of "Needs attention" on the Pipeline health page. <code>0</code> disables the check. A clone that fills the disk anyway
+  fails with <code>no space left on device</code> (transient) and its partial checkout is removed at once.</li>
+<li><code>SCAN_MAX_REPO_MB=0</code>: a repository GitLab reports larger (<code>statistics.repository_size</code>, the whole history, so a
+  shallow clone is smaller) is not cloned: the job fails at once with <code>repository too large: N MB</code> (permanent). <code>0</code>:
+  no limit. Without Reporter access GitLab gives no statistics and the limit does not apply.</li>
+</ul>
+<p>In the bundled compose the workspace is the volume <code>scan_workspace</code> mounted at <code>/workspace</code> (<code>WORKSPACE_DIR</code>). It is
+on the Docker disk, next to the Postgres volume: the free-space guard keeps clones from taking the last
+<code>WORKSPACE_MIN_FREE_GB</code> of it. To keep clones off the database disk entirely, set <code>SCAN_WORKSPACE_VOLUME</code> to a host
+directory on another disk (<code>SCAN_WORKSPACE_VOLUME=/mnt/scans</code>).</p>
+<h2 id="progress-of-parse-scans">Progress of parse scans</h2>
+<p><code>GET /scan_progress</code> (MCP <code>scan_progress</code>; computed from the database, no GitLab calls) reports, for the tracked
+GitLab projects (<code>source = gitlab</code>; external <code>POST /ingest</code> projects are counted apart under <code>external</code>):</p>
+<ul>
+<li><code>main</code>: how many projects are <code>synced</code> (branches and MRs re-read for their latest activity; <code>sync_queued</code> /
+  <code>sync_running</code>) and the state of each main branch, exactly one of <code>scanned_current</code> (snapshot at the head
+  commit, a diff-based skip included), <code>outdated</code> (snapshot of an older commit), <code>never_scanned</code>, <code>partial</code> (a
+  parser failed at the head commit, retried), <code>failed</code> (the last <code>scan_branch</code> job used up its attempts),
+  <code>skipped</code> (the last scan job of the head commit saved nothing: <code>SCAN_LANGS</code> gate) and <code>no_main</code>; <code>queued</code> /
+  <code>running</code> / <code>retrying</code> count the main branches with a <code>scan_branch</code> job pending / running / pending after a
+  failed attempt; the same by scan mode (<code>by_scan_mode</code>: <code>rules</code>, <code>inventory</code>).</li>
+<li><code>mrs</code>: open MRs: <code>scanned_current</code> (delta at the MR's source commit), <code>outdated</code>, <code>never_scanned</code>, <code>partial</code>,
+  <code>failed</code>, <code>not_tracked</code> (no tracked branches, or another open MR of the source branch owns the delta),
+  <code>queued</code>, <code>running</code>.</li>
+<li><code>queue</code>: active jobs by kind; the last <code>sync_projects</code> job.</li>
+<li><code>projects</code>: the projects, problems first (<code>?status=failed,partial</code> or <code>queued</code>, <code>running</code>, <code>active</code>,
+  <code>attention</code>, <code>not_synced</code>, any state; <code>scan_mode</code>, <code>q</code>, <code>project_id=1,5</code>, <code>limit</code> up to 500, <code>offset</code>;
+  <code>projects=false</code> for totals only) with commit / scanned commit, last scan, job, last error and open MR counts.</li>
+</ul>
+<p>The Pipeline health page shows it as "Parse" (bars, counts, projects that failed or wait), the Projects page as the
+"Parse" column. <code>scan_branch</code> jobs carry their phase in <code>progress</code>: <code>waiting</code> -&gt; <code>clone</code> -&gt; <code>parse</code> -&gt; <code>save</code>
+(with <code>objects</code>, <code>by_parser</code>, <code>failed_parsers</code>) -&gt; <code>done</code> | <code>skipped</code> | <code>partial</code> | <code>failed</code>.</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+  
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.indexes", "navigation.top"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>

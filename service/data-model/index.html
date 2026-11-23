@@ -1,0 +1,1503 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../ingest/">
+      
+      
+        <link rel="next" href="../retention/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.2">
+    
+    
+      
+        <title>Data model and migrations - AppSec Discovery</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#data-model-and-migrations" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="AppSec Discovery" class="md-header__button md-logo" aria-label="AppSec Discovery" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            AppSec Discovery
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Data model and migrations
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="AppSec Discovery" class="md-nav__button md-logo" aria-label="AppSec Discovery" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    AppSec Discovery
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../cli/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI and package
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    CLI and package
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cli/config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration (conf.yaml)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cli/llm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM scoring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parsers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parsers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../scoring/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Objects, hits and scoring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Service
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Service
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration (.env)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scanning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scanning and change detection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../jobs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Jobs and workers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rules and hits
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tiers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tiered review
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../llm-lifecycle/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM rule lifecycle
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../external-executor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    External executor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ui/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mcp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCP server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    REST API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ingest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    External parsers (ingest)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data model and migrations
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data model and migrations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#tables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tables
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#keys-discovery_commonkeyspy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Keys (discovery_common/keys.py)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#presence-of-a-hit-in_main-in_open_mr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Presence of a hit (in_main, in_open_mr)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stored-llm-hashes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stored LLM hashes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#migrations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Migrations
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../retention/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Retention
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contrib/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#tables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tables
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#keys-discovery_commonkeyspy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Keys (discovery_common/keys.py)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#presence-of-a-hit-in_main-in_open_mr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Presence of a hit (in_main, in_open_mr)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stored-llm-hashes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stored LLM hashes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#migrations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Migrations
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+  
+
+
+
+
+<h1 id="data-model-and-migrations">Data model and migrations</h1>
+<p>The schema is owned by Alembic (<code>discovery_common/migrations</code>, run by the <code>discovery_migrate</code> container:
+<code>python -m discovery_common.migrate [revision]</code>); the services never create tables. Models:
+<code>discovery_common/models.py</code>.</p>
+<h2 id="tables">Tables</h2>
+<table>
+<thead>
+<tr>
+<th>table</th>
+<th>what it holds</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>gitlab_projects</code></td>
+<td>tracked projects: <code>gitlab_id</code>, <code>full_path</code>, <code>scan_mode</code> (<code>rules</code> | <code>inventory</code>), <code>source</code> (<code>gitlab</code> | <code>external</code>), <code>updated_at</code> / <code>processed_at</code> of the sync</td>
+</tr>
+<tr>
+<td><code>gitlab_branches</code></td>
+<td>main branches and tracked MR source branches: <code>commit</code>, <code>scanned_commit</code>, <code>scan_fingerprint</code>, <code>full_scanned_at</code>, <code>delta_target_commit</code> (0029)</td>
+</tr>
+<tr>
+<td><code>gitlab_mrs</code></td>
+<td>open MRs (<code>state</code>, <code>closed_at</code>) and which source branch owns a delta</td>
+</tr>
+<tr>
+<td><code>discovery_scans</code></td>
+<td>scan markers per branch and commit (parsers, rule versions, partial scans)</td>
+</tr>
+<tr>
+<td><code>objects</code>, <code>object_fields</code></td>
+<td>content-addressed object versions and their fields (comments, samples); <code>objects.names_hash</code> / <code>object_fields.llm_hash</code> (0030): what the LLM rules see of the row, stored once</td>
+</tr>
+<tr>
+<td><code>branch_objects</code></td>
+<td>which object version a branch has (<code>is_main</code>; MR deltas: <code>change</code> added | modified | removed), lines</td>
+</tr>
+<tr>
+<td><code>rules</code></td>
+<td>keyword / LLM / manual rules: <code>kind</code>, <code>target</code>, <code>mode</code>, <code>scope</code> (jsonb), <code>prompt</code>, <code>version</code>, <code>tags</code>, <code>enabled</code>, <code>deleted_at</code></td>
+</tr>
+<tr>
+<td><code>rule_hits</code></td>
+<td>one row per rule and subject: <code>status</code>, <code>category</code>, <code>severity</code>, <code>reviewer</code>, <code>decided_via</code>, <code>decided_tier</code>, <code>machine_status</code>, <code>rule_version</code>, <code>prompt_version</code>, <code>model</code>, <code>reason</code>, <code>fields</code>, <code>names_hash</code>, <code>subject_hash</code>, <code>verify_key</code>, <code>asked_by_model</code>, <code>verifier_model</code>; presence <code>in_main</code> / <code>in_open_mr</code> (0030, see below)</td>
+</tr>
+<tr>
+<td><code>hit_verdicts</code></td>
+<td>verdict history of the LLM hits (triggers)</td>
+</tr>
+<tr>
+<td><code>rule_versions</code></td>
+<td>versions of LLM rules with the pinned core prompts version and service model</td>
+</tr>
+<tr>
+<td><code>llm_rollouts</code></td>
+<td>rule rollouts (status, mode, budget, progress)</td>
+</tr>
+<tr>
+<td><code>llm_runtime</code></td>
+<td>what the scanner runs with (<code>service_model</code>)</td>
+</tr>
+<tr>
+<td><code>stats_snapshots</code></td>
+<td>statistics precomputed by the scanner (<code>overview</code>, <code>job_health</code>, <code>scan_progress</code>, <code>llm_progress</code>, <code>llm_quality</code>, <code>hits_aggregate</code>: <code>name</code>, <code>data</code> jsonb, <code>computed_at</code>), served by the API while fresh (0030)</td>
+</tr>
+<tr>
+<td><code>llm_coverage</code></td>
+<td>per branch and LLM rule: candidates, answered, stale, pending external, failed</td>
+</tr>
+<tr>
+<td><code>llm_work_items</code></td>
+<td>work items of external runs (<code>purpose = score</code>) and verify items (<code>purpose = verify</code>): <code>pending</code>, <code>leased</code>, <code>answered</code>, <code>applied</code>, <code>failed</code>, <code>expired</code></td>
+</tr>
+<tr>
+<td><code>llm_verifications</code></td>
+<td>every harness answer applied or refused (QA metrics)</td>
+</tr>
+<tr>
+<td><code>prompt_trials</code>, <code>prompt_trial_items</code>, <code>prompt_proposals</code></td>
+<td>prompt trials and proposals</td>
+</tr>
+<tr>
+<td><code>jobs</code></td>
+<td>the job queue: <code>kind</code>, <code>status</code>, <code>payload</code>, <code>dedup_key</code>, <code>priority</code>, <code>attempts</code>, <code>locked_by</code>, <code>progress</code>, <code>last_error</code></td>
+</tr>
+<tr>
+<td><code>ingest_batches</code>, <code>ingest_chunks</code></td>
+<td>external parser states</td>
+</tr>
+<tr>
+<td><code>api_tokens</code></td>
+<td>service tokens (sha256 only)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="keys-discovery_commonkeyspy">Keys (<code>discovery_common/keys.py</code>)</h2>
+<ul>
+<li><code>object_key</code> - identity of an object: project + parser + the core's <code>CodeObject.hash</code>; lines, fields, props,
+  severity, branch and commit are not part of it, so it is stable across branches and commits.</li>
+<li><code>content_hash</code> - identity + sorted <code>field_name:field_type</code> + sorted <code>prop=value</code>: changes exactly when the
+  object's shape changes.</li>
+<li><code>field_key</code> - <code>object_key</code> + field name: the subject of field-level rules (<code>rule_hits.subject_key</code>; the
+  field type is deliberately not in it).</li>
+<li><code>names_hash</code> / <code>subject_hash</code> - what an LLM verdict was made on, see <a href="../llm-lifecycle/">LLM rule lifecycle</a>.</li>
+</ul>
+<p>All keys are <code>md5(...)</code> cast to <code>uuid</code>; the migrations compute the same keys in SQL and the tests check both
+implementations agree.</p>
+<h2 id="presence-of-a-hit-in_main-in_open_mr">Presence of a hit (<code>in_main</code>, <code>in_open_mr</code>)</h2>
+<p>A hit is branch-agnostic (one row per rule and subject). Whether its subject is in some main snapshot or in the delta
+of an open MR is stored on the row (<code>rule_hits.in_main</code> / <code>in_open_mr</code>, migration <code>0030</code>) and maintained by the
+scanner (<code>discovery_common/presence.py</code>): a main scan marks its hits <code>in_main</code> and refreshes the hits of the objects
+the snapshot diff removed or changed, an MR scan does the same with <code>in_open_mr</code>, pruned MR rows, a reopened or
+closed MR, a released or untracked source branch and a demoted main branch refresh the hits of the objects they
+held, LLM verdicts and harness field marks refresh the objects they are about. The API's <code>presence</code> filter
+(<code>main</code> = <code>in_main</code>, <code>mr</code> = <code>in_open_mr AND NOT in_main</code>, <code>live</code> = either) and <code>HitOut.in_main</code> / <code>in_open_mr</code> read the
+columns; the <a href="../retention/">retention</a> deletes only hits with both flags false. Anything else that inserts hits
+calls <code>presence.refresh(session, object_keys=...)</code> afterwards. Partial indexes: <code>hits_live_seen</code> (live hits in list
+order), <code>hits_live_queue</code> (the open review queue per project), <code>hits_seen</code> (hits in no branch, for the retention).</p>
+<h2 id="stored-llm-hashes">Stored LLM hashes</h2>
+<p><code>object_fields.llm_hash</code> = <code>llm_field_hash(name, type, comment, samples)</code> and <code>objects.names_hash</code> =
+<code>llm_names_hash(name, field names)</code> (migration <code>0030</code>) are written with the content-addressed rows (the Python twins
+in <code>discovery_common/keys.py</code>; <code>names_hash</code> follows a rename of the stored version) so the candidate selection of an
+LLM run and the coverage counts compare stored hashes instead of hashing every field of the branch per run. A row
+without one (none after the backfill) is hashed in place (<code>COALESCE</code>).</p>
+<h2 id="migrations">Migrations</h2>
+<table>
+<thead>
+<tr>
+<th>revision</th>
+<th>effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0001_baseline</code></td>
+<td>the schema the services created before Alembic; idempotent, adopts an existing database</td>
+</tr>
+<tr>
+<td><code>0002_storage_v2</code></td>
+<td>content-addressed objects, relational fields, branch deltas, <code>rules</code> / <code>rule_hits</code></td>
+</tr>
+<tr>
+<td><code>0003_rules_review</code></td>
+<td>rule modes and human review</td>
+</tr>
+<tr>
+<td><code>0004_jobs</code></td>
+<td>the job queue</td>
+</tr>
+<tr>
+<td><code>0005_inventory_mode</code></td>
+<td>scan mode <code>inventory</code>, the <code>manual:labels</code> rule</td>
+</tr>
+<tr>
+<td><code>0006_hit_fields</code></td>
+<td><code>rule_hits.fields</code> of object hits</td>
+</tr>
+<tr>
+<td><code>0007_rule_tags</code></td>
+<td>rule tags set on objects</td>
+</tr>
+<tr>
+<td><code>0008_decided_via</code></td>
+<td><code>rest</code> | <code>mcp</code> on human decisions</td>
+</tr>
+<tr>
+<td><code>0009_external_ingest</code></td>
+<td>external projects, ingest batches, service tokens</td>
+</tr>
+<tr>
+<td><code>0010_comments_samples</code></td>
+<td>comments and samples of objects and fields</td>
+</tr>
+<tr>
+<td><code>0011_ingest_superseded</code></td>
+<td>ingest batch status <code>superseded</code></td>
+</tr>
+<tr>
+<td><code>0012_llm_work</code></td>
+<td><code>jobs.progress</code>, <code>llm_work_items</code> (external executor)</td>
+</tr>
+<tr>
+<td><code>0013_example_rules</code></td>
+<td>default LLM rules <code>db-tables-with-client-data</code> (enabled) and <code>api-with-auth</code> (disabled)</td>
+</tr>
+<tr>
+<td><code>0014_hit_prompt_version</code></td>
+<td><code>rule_hits.prompt_version</code></td>
+</tr>
+<tr>
+<td><code>0015_jobs_subject</code></td>
+<td>indexes of the jobs of one branch / MR</td>
+</tr>
+<tr>
+<td><code>0016_llm_prepare</code></td>
+<td>the <code>llm_prepare</code> job kind; external runs queued as <code>llm_score</code> become <code>llm_prepare</code></td>
+</tr>
+<tr>
+<td><code>0017_llm_coverage</code></td>
+<td><code>llm_coverage</code>, index of the LLM jobs of one branch</td>
+</tr>
+<tr>
+<td><code>0018_llm_reask</code></td>
+<td><code>names_hash</code> / <code>subject_hash</code> on LLM hits, SQL hash functions, backfill from the current snapshot (asks nothing again)</td>
+</tr>
+<tr>
+<td><code>0019_prompt_trials</code></td>
+<td>prompt trials and proposals, <code>rule_hits.machine_status</code></td>
+</tr>
+<tr>
+<td><code>0020_llm_tiers</code></td>
+<td>tiered decisions: <code>decided_tier</code>, verify items, <code>llm_verifications</code></td>
+</tr>
+<tr>
+<td><code>0021_service_tier</code></td>
+<td>tiers renamed <code>weak</code> -&gt; <code>service</code>, <code>strong</code> -&gt; <code>harness</code> (columns, constraints, verify item keys); the hits filter accepts the old names for one release</td>
+</tr>
+<tr>
+<td><code>0022_no_alerts</code></td>
+<td>alerting removed: <code>alert</code> keyword rules become <code>score</code>, <code>alerted_at</code> columns dropped</td>
+</tr>
+<tr>
+<td><code>0023_match_statuses</code></td>
+<td>hit statuses <code>confirmed</code> -&gt; <code>match</code>, <code>rejected</code> -&gt; <code>no_match</code> everywhere (<code>rule_hits</code>, <code>machine_status</code>, <code>verify_key</code>, <code>llm_verifications</code>, trial items, open verify items)</td>
+</tr>
+<tr>
+<td><code>0024_rule_versions</code></td>
+<td><code>rule_versions</code>, <code>llm_runtime</code>, core prompt versions per family (<code>classifier{N}</code> / <code>rule{N}</code>), backfilled so nothing is asked again</td>
+</tr>
+<tr>
+<td><code>0025_hit_verdicts</code></td>
+<td>verdict history triggers, backfill of the current LLM hits</td>
+</tr>
+<tr>
+<td><code>0026_llm_rollouts</code></td>
+<td><code>llm_rollouts</code>, <code>jobs.priority</code></td>
+</tr>
+<tr>
+<td><code>0027_object_names</code></td>
+<td>stored object names lose their type prefix (<code>Route /x (GET)</code> -&gt; <code>GET /x</code>); <code>names_hash</code> recomputed; rules whose patterns still contain a type word are listed in the log (run online: the rename is computed in Python)</td>
+</tr>
+<tr>
+<td><code>0028_builtin_rules</code></td>
+<td>built-in keyword rules renamed <code>kw-fields</code> / <code>kw-props</code> and disabled on new installs; the env-managed LLM rule removed; <code>api-with-auth</code> seeded</td>
+</tr>
+<tr>
+<td><code>0029_diff_skip</code></td>
+<td><code>gitlab_branches.scan_fingerprint</code>, <code>full_scanned_at</code>, <code>delta_target_commit</code> for the diff-based scan skip; existing branches are fully scanned once at their next commit</td>
+</tr>
+<tr>
+<td><code>0030_scale_storage</code></td>
+<td>storage at scale: <code>rule_hits.in_main</code> / <code>in_open_mr</code> (backfilled) with the partial indexes <code>hits_live_seen</code>, <code>hits_live_queue</code>, <code>hits_seen</code>; <code>objects.names_hash</code>, <code>object_fields.llm_hash</code> (backfilled); indexes <code>hits_object (object_key)</code>, <code>hits_project_rule (project_id, rule_id)</code>, <code>objects_name_key (name, object_key)</code>, <code>jobs_ready_kind</code>, <code>hit_verdicts_subject</code> gets <code>rule_version</code>; <code>rule_hits</code> fillfactor 85 + autovacuum settings; table <code>stats_snapshots</code></td>
+</tr>
+</tbody>
+</table>
+<p><code>0030_scale_storage</code> rewrites every row of <code>object_fields</code>, <code>objects</code> and <code>rule_hits</code> once (the backfills run project
+by project in the migration's transaction). Measured on a throwaway Postgres 13 with 587k fields, 61k object
+versions and 152k hits: 63 s, most of it the rewrite of <code>object_fields</code> (index maintenance of the rewritten rows, the
+trigram index included); budget roughly a minute per 600k fields for the upgrade.</p>
+<p>Upgrade the migrate, API, scanner and UI images together: older versions cannot write to a migrated database
+(e.g. an old scanner writes <code>confirmed</code>, which the <code>0023</code> CHECK refuses).</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+  
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.indexes", "navigation.top"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>

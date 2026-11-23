@@ -1,0 +1,1439 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../mcp/">
+      
+      
+        <link rel="next" href="../ingest/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.2">
+    
+    
+      
+        <title>REST API - AppSec Discovery</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#rest-api" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="AppSec Discovery" class="md-header__button md-logo" aria-label="AppSec Discovery" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            AppSec Discovery
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              REST API
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="AppSec Discovery" class="md-nav__button md-logo" aria-label="AppSec Discovery" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    AppSec Discovery
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../cli/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI and package
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    CLI and package
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cli/config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration (conf.yaml)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cli/llm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM scoring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parsers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parsers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../scoring/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Objects, hits and scoring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Service
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Service
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration (.env)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scanning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scanning and change detection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../jobs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Jobs and workers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rules and hits
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tiers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tiered review
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../llm-lifecycle/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM rule lifecycle
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../external-executor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    External executor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ui/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mcp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCP server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    REST API
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    REST API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#paging-at-scale" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paging at scale
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#statistics-snapshots" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Statistics snapshots
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ingest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    External parsers (ingest)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data-model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data model and migrations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../retention/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Retention
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contrib/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#paging-at-scale" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paging at scale
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#statistics-snapshots" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Statistics snapshots
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+  
+
+
+
+
+<h1 id="rest-api">REST API</h1>
+<p>Behind nginx at <code>/api</code> (<code>uvicorn --root-path /api</code>); the interactive OpenAPI UI is at <code>/api/docs</code>. Every call
+except <code>/health</code> needs <code>Authorization: Bearer &lt;token&gt;</code> from <code>POST /api/token</code> (<code>username</code> + <code>password</code> form
+fields; rate limited to 5 per minute per client by nginx) or a service token with scope <code>mcp</code> (<code>POST /tokens</code>;
+identity <code>token:&lt;name&gt;</code>, refused by the admin-only token endpoints). Lists follow the react-admin simple-rest
+conventions: <code>?range=[0,24]&amp;sort=["id","ASC"]&amp;filter={"status":"pending_review"}</code>, the page size is capped, the
+response carries <code>Content-Range</code>. Service errors map to 400 / 403 / 404 / 409 / 413 / 422 / 429.</p>
+<h2 id="paging-at-scale">Paging at scale</h2>
+<p><code>GET /hits</code>, <code>GET /objects</code> and <code>GET /projects</code> (millions of rows):</p>
+<ul>
+<li>the total of <code>Content-Range</code> is <strong>exact up to 10 000 filtered rows and an estimate above</strong> (the planner's row
+  estimate; header <code>X-Total-Estimate: true</code>). <code>exact=true</code> (query parameter, or <code>"exact": true</code> inside <code>filter</code>)
+  forces an exact count;</li>
+<li><strong>keyset paging</strong>: every page answers <code>X-Next-Cursor</code> (absent on the last page); <code>after=&lt;cursor&gt;</code> (query parameter,
+  or <code>"after"</code> inside <code>filter</code>) returns the rows after the previous page in the same sort order at the cost of one
+  index probe, whatever the depth. A cursor is bound to the sort it was made with (422 otherwise). <code>range</code> (offset)
+  keeps working for react-admin; <code>after</code> resets the offset to 0. <code>GET /projects</code> sorted by <code>pending_hits</code> (a count
+  computed per row) answers no cursor: offset paging only;</li>
+<li><code>group=&lt;path&gt;</code> on these three lists scopes to a GitLab group (a prefix of <code>full_path</code>: <code>grp/payments</code> matches
+  <code>grp/payments/ledger</code>, not <code>grp/payments-old</code>); <code>GET /groups</code> lists the groups.</li>
+</ul>
+<h2 id="statistics-snapshots">Statistics snapshots</h2>
+<p><code>GET /overview</code> (without arguments), <code>GET /jobs/health</code>, <code>GET /scan_progress</code> / <code>GET /llm_progress</code> (totals), <code>GET
+/llm_quality</code> (without <code>rule_id</code>) and <code>GET /hits/aggregate</code> are served from <code>stats_snapshots</code>, recomputed by the
+scanner's <code>stats_refresh</code> job every <code>STATS_REFRESH_S</code> (60 s) and served while younger than twice that. The answer
+carries <code>computed_at</code> and <code>snapshot</code> (<code>true</code> from the table, <code>false</code> computed live - filters, a stale or missing
+row, <code>live=true</code>). Snapshot answers get a weak <code>ETag</code> and <code>Cache-Control: max-age</code> until the next refresh; a request
+with <code>If-None-Match</code> gets <code>304 Not Modified</code> - poll freely.</p>
+<table>
+<thead>
+<tr>
+<th>endpoint</th>
+<th>purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>POST /token</code></td>
+<td>login -&gt; bearer token (<code>UI_TOKEN_TTL_MINUTES</code>)</td>
+</tr>
+<tr>
+<td><code>GET /health</code>, <code>GET /health/db</code></td>
+<td>liveness; database health and table statistics</td>
+</tr>
+<tr>
+<td><strong>Hits (review)</strong></td>
+<td></td>
+</tr>
+<tr>
+<td><code>GET /hits</code></td>
+<td>the queue: filters <code>project_id</code>, <code>group</code>, <code>status</code> (list; <code>confirmed</code> / <code>rejected</code> accepted as aliases for one release), <code>category</code>, <code>rule_id</code>, <code>kind</code>, <code>severity</code>, <code>q</code>, <code>presence</code> (<code>main</code> | <code>mr</code> | <code>live</code> | <code>all</code>; from the stored <code>in_main</code> / <code>in_open_mr</code> flags), <code>decided_tier</code> (<code>weak</code> / <code>strong</code> accepted as aliases of <code>service</code> / <code>harness</code> for one release), <code>decided_via</code>, <code>reviewer</code>, <code>asked_by_model</code>, <code>field_marks</code>, <code>stale</code>, <code>reviewed_after</code>, <code>first_seen_after</code>, <code>object_key</code>, <code>object_type</code>, <code>cluster</code> (<code>&lt;by&gt;:&lt;key&gt;</code> of <code>/hits/clusters</code>); paging: see above</td>
+</tr>
+<tr>
+<td><code>GET /hits/aggregate</code></td>
+<td><code>by=</code> (comma separated) <code>queue</code> (questions | pending | unsure | human | harness | service), <code>status</code>, <code>presence</code> (main | mr | gone), <code>rule_id</code> (+ <code>rule_name</code>), <code>category</code>, <code>severity</code>, <code>decided_tier</code>, <code>asked_by_model</code>, <code>in_main</code>, <code>in_open_mr</code>, <code>field_mark</code>, <code>kind</code>, <code>project_id</code> (+ <code>project_path</code>), <code>group</code>, <code>object_type</code>, <code>first_seen_day</code>; <code>filter=</code> as <code>GET /hits</code> (presence defaults to <code>live</code>). <code>{by, rows: [{&lt;dim&gt;..., n}], total, truncated, computed_at, snapshot}</code>; from the <code>hits_aggregate</code> snapshot when the filters / dimensions are in it (not for <code>q</code>, <code>project_id</code>, <code>group</code>, <code>object_type</code>, <code>cluster</code>, ...)</td>
+</tr>
+<tr>
+<td><code>GET /hits/clusters</code></td>
+<td><code>by=schema</code> (object type + sorted <code>field:type</code> pairs) | <code>field_pattern</code> (rule + field name) | <code>object_name</code> (rule + type + name) | <code>rule_group</code> (rule + GitLab group + type), <code>filter=</code> as <code>GET /hits</code> (default status open), <code>limit</code> (&lt;= 100), <code>after</code>. <code>{by, items: [{key, cluster, label, rule_id, rule_name, object_type, field_name, group, n, n_open, questions, projects, groups, severity_max, in_main_share, new_7d, sample_ids, fields?, sample?}], scanned, truncated (more than 200 000 hits matched: narrow the filter), total_clusters, next_cursor, computed_at}</code></td>
+</tr>
+<tr>
+<td><code>POST /hits/decide</code></td>
+<td><code>{"filter": {...as GET /hits, at least one condition}, "action", "note" (required), "category", "severity", "expected_total", "dry_run": true, "include_human": false, "include_harness": false, "skip_questions": true}</code>. The dry run (default) returns <code>matched</code> (hits the action would change), <code>kept</code> (<code>human</code>, <code>harness</code>, <code>questions</code>, <code>transition</code>: hits whose status does not allow the action), <code>by_status</code>, <code>by_project</code> (top 10) + <code>by_project_more</code>, <code>sample</code> (5 ids). The apply needs <code>expected_total</code> = <code>matched</code> of the dry run (409 when the set changed meanwhile) and at most 100 000 hits; it returns <code>applied</code>, <code>cascaded</code> (field marks of decided object hits) and <code>batch_id</code>. Human decisions are kept unless <code>include_human</code>; the review transitions apply (a confirm changes open hits only)</td>
+</tr>
+<tr>
+<td><code>POST /hits/decide/{batch_id}/undo</code></td>
+<td>restores the previous state of the batch's hits nobody decided again since: <code>{restored, skipped}</code>; 409 when already undone</td>
+</tr>
+<tr>
+<td><code>GET /review_batches</code>, <code>GET /review_batches/{id}</code></td>
+<td>decisions by filter (newest first; <code>limit</code>, <code>reviewer</code>): filter, action, reviewer, <code>via</code>, <code>expected_total</code>, <code>matched</code>, <code>applied</code>, <code>cascaded</code>, <code>applied_at</code>, <code>undone_at</code>, <code>undone_by</code>, <code>restored</code></td>
+</tr>
+<tr>
+<td><code>GET /hits/{id}</code></td>
+<td>the hit with its rule, object, fields (comments, samples), presence, other hits, <code>allowed_actions</code></td>
+</tr>
+<tr>
+<td><code>POST /hits/{id}/review</code></td>
+<td><code>{"action": "confirm" \| "reject" \| "request_info" \| "reopen", "category", "severity", "note"}</code></td>
+</tr>
+<tr>
+<td><code>POST /hits/review_bulk</code></td>
+<td>the same on many hits, note required, <code>dry_run</code></td>
+</tr>
+<tr>
+<td><code>PATCH /hits/{id}</code>, <code>PUT /hits/{id}</code></td>
+<td>category / severity / note</td>
+</tr>
+<tr>
+<td><code>POST /hits/{id}/request_human</code></td>
+<td>the harness model asks a human (<code>question</code>)</td>
+</tr>
+<tr>
+<td><code>GET /hits/{id}/history</code></td>
+<td>verdict history; rows written by a decision by filter (or its undo, <code>source: undo</code>) carry <code>batch_id</code></td>
+</tr>
+<tr>
+<td><strong>Rules</strong></td>
+<td></td>
+</tr>
+<tr>
+<td><code>GET/POST /keyword_rules</code>, <code>GET/PUT/DELETE /keyword_rules/{id}</code></td>
+<td>keyword rules (soft delete)</td>
+</tr>
+<tr>
+<td><code>GET/POST /llm_rules</code>, <code>GET/PUT/DELETE /llm_rules/{id}</code></td>
+<td>LLM rules; <code>PUT ...?candidate=true</code> makes a candidate version instead of activating</td>
+</tr>
+<tr>
+<td><code>POST /rules/dry_run</code>, <code>GET /rules/stats</code></td>
+<td>dry run of a rule; precision per version</td>
+</tr>
+<tr>
+<td><code>GET /rules?q=&amp;kind=&amp;limit=</code></td>
+<td>autocomplete: live rules of any kind by name substring (<code>[{id, name, kind, category, severity, mode, target, enabled, version}]</code>, prefix matches first)</td>
+</tr>
+<tr>
+<td><code>GET /categories</code>, <code>GET /object_types</code></td>
+<td>autocompletes: <code>{items: [{category, rules, hits, matches}]}</code> / <code>{items: [{type, n}]}</code> with <code>computed_at</code>, <code>snapshot</code> (from the snapshots when fresh, else cached 5 min)</td>
+</tr>
+<tr>
+<td><code>GET /groups?q=&amp;depth=2&amp;parent=</code></td>
+<td>GitLab groups = path prefixes of the projects: <code>{items: [{path, depth, projects, parent}], depth}</code></td>
+</tr>
+<tr>
+<td><code>POST /llm_rules/run</code>, <code>POST /llm_rules/{id}/run</code></td>
+<td>run LLM rules: <code>{"rule_ids", "project_ids", "mrs", "executor": "service" \| "external"}</code></td>
+</tr>
+<tr>
+<td><code>GET /llm_rules/{id}/errors</code></td>
+<td>last errors of a rule's runs and refused harness answers</td>
+</tr>
+<tr>
+<td><code>GET /llm_rules/{id}/mislabeled</code></td>
+<td>disagreements with the service model (<code>source=human</code> | <code>verification</code>)</td>
+</tr>
+<tr>
+<td><code>GET/POST /llm_rules/{id}/trials</code>, <code>GET /prompt_trials/{id}</code></td>
+<td>prompt trials</td>
+</tr>
+<tr>
+<td><code>GET/POST /llm_rules/{id}/proposals</code>, <code>GET /prompt_proposals[/{id}]</code>, <code>GET /prompt_proposals/{id}/reask</code>, <code>POST /prompt_proposals/{id}/accept \| reject</code></td>
+<td>prompt proposals; accept takes <code>activate</code></td>
+</tr>
+<tr>
+<td><code>GET/POST /llm_rules/{id}/versions</code>, <code>GET /llm_rule_versions/{id}[/estimate]</code>, <code>POST /llm_rule_versions/{id}/activate \| rollback \| discard</code></td>
+<td>rule versions</td>
+</tr>
+<tr>
+<td><code>GET /llm_rollouts[/{id}]</code>, <code>POST /llm_rollouts/{id}/start \| pause \| resume \| cancel</code></td>
+<td>rule rollouts</td>
+</tr>
+<tr>
+<td><code>GET /llm_quality</code></td>
+<td>service / harness agreement per rule</td>
+</tr>
+<tr>
+<td><strong>LLM runs and harness work</strong></td>
+<td></td>
+</tr>
+<tr>
+<td><code>GET /llm_runs</code></td>
+<td>active and recent LLM runs</td>
+</tr>
+<tr>
+<td><code>GET /llm_progress</code></td>
+<td>LLM coverage</td>
+</tr>
+<tr>
+<td><code>GET /llm_work/jobs</code>, <code>GET /llm_work/stats</code></td>
+<td>external runs and verify jobs; harness work summary</td>
+</tr>
+<tr>
+<td><code>POST /llm_work/claim</code>, <code>POST /llm_work/submit</code>, <code>POST /llm_work/release</code>, <code>POST /llm_work/take_over</code></td>
+<td>the external executor and the verify items (<code>purpose</code>)</td>
+</tr>
+<tr>
+<td><strong>Projects and MRs</strong></td>
+<td></td>
+</tr>
+<tr>
+<td><code>GET /projects</code></td>
+<td>tracked projects (filters <code>q</code>, <code>id</code>, <code>scan_mode</code>, <code>group</code>, <code>source</code>, <code>severity</code>, <code>tag</code>; sort <code>full_path</code> | <code>id</code> | <code>pending_hits</code> | <code>scan_mode</code>) with <code>group_path</code>, <code>pending_hits</code> (open live hits), <code>scan</code> (parse state, MRs), <code>llm</code> (coverage)</td>
+</tr>
+<tr>
+<td><code>GET /projects/{id}</code></td>
+<td>the project page: the list row plus <code>description</code>, <code>default_branch</code>, <code>visibility</code>, <code>severity</code>, <code>tags</code>, <code>hits_by_rule</code> (<code>[{rule_id, rule_name, kind, category, match, no_match, open, questions}]</code>, live hits), <code>objects_by_type</code> (main), <code>objects_in_open_mrs</code>, <code>open_mrs</code>, <code>jobs</code> (last 20); <code>detail=false</code> for the row only</td>
+</tr>
+<tr>
+<td><code>PATCH /projects/{id}</code>, <code>PUT /projects/{id}</code></td>
+<td><code>{"scan_mode": "rules" \| "inventory"}</code></td>
+</tr>
+<tr>
+<td><code>POST /projects/parse</code>, <code>POST /projects/{id}/parse</code></td>
+<td>clone and parse again (<code>project_ids</code>, <code>parsers</code>, <code>mains</code>, <code>mrs</code>, <code>llm</code>, <code>force</code>)</td>
+</tr>
+<tr>
+<td><code>GET /scan_progress</code></td>
+<td>parse scan states</td>
+</tr>
+<tr>
+<td><code>GET /mrs</code>, <code>GET /mrs/{id}</code>, <code>POST /mrs/{id}/scan</code></td>
+<td>open MRs, one MR with its delta and hits, a scan on demand</td>
+</tr>
+<tr>
+<td><strong>Objects</strong></td>
+<td></td>
+</tr>
+<tr>
+<td><code>GET /objects</code>, <code>GET /objects/{key}</code></td>
+<td>the inventory (filters as MCP <code>list_objects</code>), one object with fields and hits</td>
+</tr>
+<tr>
+<td><code>POST /objects/{key}/labels</code>, <code>DELETE /objects/{key}/labels</code>, <code>POST /objects/labels</code></td>
+<td>manual labels, bulk labels</td>
+</tr>
+<tr>
+<td><code>GET /overview</code></td>
+<td>matches and objects by type / project for a category, tag, rule or severity; <code>computed_at</code>, <code>snapshot</code> (see above)</td>
+</tr>
+<tr>
+<td><strong>Ingest and tokens</strong></td>
+<td></td>
+</tr>
+<tr>
+<td><code>POST /ingest</code>, <code>GET /ingest</code></td>
+<td>push an external parser state; list batches</td>
+</tr>
+<tr>
+<td><code>POST /ingest/sessions</code>, <code>PUT /ingest/sessions/{id}/chunks/{seq}</code>, <code>POST /ingest/sessions/{id}/commit</code>, <code>DELETE /ingest/sessions/{id}</code></td>
+<td>chunked upload</td>
+</tr>
+<tr>
+<td><code>POST /tokens</code>, <code>GET /tokens</code>, <code>DELETE /tokens/{id}</code></td>
+<td>service tokens (admin only): <code>{"name", "scopes": ["ingest" and/or "mcp"], "project_prefixes"}</code> - <code>ingest</code> needs prefixes under <code>external/</code>; <code>mcp</code> tokens act as the reviewer <code>token:&lt;name&gt;</code> on REST and MCP</td>
+</tr>
+<tr>
+<td><strong>Jobs</strong></td>
+<td></td>
+</tr>
+<tr>
+<td><code>GET /jobs</code>, <code>GET /jobs/{id}</code></td>
+<td>the queue with <code>progress</code>, <code>subject</code>, <code>last_error</code>; filters <code>id</code>, <code>kind</code>, <code>status</code>, <code>q</code>, <code>project_id</code> (the jobs of one project)</td>
+</tr>
+<tr>
+<td><code>GET /jobs/stats</code>, <code>GET /jobs/health</code>, <code>GET /jobs/errors</code></td>
+<td>counts; queue health (<code>typical_run_s</code> / <code>typical_wait_s</code> from <code>jobs.started_at</code>, <code>eta_s</code> from the last hour's rate or the typical run time x backlog / busy workers; snapshot, ETag); failures grouped by cause</td>
+</tr>
+<tr>
+<td><code>POST /jobs/{id}/retry</code>, <code>POST /jobs/{id}/cancel</code></td>
+<td>retry a failed job, cancel a pending one</td>
+</tr>
+<tr>
+<td><code>/mcp</code></td>
+<td>the <a href="../mcp/">MCP server</a></td>
+</tr>
+</tbody>
+</table>
+<p>Request bodies are validated (<code>discovery_api/schemas.py</code>); rule bodies: <code>KeywordRuleIn</code> (<code>name</code>, <code>category</code>,
+<code>severity</code>, <code>mode</code>, <code>enabled</code>, <code>action</code>, <code>project_re</code>, <code>parser</code>, <code>object_re</code>, <code>object_type_re</code>, <code>field_re</code>,
+<code>field_type_re</code>, <code>fields_all</code>, <code>fields_none</code>, <code>min_groups</code>, <code>tags</code>) and <code>LlmRuleIn</code> (<code>name</code>, <code>category</code>,
+<code>severity</code>, <code>mode</code>, <code>enabled</code>, <code>target</code>, <code>prompt</code>, <code>project_re</code>, <code>object_re</code>, <code>object_type_re</code>, <code>field_re</code>,
+<code>field_type_re</code>, <code>mark_fields</code>, <code>tags</code>). Hit ids are <code>"&lt;rule_id&gt;:&lt;subject_key&gt;"</code>.</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+  
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.indexes", "navigation.top"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>

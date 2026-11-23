@@ -1,0 +1,1494 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../cli/llm/">
+      
+      
+        <link rel="next" href="../scoring/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.2">
+    
+    
+      
+        <title>Parsers - AppSec Discovery</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#parsers" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="AppSec Discovery" class="md-header__button md-logo" aria-label="AppSec Discovery" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            AppSec Discovery
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Parsers
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="AppSec Discovery" class="md-nav__button md-logo" aria-label="AppSec Discovery" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    AppSec Discovery
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../cli/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI and package
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    CLI and package
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cli/config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration (conf.yaml)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cli/llm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM scoring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parsers
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parsers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#comments-and-samples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comments and samples
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Examples
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#swagger" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Swagger
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#protobuf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Protobuf
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#graphql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GraphQL
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sql-migrations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SQL migrations
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scoring/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Objects, hits and scoring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../service/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Service
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Service
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../service/config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration (.env)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../service/scanning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scanning and change detection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../service/jobs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Jobs and workers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../service/rules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rules and hits
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../service/tiers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tiered review
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../service/llm-lifecycle/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM rule lifecycle
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../service/external-executor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    External executor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../service/ui/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../service/mcp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCP server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../service/api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    REST API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../service/ingest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    External parsers (ingest)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../service/data-model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data model and migrations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../service/retention/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Retention
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../service/troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../changelog/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contrib/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#comments-and-samples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comments and samples
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Examples
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#swagger" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Swagger
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#protobuf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Protobuf
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#graphql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GraphQL
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sql-migrations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SQL migrations
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+  
+
+
+
+
+<h1 id="parsers">Parsers</h1>
+<p><code>parsers: [all]</code> (the default; <code>PARSERS=all</code> in the service) runs every parser below except the deprecated ones.
+Parsers based on Semgrep run the engine with the bundled <code>scanner_rules/*.yaml</code>; the others have their own file
+scanners. Files are read only inside the scanned folder (symlinks pointing out of it, FIFOs and devices are
+skipped), up to 5 MB (Terraform and specs 10 MB); non-UTF-8 files are decoded with replacement.</p>
+<table>
+<thead>
+<tr>
+<th>parser</th>
+<th>reads (<code>file_patterns</code>)</th>
+<th>objects</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>swagger</code></td>
+<td><code>*.yaml</code> / <code>*.yml</code> / <code>*.json</code>: OpenAPI 3.x and Swagger 2.0 (2.0, e.g. protoc-gen-openapiv2 / grpc-gateway output, is converted to 3.0); a file counts when its top-level key is <code>openapi</code> / <code>swagger</code> and it has <code>paths</code></td>
+<td><code>route</code> <code>&lt;METHOD&gt; &lt;path&gt;</code> per operation: <code>&lt;in&gt;.param.&lt;name&gt;</code>, <code>input.*</code> (request body, 2.0 <code>body</code> / <code>formData</code>), <code>output.*</code> (the first response defining a field); recursive schemas are cut at the self reference, remote <code>$ref</code> are not fetched, a broken spec / operation is skipped with a warning</td>
+</tr>
+<tr>
+<td><code>protobuf</code></td>
+<td><code>*.proto</code></td>
+<td><code>rpc</code> <code>/&lt;package&gt;.&lt;Service&gt;/&lt;Method&gt;</code>: request / response messages with nested messages, oneofs and maps (at most 2000 fields per request / response)</td>
+</tr>
+<tr>
+<td><code>graphql</code></td>
+<td><code>*.graphql</code> / <code>*.gql</code> schemas (graphql-core)</td>
+<td><code>query</code> / <code>mutation</code> / <code>subscription</code> <code>&lt;Type&gt;.&lt;field&gt;</code>: an operation of a root type (the roots declared in <code>schema { ... }</code>, else <code>Query</code> / <code>Mutation</code> / <code>Subscription</code>; a business <code>type Subscription</code> used as a field type is an entity): args by name (<code>id</code>, <code>card.number</code>), result type up to 5 levels as <code>output.*</code>; fields of <code>extend type</code> are operations. The files of a directory are one schema, a directory joins its parent's schema unless both define a type of the same name (two services of a monorepo are two schemas)</td>
+</tr>
+<tr>
+<td><code>javascript</code></td>
+<td><code>gql</code> tagged templates in <code>*.js</code> / <code>*.jsx</code> / <code>*.ts</code> / <code>*.tsx</code> / <code>*.mjs</code> / <code>*.cjs</code> (graphql-core)</td>
+<td><code>query</code> / <code>mutation</code> / <code>subscription</code> <code>&lt;Operation&gt;.&lt;field&gt;</code>: a resolver call of a client operation: arguments (typed from the operation variables) as <code>input.*</code>, the requested selection with fragments (from any file) as <code>output.*</code></td>
+</tr>
+<tr>
+<td><code>migrations</code></td>
+<td><code>*.sql</code>: PostgreSQL migrations - goose / sql-migrate (Up part), golang-migrate <code>*.up.sql</code>, numbered <code>.sql</code> files</td>
+<td><code>table</code> <code>&lt;schema&gt;.&lt;table&gt;</code> of the final schema of a migrations directory (statements replayed in version order: CREATE / ALTER / DROP / RENAME, partitions folded into their parent), one field per column</td>
+</tr>
+<tr>
+<td><code>terraform</code></td>
+<td><code>*.tf</code>, <code>*.tf.json</code> (own HCL scanner; <code>.terraform/</code> skipped)</td>
+<td><code>resource</code>, <code>data</code>, <code>module</code>, <code>variable</code>, <code>output</code>, <code>provider</code> blocks named by their address (<code>aws_s3_bucket.logs</code>, <code>x</code>): attributes as fields (nested blocks as <code>block.attr</code>), the value kind as the type (string / number / bool / list / map / reference / expression); modules with <code>vm_*</code> attributes are the <code>vm</code> objects of earlier versions. Secret attributes (<code>password</code> / <code>token</code> / <code>key</code>..., <code>sensitive = true</code>, PEM / token-like values) never become samples: they are listed in the <code>sensitive_fields</code> property</td>
+</tr>
+<tr>
+<td><code>java</code></td>
+<td><code>*.java</code> (own source scanner + the Semgrep <code>@Table</code> / <code>@Column</code> rule; test sources, <code>build/</code>, <code>target/</code>, generated dirs skipped)</td>
+<td><code>dto</code> <code>&lt;Class&gt;</code> (<code>@Table(name)</code> classes), <code>entity</code> <code>&lt;Outer.Inner&gt;</code> (JPA <code>@Entity</code> / <code>@Table</code> / <code>@MappedSuperclass</code> / <code>@Embeddable</code>, javax / jakarta / spring-data / hibernate, JDBI <code>@ColumnName</code>: fields named by their column), <code>dto</code> <code>&lt;Outer.Inner&gt;</code> (records, Lombok <code>@Data</code> / <code>@Value</code> / <code>@Builder</code>, Jackson, Gson, <code>@Schema</code> classes: Java field names). Add <code>entity</code> to <code>object_types</code> filters that list types</td>
+</tr>
+<tr>
+<td><code>golang</code></td>
+<td><code>*.go</code> (Semgrep; files up to 5 MB, generated <code>*.pb.go</code> included)</td>
+<td><code>dto</code> <code>&lt;Name&gt;</code>: struct fields of basic types (<code>type X struct</code>, grouped <code>type ( ... )</code>, generic structs, <code>A, B T</code>; fields of anonymous nested structs as <code>Outer.Inner.Field</code>)</td>
+</tr>
+<tr>
+<td><code>python</code></td>
+<td><code>*.py</code> / <code>*.pyi</code> (Semgrep)</td>
+<td><code>dto</code>: pydantic / dataclass (<code>@dataclass(...)</code> too) / sqlalchemy / django / mongo / marshmallow models (fields with defaults included); <code>route</code> <code>&lt;METHOD&gt; &lt;path&gt; (&lt;handler&gt;)</code>: fastapi / flask / django / bottle / starlette routes</td>
+</tr>
+<tr>
+<td><code>client</code>, <code>db</code></td>
+<td>nothing</td>
+<td>deprecated: find nothing, not part of <code>all</code>, accepted in an explicit list with a warning for one release</td>
+</tr>
+</tbody>
+</table>
+<p><code>migrations</code>: each migrations directory is its own schema. ClickHouse DDL, <code>test(s)</code> / <code>testdata</code> / <code>fixtures</code> /
+<code>seeds</code> / <code>datafixes</code> directories are skipped, and next to migration histories so are schema dumps
+(<code>structure.sql</code>). DDL built at run time (<code>EXECUTE '...'</code> in <code>DO</code> blocks) and the columns of
+<code>CREATE TABLE ... AS SELECT</code> are not known.</p>
+<p>The <code>file_patterns</code> are also what the service's <a href="../service/scanning/#diff-based-scan-skip">diff-based scan skip</a>
+compares the changed files of a commit against (<code>appsec_discovery.affected_parsers</code>).</p>
+<h2 id="comments-and-samples">Comments and samples</h2>
+<p>Objects get a <code>comment</code> and fields a <code>comment</code> and <code>samples</code> taken from the code (omitted when the code has none;
+a comment is cut at 1000 characters, at most 5 samples of 200 characters):</p>
+<table>
+<thead>
+<tr>
+<th>parser</th>
+<th>comment</th>
+<th>samples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>protobuf</code></td>
+<td><code>//</code> / <code>/* */</code> above the rpc / field or at the end of its line</td>
+<td>values of enum fields</td>
+</tr>
+<tr>
+<td><code>graphql</code></td>
+<td>descriptions (<code>"..."</code>) and <code>#</code> comments</td>
+<td>defaults, values of enum types</td>
+</tr>
+<tr>
+<td><code>javascript</code></td>
+<td>the JS comment above the <code>gql</code> template, <code>#</code> comments in it</td>
+<td>literal arguments, variable defaults</td>
+</tr>
+<tr>
+<td><code>migrations</code></td>
+<td><code>--</code> above <code>CREATE TABLE</code> / a column or after it, <code>COMMENT ON</code></td>
+<td><code>DEFAULT</code>, <code>CHECK (col IN (...))</code></td>
+</tr>
+<tr>
+<td><code>swagger</code></td>
+<td>summary / description, property / parameter description</td>
+<td><code>example(s)</code>, <code>x-example</code>, <code>enum</code>, <code>default</code></td>
+</tr>
+<tr>
+<td><code>golang</code>, <code>java</code>, <code>python</code>, <code>terraform</code></td>
+<td>comments / javadoc / docstrings above the struct, class, field, route, module</td>
+<td><code>example</code> / <code>enums</code> / <code>default</code> tags, <code>@Schema(example)</code>, <code>allowableValues</code>, pydantic <code>Field(example=...)</code> and literal defaults</td>
+</tr>
+</tbody>
+</table>
+<p>Secrets never become samples, whatever the parser (see <a href="../scoring/">Objects, hits and scoring</a>). Comments and
+samples are shown next to the fields in the LLM prompts, in the UI and over MCP (<code>get_object</code>,
+<code>list_objects(comment=...)</code>), and are accepted by <code>POST /ingest</code> (send masked or synthetic samples).</p>
+<h2 id="examples">Examples</h2>
+<h3 id="swagger">Swagger</h3>
+<div class="highlight"><pre><span></span><code><span class="nt">openapi</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3.0.3</span>
+<span class="nt">paths</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">/user/login</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">get</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">summary</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Logs user into the system</span>
+<span class="w">      </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">username</span>
+<span class="w">          </span><span class="nt">in</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">query</span>
+<span class="w">          </span><span class="nt">schema</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="nv">string</span><span class="p p-Indicator">}</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">password</span>
+<span class="w">          </span><span class="nt">in</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">query</span>
+<span class="w">          </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">The password for login in clear text</span>
+<span class="w">          </span><span class="nt">schema</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="nv">string</span><span class="p p-Indicator">}</span>
+<span class="w">      </span><span class="nt">responses</span><span class="p">:</span>
+<span class="w">        </span><span class="s">'200'</span><span class="p p-Indicator">:</span>
+<span class="w">          </span><span class="nt">content</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">application/json</span><span class="p">:</span>
+<span class="w">              </span><span class="nt">schema</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="nv">string</span><span class="p p-Indicator">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="l l-Scalar l-Scalar-Plain">appsec-discovery --source tests/swagger_samples</span>
+
+<span class="l l-Scalar l-Scalar-Plain">- object_name</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GET /user/login</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">object_type</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">route</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">parser</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">swagger</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">severity</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">high</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">tags</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">auth</span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">swagger.yaml</span>
+<span class="w">  </span><span class="nt">comment</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Logs user into the system</span>
+<span class="w">  </span><span class="nt">properties</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">prop_name</span><span class="p">:</span><span class="w"> </span><span class="nv">path</span><span class="p p-Indicator">,</span><span class="nt"> prop_value</span><span class="p">:</span><span class="w"> </span><span class="nv">/user/login</span><span class="p p-Indicator">,</span><span class="nt"> severity</span><span class="p">:</span><span class="w"> </span><span class="nv">medium</span><span class="p p-Indicator">,</span><span class="nt"> tags</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">auth</span><span class="p p-Indicator">]}</span>
+<span class="w">    </span><span class="nt">method</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">prop_name</span><span class="p">:</span><span class="w"> </span><span class="nv">method</span><span class="p p-Indicator">,</span><span class="nt"> prop_value</span><span class="p">:</span><span class="w"> </span><span class="nv">GET</span><span class="p p-Indicator">}</span>
+<span class="w">  </span><span class="nt">fields</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">query.param.username</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">field_name</span><span class="p">:</span><span class="w"> </span><span class="nv">query.param.username</span><span class="p p-Indicator">,</span><span class="nt"> field_type</span><span class="p">:</span><span class="w"> </span><span class="nv">string</span><span class="p p-Indicator">,</span><span class="nt"> severity</span><span class="p">:</span><span class="w"> </span><span class="nv">medium</span><span class="p p-Indicator">,</span><span class="nt"> tags</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">auth</span><span class="p p-Indicator">]}</span>
+<span class="w">    </span><span class="nt">query.param.password</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">field_name</span><span class="p">:</span><span class="w"> </span><span class="nv">query.param.password</span><span class="p p-Indicator">,</span><span class="nt"> field_type</span><span class="p">:</span><span class="w"> </span><span class="nv">string</span><span class="p p-Indicator">,</span><span class="nt"> severity</span><span class="p">:</span><span class="w"> </span><span class="nv">high</span><span class="p p-Indicator">,</span><span class="nt"> tags</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">auth</span><span class="p p-Indicator">],</span>
+<span class="nt">                           comment</span><span class="p">:</span><span class="w"> </span><span class="nv">The password for login in clear text</span><span class="p p-Indicator">}</span>
+<span class="w">    </span><span class="nt">output</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">field_name</span><span class="p">:</span><span class="w"> </span><span class="nv">output</span><span class="p p-Indicator">,</span><span class="nt"> field_type</span><span class="p">:</span><span class="w"> </span><span class="nv">string</span><span class="p p-Indicator">}</span>
+</code></pre></div>
+<h3 id="protobuf">Protobuf</h3>
+<div class="highlight"><pre><span></span><code><span class="kn">package</span><span class="w"> </span><span class="nn">com.example.grpc</span><span class="p">;</span>
+
+<span class="kd">service</span><span class="w"> </span><span class="n">SumService</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">rpc</span><span class="w"> </span><span class="n">Sum</span><span class="p">(</span><span class="n">SumInput</span><span class="p">)</span><span class="w"> </span><span class="k">returns</span><span class="w"> </span><span class="p">(</span><span class="n">SumOutput</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
+<span class="p">}</span>
+<span class="kd">message</span><span class="w"> </span><span class="nc">SumInput</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="kt">int32</span><span class="w"> </span><span class="na">n1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="kt">int32</span><span class="w"> </span><span class="na">n2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="kd">message</span><span class="w"> </span><span class="nc">SumOutput</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="kt">int32</span><span class="w"> </span><span class="na">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">object_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/com.example.grpc.SumService/Sum</span>
+<span class="w">  </span><span class="nt">object_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rpc</span>
+<span class="w">  </span><span class="nt">parser</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">protobuf</span>
+<span class="w">  </span><span class="nt">fields</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">input.SumInput.n1</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">field_name</span><span class="p">:</span><span class="w"> </span><span class="nv">SumInput.n1</span><span class="p p-Indicator">,</span><span class="nt"> field_type</span><span class="p">:</span><span class="w"> </span><span class="nv">int32</span><span class="p p-Indicator">}</span>
+<span class="w">    </span><span class="nt">input.SumInput.n2</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">field_name</span><span class="p">:</span><span class="w"> </span><span class="nv">SumInput.n2</span><span class="p p-Indicator">,</span><span class="nt"> field_type</span><span class="p">:</span><span class="w"> </span><span class="nv">int32</span><span class="p p-Indicator">}</span>
+<span class="w">    </span><span class="nt">output.SumOutput.result</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">field_name</span><span class="p">:</span><span class="w"> </span><span class="nv">SumOutput.result</span><span class="p p-Indicator">,</span><span class="nt"> field_type</span><span class="p">:</span><span class="w"> </span><span class="nv">int32</span><span class="p p-Indicator">}</span>
+</code></pre></div>
+<h3 id="graphql">GraphQL</h3>
+<div class="highlight"><pre><span></span><code><span class="k">type</span><span class="w"> </span><span class="err">MgmQueries</span>
+<span class="k">extend</span><span class="w"> </span><span class="k">type</span><span class="w"> </span><span class="err">Query</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">mgm</span><span class="p">:</span><span class="w"> </span><span class="n">MgmQueries</span><span class="err">!</span><span class="w"> </span><span class="p">}</span>
+<span class="k">extend</span><span class="w"> </span><span class="k">type</span><span class="w"> </span><span class="err">MgmQueries</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">promoterInfo</span><span class="p">(</span><span class="n">input</span><span class="p">:</span><span class="w"> </span><span class="no">MgmPromoterInfoInput</span><span class="err">!</span><span class="p">)</span><span class="err">:</span><span class="w"> </span><span class="n">MgmPromoterInfoPayload</span><span class="err">!</span>
+<span class="p">}</span>
+<span class="k">input</span><span class="w"> </span><span class="err">MgmPromoterInfoInput</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">link</span><span class="p">:</span><span class="w"> </span><span class="n">String</span><span class="err">!</span><span class="w"> </span><span class="p">}</span>
+<span class="k">type</span><span class="w"> </span><span class="err">MgmPromoterInfoPayload</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">firstName</span><span class="p">:</span><span class="w"> </span><span class="n">String</span><span class="err">!</span><span class="w">  </span><span class="nl">lastName</span><span class="p">:</span><span class="w"> </span><span class="n">String</span><span class="err">!</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">object_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MgmQueries.promoterInfo</span>
+<span class="w">  </span><span class="nt">object_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">query</span>
+<span class="w">  </span><span class="nt">parser</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">graphql</span>
+<span class="w">  </span><span class="nt">severity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">high</span>
+<span class="w">  </span><span class="nt">tags</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">pii</span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="nt">fields</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">input.MgmPromoterInfoInput.link</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">field_name</span><span class="p">:</span><span class="w"> </span><span class="nv">input.MgmPromoterInfoInput.link</span><span class="p p-Indicator">,</span><span class="nt"> field_type</span><span class="p">:</span><span class="w"> </span><span class="nv">String</span><span class="p p-Indicator">}</span>
+<span class="w">    </span><span class="nt">output.MgmPromoterInfoPayload.firstName</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">field_name</span><span class="p">:</span><span class="w"> </span><span class="nv">output.MgmPromoterInfoPayload.firstName</span><span class="p p-Indicator">,</span><span class="nt"> field_type</span><span class="p">:</span><span class="w"> </span><span class="nv">String</span><span class="p p-Indicator">,</span>
+<span class="nt">                                              severity</span><span class="p">:</span><span class="w"> </span><span class="nv">high</span><span class="p p-Indicator">,</span><span class="nt"> tags</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">pii</span><span class="p p-Indicator">]}</span>
+<span class="w">    </span><span class="nt">output.MgmPromoterInfoPayload.lastName</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">field_name</span><span class="p">:</span><span class="w"> </span><span class="nv">output.MgmPromoterInfoPayload.lastName</span><span class="p p-Indicator">,</span><span class="nt"> field_type</span><span class="p">:</span><span class="w"> </span><span class="nv">String</span><span class="p p-Indicator">,</span>
+<span class="nt">                                             severity</span><span class="p">:</span><span class="w"> </span><span class="nv">high</span><span class="p p-Indicator">,</span><span class="nt"> tags</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">pii</span><span class="p p-Indicator">]}</span>
+</code></pre></div>
+<h3 id="sql-migrations">SQL migrations</h3>
+<div class="highlight"><pre><span></span><code><span class="c1">-- 0001_clients.sql</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">public</span><span class="p">.</span><span class="n">clients</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">id</span><span class="w"> </span><span class="n">bigserial</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span>
+<span class="w">    </span><span class="n">last_name</span><span class="w"> </span><span class="nb">varchar</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span><span class="w">   </span><span class="c1">-- as in the passport</span>
+<span class="w">    </span><span class="n">phone</span><span class="w"> </span><span class="nb">varchar</span><span class="p">(</span><span class="mi">20</span><span class="p">),</span>
+<span class="w">    </span><span class="n">status</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="s1">'active'</span><span class="w"> </span><span class="k">CHECK</span><span class="w"> </span><span class="p">(</span><span class="n">status</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span><span class="s1">'active'</span><span class="p">,</span><span class="w"> </span><span class="s1">'blocked'</span><span class="p">))</span>
+<span class="p">);</span>
+<span class="c1">-- 0002_clients_email.sql</span>
+<span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">public</span><span class="p">.</span><span class="n">clients</span><span class="w"> </span><span class="k">ADD</span><span class="w"> </span><span class="k">COLUMN</span><span class="w"> </span><span class="n">email</span><span class="w"> </span><span class="nb">varchar</span><span class="p">(</span><span class="mi">200</span><span class="p">);</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">object_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">public.clients</span>
+<span class="w">  </span><span class="nt">object_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">table</span>
+<span class="w">  </span><span class="nt">parser</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">migrations</span>
+<span class="w">  </span><span class="nt">severity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">high</span>
+<span class="w">  </span><span class="nt">tags</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">pii</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">auth</span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="nt">fields</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">field_name</span><span class="p">:</span><span class="w"> </span><span class="nv">id</span><span class="p p-Indicator">,</span><span class="nt"> field_type</span><span class="p">:</span><span class="w"> </span><span class="nv">bigserial</span><span class="p p-Indicator">}</span>
+<span class="w">    </span><span class="nt">last_name</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">field_name</span><span class="p">:</span><span class="w"> </span><span class="nv">last_name</span><span class="p p-Indicator">,</span><span class="nt"> field_type</span><span class="p">:</span><span class="w"> </span><span class="nv">varchar(100)</span><span class="p p-Indicator">,</span><span class="nt"> comment</span><span class="p">:</span><span class="w"> </span><span class="nv">as in the passport</span><span class="p p-Indicator">,</span><span class="nt"> severity</span><span class="p">:</span><span class="w"> </span><span class="nv">high</span><span class="p p-Indicator">,</span><span class="nt"> tags</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">pii</span><span class="p p-Indicator">]}</span>
+<span class="w">    </span><span class="nt">phone</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">field_name</span><span class="p">:</span><span class="w"> </span><span class="nv">phone</span><span class="p p-Indicator">,</span><span class="nt"> field_type</span><span class="p">:</span><span class="w"> </span><span class="nv">varchar(20)</span><span class="p p-Indicator">,</span><span class="nt"> severity</span><span class="p">:</span><span class="w"> </span><span class="nv">high</span><span class="p p-Indicator">,</span><span class="nt"> tags</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">pii</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">auth</span><span class="p p-Indicator">]}</span>
+<span class="w">    </span><span class="nt">status</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">field_name</span><span class="p">:</span><span class="w"> </span><span class="nv">status</span><span class="p p-Indicator">,</span><span class="nt"> field_type</span><span class="p">:</span><span class="w"> </span><span class="nv">text</span><span class="p p-Indicator">,</span><span class="nt"> samples</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">active</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">blocked</span><span class="p p-Indicator">]}</span>
+<span class="w">    </span><span class="nt">email</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">field_name</span><span class="p">:</span><span class="w"> </span><span class="nv">email</span><span class="p p-Indicator">,</span><span class="nt"> field_type</span><span class="p">:</span><span class="w"> </span><span class="nv">varchar(200)</span><span class="p p-Indicator">,</span><span class="nt"> severity</span><span class="p">:</span><span class="w"> </span><span class="nv">medium</span><span class="p p-Indicator">,</span><span class="nt"> tags</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">pii</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">auth</span><span class="p p-Indicator">]}</span>
+</code></pre></div>
+<p>The sample folders under <code>tests/*_samples</code> hold inputs for every parser.</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+  
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.indexes", "navigation.top"], "search": "../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>

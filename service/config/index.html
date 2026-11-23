@@ -1,0 +1,1876 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../scanning/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.2">
+    
+    
+      
+        <title>Configuration (.env) - AppSec Discovery</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#configuration-reference-env" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="AppSec Discovery" class="md-header__button md-logo" aria-label="AppSec Discovery" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            AppSec Discovery
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Configuration (.env)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="AppSec Discovery" class="md-nav__button md-logo" aria-label="AppSec Discovery" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    AppSec Discovery
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../cli/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI and package
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    CLI and package
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cli/config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration (conf.yaml)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cli/llm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM scoring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parsers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parsers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../scoring/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Objects, hits and scoring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Service
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Service
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration (.env)
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration (.env)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#database-and-gitlab-scanner" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Database and GitLab (scanner)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scan-skip-and-change-detection-scanner" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scan skip and change detection (scanner)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#job-queue-and-workers-scanner" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Job queue and workers (scanner)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#service-model-scanner" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Service model (scanner)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tiered-review-scanner-and-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tiered review (scanner and API)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#llm-rule-lifecycle-scanner-and-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LLM rule lifecycle (scanner and API)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#retention-scanner" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Retention (scanner)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#postgres-compose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Postgres (compose)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api-and-ui" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        API and UI
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scanning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scanning and change detection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../jobs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Jobs and workers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rules and hits
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tiers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tiered review
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../llm-lifecycle/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM rule lifecycle
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../external-executor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    External executor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ui/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mcp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCP server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    REST API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ingest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    External parsers (ingest)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data-model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data model and migrations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../retention/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Retention
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contrib/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#database-and-gitlab-scanner" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Database and GitLab (scanner)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scan-skip-and-change-detection-scanner" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scan skip and change detection (scanner)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#job-queue-and-workers-scanner" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Job queue and workers (scanner)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#service-model-scanner" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Service model (scanner)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tiered-review-scanner-and-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tiered review (scanner and API)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#llm-rule-lifecycle-scanner-and-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LLM rule lifecycle (scanner and API)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#retention-scanner" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Retention (scanner)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#postgres-compose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Postgres (compose)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api-and-ui" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        API and UI
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+  
+
+
+
+
+<h1 id="configuration-reference-env">Configuration reference (<code>.env</code>)</h1>
+<p>Every setting is an environment variable; <code>docker-compose.yml</code> passes them from <code>.env</code> (see <code>.env.example</code>).
+A variable that is set but empty counts as unset in the scanner (the field default applies, or a required
+variable is reported missing). Defaults below are the code defaults (<code>discovery_scanner/config.py</code>,
+<code>discovery_api/config.py</code>); <code>.env.example</code> sometimes sets a different example value, noted in the last column.</p>
+<h2 id="database-and-gitlab-scanner">Database and GitLab (scanner)</h2>
+<table>
+<thead>
+<tr>
+<th>variable</th>
+<th>default</th>
+<th>meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>POSTGRES_HOST</code>, <code>POSTGRES_DB</code>, <code>POSTGRES_USER</code>, <code>POSTGRES_PASSWORD</code></td>
+<td>-</td>
+<td>compose builds <code>DATABASE_URL=postgresql://user:password@host/db</code> from them for every service</td>
+</tr>
+<tr>
+<td><code>DATABASE_URL</code></td>
+<td>required</td>
+<td>what the scanner, the API and the migration read</td>
+</tr>
+<tr>
+<td><code>GITLAB_URL</code></td>
+<td>required</td>
+<td>the GitLab instance (HTTP URL)</td>
+</tr>
+<tr>
+<td><code>GITLAB_PRIVATE_TOKEN</code></td>
+<td>required</td>
+<td>read-only token: scopes <code>read_api</code> + <code>read_repository</code>; passed to git as an HTTP header through the environment, never written to disk or argv</td>
+</tr>
+<tr>
+<td><code>GITLAB_PROJECTS_PREFIX</code></td>
+<td>required</td>
+<td>comma separated prefixes matched on path segments: <code>grp/</code> = every project of the group, <code>grp/proj</code> = that project only, <code>grp/proj*</code> = plain string prefix</td>
+</tr>
+<tr>
+<td><code>GITLAB_SCAN_TYPES</code></td>
+<td>required</td>
+<td><code>mains</code>, <code>mrs</code> or both: scan main branches, open MRs</td>
+</tr>
+<tr>
+<td><code>PARSERS</code></td>
+<td><code>all</code></td>
+<td>comma separated parser names, see <a href="../../parsers/">Parsers</a></td>
+</tr>
+<tr>
+<td><code>SCAN_LANGS</code></td>
+<td><code>all</code></td>
+<td>languages (as GitLab reports them) whose clones are scanned; <code>all</code> disables the gate</td>
+</tr>
+<tr>
+<td><code>PROJECTS_POLL_INTERVAL_S</code></td>
+<td><code>300</code></td>
+<td>GitLab polling interval (no webhooks)</td>
+</tr>
+<tr>
+<td><code>SYNC_UNCHANGED_EVERY_H</code></td>
+<td><code>24</code></td>
+<td>a project whose GitLab activity did not change is re-read anyway after this many hours (stale MRs released, deleted branches noticed); <code>0</code>: only by the full sync after start-up</td>
+</tr>
+<tr>
+<td><code>GITLAB_CACHE_TTL_S</code></td>
+<td><code>300</code></td>
+<td>in-memory cache of GitLab API reads, per process; 0 disables</td>
+</tr>
+<tr>
+<td><code>GITLAB_TIMEOUT_S</code></td>
+<td><code>30</code></td>
+<td>GitLab API request timeout</td>
+</tr>
+<tr>
+<td><code>GIT_TIMEOUT_S</code></td>
+<td><code>1800</code></td>
+<td>git clone timeout</td>
+</tr>
+<tr>
+<td><code>WORKSPACE_DIR</code></td>
+<td>system temp dir (<code>/workspace</code> in the bundled compose)</td>
+<td>parent of the per-job checkout directories</td>
+</tr>
+<tr>
+<td><code>WORKSPACE_MIN_FREE_GB</code></td>
+<td><code>5</code></td>
+<td>no clone starts with less free space in <code>WORKSPACE_DIR</code>; the job is retried; <code>0</code> disables, see <a href="../scanning/#disk-space-of-clones">Disk space of clones</a></td>
+</tr>
+<tr>
+<td><code>SCAN_MAX_REPO_MB</code></td>
+<td><code>0</code></td>
+<td>repositories GitLab reports larger are not cloned (the job fails, permanent); <code>0</code>: no limit</td>
+</tr>
+<tr>
+<td><code>GIT_PARTIAL_CLONE</code></td>
+<td><code>true</code></td>
+<td>MR sources that need their history are cloned with <code>--filter=blob:none</code></td>
+</tr>
+<tr>
+<td><code>SCAN_WORKSPACE_VOLUME</code></td>
+<td><code>scan_workspace</code></td>
+<td>compose only: the volume or host directory mounted at <code>/workspace</code> (a directory on another disk keeps clones off the Postgres disk)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="scan-skip-and-change-detection-scanner">Scan skip and change detection (scanner)</h2>
+<p>See <a href="../scanning/#diff-based-scan-skip">Scanning: diff-based scan skip</a>.</p>
+<table>
+<thead>
+<tr>
+<th>variable</th>
+<th>default</th>
+<th>meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SCAN_DIFF_SKIP</code></td>
+<td><code>true</code></td>
+<td>skip the clone / parse of a main branch when no file a parser reads changed since the snapshot; <code>false</code> = every commit is cloned and parsed</td>
+</tr>
+<tr>
+<td><code>SCAN_DIFF_SKIP_MRS</code></td>
+<td><code>true</code></td>
+<td>the same for MR scans</td>
+</tr>
+<tr>
+<td><code>SCAN_FULL_RESCAN_DAYS</code></td>
+<td><code>7</code></td>
+<td>a full scan anyway when the last one is older; <code>0</code> = never on time alone</td>
+</tr>
+<tr>
+<td><code>SCAN_DIFF_MAX_FILES</code></td>
+<td><code>1000</code></td>
+<td>a compare that lists this many files or more forces a full scan</td>
+</tr>
+<tr>
+<td><code>SCAN_ALWAYS_RESCAN_GLOBS</code></td>
+<td>empty</td>
+<td>comma separated globs; a changed file matching one forces a full scan (<code>Makefile,config/*.toml</code>)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="job-queue-and-workers-scanner">Job queue and workers (scanner)</h2>
+<table>
+<thead>
+<tr>
+<th>variable</th>
+<th>default</th>
+<th>meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>MAX_WORKERS</code></td>
+<td><code>2</code> (<code>.env.example</code>: 5)</td>
+<td>scan worker processes (<code>scan_branch</code>, <code>scan_mr</code>, <code>ingest</code>); the code default suits a laptop, the example a stand - the compose file forwards whatever <code>.env</code> sets</td>
+</tr>
+<tr>
+<td><code>SYNC_WORKERS</code></td>
+<td><code>2</code></td>
+<td>GitLab sync worker processes (<code>sync_projects</code>, <code>sync_branches_mrs</code>)</td>
+</tr>
+<tr>
+<td><code>CONTROL_WORKERS</code></td>
+<td><code>1</code></td>
+<td>control worker processes (<code>llm_verify</code>, <code>llm_apply</code>, <code>llm_prepare</code>, <code>llm_coverage</code>, <code>llm_rollout</code>, <code>llm_relabel</code>, <code>stats_refresh</code>, <code>cleanup</code>)</td>
+</tr>
+<tr>
+<td><code>LLM_WORKERS</code></td>
+<td><code>1</code></td>
+<td>LLM worker processes (<code>llm_score</code>, <code>llm_trial</code>); 0 = no service model runs</td>
+</tr>
+<tr>
+<td><code>LLM_CONCURRENCY</code></td>
+<td><code>2</code></td>
+<td>model calls in flight per LLM worker (a thread pool per chunk of a rule run); keep it near <code>LLM_PARALLEL</code> for the bundled server, 4-8 for an API model</td>
+</tr>
+<tr>
+<td><code>LLM_RATE_PER_MIN</code></td>
+<td><code>0</code></td>
+<td>model calls per minute of all LLM workers, threads and replicas together (token bucket in Postgres); 0 = no limit</td>
+</tr>
+<tr>
+<td><code>STATS_REFRESH_S</code></td>
+<td><code>60</code></td>
+<td>the <code>stats_refresh</code> job recomputes the statistics snapshots this often; the API serves a snapshot while younger than twice this; 0 disables (the API computes live)</td>
+</tr>
+<tr>
+<td><code>JOB_LEASE_S</code></td>
+<td><code>300</code></td>
+<td>a job whose worker died is re-run after this</td>
+</tr>
+<tr>
+<td><code>JOB_MAX_ATTEMPTS</code></td>
+<td><code>5</code></td>
+<td>attempts per job</td>
+</tr>
+<tr>
+<td><code>JOB_BACKOFF_BASE_S</code>, <code>JOB_BACKOFF_MAX_S</code></td>
+<td><code>30</code>, <code>3600</code></td>
+<td>retry n waits <code>base * 2^(n-1)</code> seconds, capped</td>
+</tr>
+<tr>
+<td><code>JOB_POLL_S</code></td>
+<td><code>5</code></td>
+<td>idle workers poll the queue this often</td>
+</tr>
+<tr>
+<td><code>JOBS_RETENTION_DAYS</code></td>
+<td><code>7</code></td>
+<td>done / failed jobs are deleted after this</td>
+</tr>
+<tr>
+<td><code>SHUTDOWN_TIMEOUT_S</code></td>
+<td><code>150</code></td>
+<td>SIGTERM: workers still busy after this are killed; keep compose's <code>stop_grace_period</code> (180 s) above it</td>
+</tr>
+<tr>
+<td><code>LLM_COVERAGE_INTERVAL_S</code></td>
+<td><code>300</code></td>
+<td>the control worker recounts stale LLM coverage rows this often; 0 disables</td>
+</tr>
+</tbody>
+</table>
+<h2 id="service-model-scanner">Service model (scanner)</h2>
+<table>
+<thead>
+<tr>
+<th>variable</th>
+<th>default</th>
+<th>meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>LLM_API_URL</code></td>
+<td>unset in code; compose: <code>http://discovery_llm:8080/v1</code></td>
+<td>any OpenAI-compatible endpoint; <strong>empty disables the LLM rules</strong></td>
+</tr>
+<tr>
+<td><code>LLM_API_KEY</code></td>
+<td>unset</td>
+<td>API key (not needed for the bundled server)</td>
+</tr>
+<tr>
+<td><code>LLM_API_MODEL</code></td>
+<td><code>local-model</code></td>
+<td>model name; recorded as the service model of every rule version</td>
+</tr>
+<tr>
+<td><code>LLM_TIMEOUT_S</code></td>
+<td><code>120</code></td>
+<td>seconds per model call</td>
+</tr>
+<tr>
+<td><code>LLM_MAX_RETRIES</code></td>
+<td><code>2</code></td>
+<td>connection errors, 429 and 5xx are retried</td>
+</tr>
+<tr>
+<td><code>LLM_MAX_TOKENS</code></td>
+<td><code>8192</code></td>
+<td>answer length (objects with many sensitive fields need long answers)</td>
+</tr>
+<tr>
+<td><code>LLM_STRUCTURED</code></td>
+<td><code>auto</code></td>
+<td><code>response_format</code>: <code>auto</code>, <code>json_schema</code>, <code>json_object</code>, <code>none</code></td>
+</tr>
+<tr>
+<td><code>LLM_EXTERNAL_RESERVE_H</code></td>
+<td><code>1</code></td>
+<td>how long unclaimed external work items keep their objects from service runs</td>
+</tr>
+</tbody>
+</table>
+<p>Bundled <code>discovery_llm</code> server: <code>LLM_HF_REPO</code> (<code>Qwen/Qwen2.5-3B-Instruct-GGUF:Q4_K_M</code>, Hugging Face
+<code>&lt;repo&gt;[:quant]</code>), or a GGUF file: <code>LLM_MODEL_FILE=/models/&lt;file&gt;.gguf</code> + <code>LLM_HF_REPO=</code> (empty) with the file in
+<code>LLM_MODELS_DIR</code> (<code>./llm_models</code>); <code>LLM_CTX_SIZE</code> (8192), <code>LLM_PARALLEL</code> (2), <code>HF_TOKEN</code> (gated repos). To use an
+external API set <code>LLM_API_URL</code>, <code>LLM_API_KEY</code>, <code>LLM_API_MODEL</code> and start with <code>--scale discovery_llm=0</code>.
+<code>LLM_LOCAL_MODEL</code> / <code>LLM_LOCAL_FILE</code> / <code>LLM_PROMPT</code> / <code>LLM_PROMPT_VER</code> are gone and ignored.</p>
+<h2 id="tiered-review-scanner-and-api">Tiered review (scanner and API)</h2>
+<table>
+<thead>
+<tr>
+<th>variable</th>
+<th>default</th>
+<th>where</th>
+<th>meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>LLM_VERIFY_ESCALATE</code></td>
+<td><code>true</code></td>
+<td>scanner</td>
+<td>every service <code>need_more_info</code> verdict becomes a verify item for the harness model</td>
+</tr>
+<tr>
+<td><code>LLM_ESCALATION_DAILY_MAX</code></td>
+<td><code>2000</code></td>
+<td>scanner</td>
+<td>escalation items per rule and UTC day; the verdicts over the cap stay service-decided (in the review queue) and are counted as <code>escalation_overflow</code> (verify job progress, <code>job_health.escalations</code>)</td>
+</tr>
+<tr>
+<td><code>LLM_QA_SAMPLE_RATE</code></td>
+<td><code>0.05</code></td>
+<td>scanner</td>
+<td>share of confident service verdicts sampled for QA (0 disables)</td>
+</tr>
+<tr>
+<td><code>LLM_QA_DAILY_MAX</code></td>
+<td><code>500</code></td>
+<td>scanner</td>
+<td>QA items per UTC day</td>
+</tr>
+<tr>
+<td><code>LLM_QA_AGREEMENT_MIN</code></td>
+<td><code>0.9</code></td>
+<td>API, scanner</td>
+<td>a rule with a lower service / harness agreement (30 days, at least 30 samples) is flagged "needs improvement" (the scanner reads it for the <code>llm_quality</code> snapshot)</td>
+</tr>
+<tr>
+<td><code>LLM_TRIAL_MAX_SUBJECTS</code></td>
+<td><code>200</code></td>
+<td>API</td>
+<td>subjects per prompt trial (controls included)</td>
+</tr>
+<tr>
+<td><code>LLM_TRIAL_DAILY_CALLS</code></td>
+<td><code>2000</code></td>
+<td>API</td>
+<td>model calls of all trials per UTC day (0 disables trials)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="llm-rule-lifecycle-scanner-and-api">LLM rule lifecycle (scanner and API)</h2>
+<table>
+<thead>
+<tr>
+<th>variable</th>
+<th>default</th>
+<th>where</th>
+<th>meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>LLM_REASK_INLINE</code></td>
+<td><code>false</code></td>
+<td>scanner</td>
+<td><code>true</code>: every run asks the stale verdicts at once (the behaviour before rollouts)</td>
+</tr>
+<tr>
+<td><code>LLM_ROLLOUT_DEFAULT</code></td>
+<td><code>canary</code></td>
+<td>API</td>
+<td>the rollout a prompt / scope edit makes: <code>canary</code> / <code>staged</code> (planned, a human starts it) or <code>immediate</code></td>
+</tr>
+<tr>
+<td><code>LLM_CORE_BUMP_MODE</code></td>
+<td><code>canary</code></td>
+<td>scanner</td>
+<td>new core prompts of a deploy: <code>canary</code> / <code>manual</code> (a candidate version per rule) or <code>immediate</code> (activated, rollout running)</td>
+</tr>
+<tr>
+<td><code>LLM_MODEL_CHANGE_POLICY</code></td>
+<td><code>rollout</code></td>
+<td>scanner</td>
+<td>another <code>LLM_API_MODEL</code>: <code>rollout</code>, <code>reask</code> (activate at once) or <code>ignore</code> (record the model, nothing stale)</td>
+</tr>
+<tr>
+<td><code>LLM_ROLLOUT_TICK_S</code></td>
+<td><code>60</code></td>
+<td>scanner</td>
+<td>the <code>llm_rollout</code> controller job; 0 disables it</td>
+</tr>
+<tr>
+<td><code>LLM_ROLLOUT_CALLS_PER_HOUR</code></td>
+<td><code>2000</code></td>
+<td>scanner</td>
+<td>model calls of all rollouts together</td>
+</tr>
+<tr>
+<td><code>LLM_ROLLOUT_MAX_PARALLEL_JOBS</code></td>
+<td><code>1</code></td>
+<td>scanner</td>
+<td>rollout slices queued / running at once</td>
+</tr>
+<tr>
+<td><code>LLM_ROLLOUT_FRESH_BACKLOG_MAX</code></td>
+<td><code>20</code></td>
+<td>scanner</td>
+<td>rollouts wait while more fresh <code>llm_score</code> jobs are pending</td>
+</tr>
+<tr>
+<td><code>LLM_ROLLOUT_SLICE_OBJECTS</code></td>
+<td><code>200</code></td>
+<td>scanner</td>
+<td>objects (model calls) of one slice</td>
+</tr>
+<tr>
+<td><code>LLM_ROLLOUT_QA_MIN_SAMPLES</code>, <code>LLM_ROLLOUT_QA_AGREEMENT_MIN</code>, <code>LLM_ROLLOUT_QA_MAX_DROP</code></td>
+<td><code>20</code>, <code>0.8</code>, <code>0.1</code></td>
+<td>scanner</td>
+<td>auto-pause of a rollout when the harness agreement on the new version is too low or dropped too much</td>
+</tr>
+<tr>
+<td><code>HIT_HISTORY_DAYS</code></td>
+<td><code>180</code></td>
+<td>scanner</td>
+<td>verdict history retention (the last row of every version is kept)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="retention-scanner">Retention (scanner)</h2>
+<p>See <a href="../retention/">Retention</a>: <code>MR_STALE_DAYS</code> (30), <code>MR_ROW_RETENTION_DAYS</code> (7), <code>GC_INTERVAL_HOURS</code> (24),
+<code>GC_BATCH_SIZE</code> (5000), <code>HITS_PENDING_ORPHAN_DAYS</code> (14), <code>HITS_DECIDED_UNSEEN_DAYS</code> (180),
+<code>HITS_REJECTED_UNSEEN_DAYS</code> (365), <code>SCANS_KEEP_PER_BRANCH</code> (20), <code>JOBS_RETENTION_DAYS</code> (7), <code>HIT_HISTORY_DAYS</code>
+(180), <code>LLM_VERIFICATIONS_RETENTION_DAYS</code> (365; 0 keeps them), <code>PROMPT_TRIALS_RETENTION_DAYS</code> (90; 0 keeps them).</p>
+<h2 id="postgres-compose">Postgres (compose)</h2>
+<p><code>docker-compose.yml</code> starts the bundled Postgres with these server settings (<code>postgres -c ...</code>); the image's defaults
+(128 MB <code>shared_buffers</code>, 4 MB <code>work_mem</code>, <code>random_page_cost</code> 4) make the planner choose sequential scans and on-disk
+sorts once the tables hold millions of rows. The defaults suit an 8 GB host shared with the scanner and the LLM
+server; on a dedicated database host raise <code>shared_buffers</code> to ~25% of RAM and <code>effective_cache_size</code> to ~75%.</p>
+<table>
+<thead>
+<tr>
+<th>variable</th>
+<th>default</th>
+<th>meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>PG_SHARED_BUFFERS</code></td>
+<td><code>1GB</code></td>
+<td>Postgres buffer cache</td>
+</tr>
+<tr>
+<td><code>PG_WORK_MEM</code></td>
+<td><code>32MB</code></td>
+<td>per sort / hash of a query (several per query, per connection)</td>
+</tr>
+<tr>
+<td><code>PG_MAINTENANCE_WORK_MEM</code></td>
+<td><code>256MB</code></td>
+<td>index builds, VACUUM</td>
+</tr>
+<tr>
+<td><code>PG_EFFECTIVE_CACHE_SIZE</code></td>
+<td><code>3GB</code></td>
+<td>what the planner assumes is cached (buffers + OS cache)</td>
+</tr>
+<tr>
+<td><code>PG_RANDOM_PAGE_COST</code></td>
+<td><code>1.1</code></td>
+<td>SSD storage; keep 4 for spinning disks</td>
+</tr>
+<tr>
+<td><code>PG_MAX_WAL_SIZE</code></td>
+<td><code>2GB</code></td>
+<td>fewer checkpoints during big scans and backfills</td>
+</tr>
+<tr>
+<td><code>PG_SHM_SIZE</code></td>
+<td><code>512mb</code></td>
+<td><code>/dev/shm</code> of the container (parallel query workers)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="api-and-ui">API and UI</h2>
+<table>
+<thead>
+<tr>
+<th>variable</th>
+<th>default</th>
+<th>meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>UI_ADMIN_EMAIL</code></td>
+<td>required</td>
+<td>the login</td>
+</tr>
+<tr>
+<td><code>UI_ADMIN_PASSWORD_HASH</code></td>
+<td>required</td>
+<td>bcrypt hash of the password; a plain <code>UI_ADMIN_PASSWORD</code> is refused, so are well-known passwords (<code>admin</code>, <code>password</code>, ...) unless <code>UI_ALLOW_WEAK_PASSWORD=true</code> (local stands only)</td>
+</tr>
+<tr>
+<td><code>UI_JWT_KEY</code></td>
+<td>required</td>
+<td>at least 32 characters, not the example value</td>
+</tr>
+<tr>
+<td><code>UI_TOKEN_TTL_MINUTES</code></td>
+<td><code>30</code></td>
+<td>lifetime of the bearer tokens of <code>POST /api/token</code> (1 .. 10080)</td>
+</tr>
+<tr>
+<td><code>STATS_REFRESH_S</code></td>
+<td><code>60</code></td>
+<td>also read by the API: a statistics snapshot older than twice this is stale and the API computes live; <code>0</code> disables the snapshots in the API</td>
+</tr>
+<tr>
+<td><code>MCP_MAX_RESPONSE_BYTES</code></td>
+<td><code>200000</code></td>
+<td>byte cap of one MCP tool result (lists are cut, <code>truncated: true</code> + <code>hint</code>); <code>0</code> disables</td>
+</tr>
+<tr>
+<td><code>MCP_RATE_LIMIT_PER_MINUTE</code></td>
+<td><code>600</code></td>
+<td>MCP requests per minute per client (service token or admin); <code>429</code> + <code>Retry-After</code> above; <code>0</code> disables</td>
+</tr>
+<tr>
+<td><code>UI_BASE_URL</code></td>
+<td>empty</td>
+<td>base of the <code>ui_url</code> deep links in MCP answers (e.g. <code>https://discovery.example.com</code>); empty: paths only</td>
+</tr>
+<tr>
+<td><code>HTTP_PORT</code></td>
+<td><code>80</code></td>
+<td>host port of nginx, the only published port</td>
+</tr>
+<tr>
+<td><code>POSTGRES_DEV_PORT</code></td>
+<td><code>54321</code></td>
+<td><code>docker-compose.dev.yml</code> only: host port of Postgres on 127.0.0.1</td>
+</tr>
+<tr>
+<td><code>LOG_MAX_SIZE</code>, <code>LOG_MAX_FILE</code></td>
+<td><code>50m</code>, <code>5</code></td>
+<td>Docker log rotation of every container (<code>json-file</code> driver): size per file, files kept</td>
+</tr>
+</tbody>
+</table>
+<p>Removed settings, ignored when still set: <code>CACHE_SIZE_GB</code>, <code>MR_ALERTS</code>, <code>TG_ALERT_TOKEN</code>, <code>TG_CHAT_ID</code>,
+<code>ALERT_TIMEOUT_S</code>, <code>LLM_LOCAL_MODEL</code>, <code>LLM_LOCAL_FILE</code>, <code>LLM_PROMPT</code>, <code>LLM_PROMPT_VER</code>.</p>
+<p>Every scanner setting above is forwarded by <code>docker-compose.yml</code> from <code>.env</code> (with the code default when unset),
+including <code>GITLAB_CACHE_TTL_S</code>, <code>GITLAB_TIMEOUT_S</code>, <code>GIT_TIMEOUT_S</code>, <code>WORKSPACE_DIR</code>, <code>JOB_POLL_S</code>,
+<code>LLM_EXTERNAL_RESERVE_H</code> and the <code>LLM_ROLLOUT_QA_*</code> thresholds, which earlier versions of the file left out.</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+  
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.indexes", "navigation.top"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>

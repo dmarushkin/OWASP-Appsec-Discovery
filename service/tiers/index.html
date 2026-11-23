@@ -1,0 +1,1365 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../rules/">
+      
+      
+        <link rel="next" href="../llm-lifecycle/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.2">
+    
+    
+      
+        <title>Tiered review - AppSec Discovery</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#tiered-review-service-model-harness-model-human" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="AppSec Discovery" class="md-header__button md-logo" aria-label="AppSec Discovery" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            AppSec Discovery
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Tiered review
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="AppSec Discovery" class="md-nav__button md-logo" aria-label="AppSec Discovery" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    AppSec Discovery
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../cli/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI and package
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    CLI and package
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cli/config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration (conf.yaml)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cli/llm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM scoring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parsers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parsers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../scoring/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Objects, hits and scoring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Service
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Service
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration (.env)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scanning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scanning and change detection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../jobs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Jobs and workers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rules and hits
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tiered review
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tiered review
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#verify-items" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verify items
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quality" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quality
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#improving-a-prompt-trials-and-proposals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Improving a prompt: trials and proposals
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#human-review" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Human review
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../llm-lifecycle/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM rule lifecycle
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../external-executor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    External executor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ui/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mcp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCP server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    REST API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ingest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    External parsers (ingest)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data-model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data model and migrations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../retention/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Retention
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contrib/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#verify-items" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verify items
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quality" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quality
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#improving-a-prompt-trials-and-proposals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Improving a prompt: trials and proposals
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#human-review" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Human review
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+  
+
+
+
+
+<h1 id="tiered-review-service-model-harness-model-human">Tiered review: service model, harness model, human</h1>
+<p>LLM verdicts are made in three tiers. Every hit records who made its current decision in <code>decided_tier</code>:</p>
+<table>
+<thead>
+<tr>
+<th>tier</th>
+<th>who</th>
+<th>how</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>service</code></td>
+<td>the <strong>service model</strong> - the LLM the scanner calls (<code>LLM_API_URL</code>, usually a cheap local model)</td>
+<td>categorises everything: every LLM rule run</td>
+</tr>
+<tr>
+<td><code>harness</code></td>
+<td>the <strong>harness model</strong> - a capable model in an agent harness (e.g. Claude Code) connected to the MCP server</td>
+<td>checks what the service model was unsure about and a sample of what it was sure about</td>
+</tr>
+<tr>
+<td><code>human</code></td>
+<td>a reviewer in the UI, REST or MCP</td>
+<td>decides what the harness model cannot, and anything else</td>
+</tr>
+</tbody>
+</table>
+<p>Precedence: <strong>the service model never overwrites a harness or human decision, the harness model never a human
+one.</strong> A harness answer about a hit a human decided meanwhile, or whose service verdict changed, is refused as
+<code>stale</code>.</p>
+<div class="highlight"><pre><span></span><code>service LLM run  --&gt;  verdicts, decided_tier 'service'
+       |
+       v  llm_verify job (control worker, after every service run of a branch; no model call)
+verify items (llm_work_items.purpose = 'verify', one per hit):
+   escalation  every service need_more_info verdict                      (LLM_VERIFY_ESCALATE, default on;
+                                                                          LLM_ESCALATION_DAILY_MAX 2000 per rule a day)
+   qa          a sample of the confident service verdicts, positive and  (LLM_QA_SAMPLE_RATE 0.05,
+               negative, per rule                                         LLM_QA_DAILY_MAX 500 a UTC day)
+   reverify    a harness decision replaced by a service re-ask on new content
+       |
+       v  harness: llm_work_claim(purpose="verify") -&gt; llm_work_submit (applied at once)
+confidence high + match / no_match  --&gt; FINAL: status match / no_match, decided_tier 'harness' (field marks too)
+confidence low                      --&gt; not applied: investigate (GitLab code, get_object, search_hits, get_hit),
+                                        submit again (the item stays leased, at most 3 rounds)
+needs_human + question              --&gt; need_more_info, decided_tier 'harness', asked_by_model:
+(or MCP request_human)                  review tab "Questions"
+       |
+       v  quality: llm_quality (agreement per rule) -&gt; llm_mislabeled(source="verification")
+          -&gt; llm_prompt_trial (service model, candidate prompt) -&gt; propose_prompt_change -&gt; a human accepts
+</code></pre></div>
+<h2 id="verify-items">Verify items</h2>
+<p>After each service run of a branch, the <code>llm_verify</code> job records verify items for the service verdicts of the
+branch's current snapshot (service tier, no reviewer, current rule version and core prompts, once per verdict:
+<code>rule_hits.verify_key</code>):</p>
+<ul>
+<li><strong>escalation</strong> - every service <code>need_more_info</code> verdict (<code>LLM_VERIFY_ESCALATE</code>), at most <code>LLM_ESCALATION_DAILY_MAX</code>
+  (2000) per rule and UTC day: a backfill of millions of objects would otherwise turn every unsure verdict into
+  harness work at once. The verdicts over the cap stay service-decided (<code>need_more_info</code>, in the review queue as
+  before) and are eligible again the next day; the verify job counts them as <code>escalation_overflow</code> in its progress and
+  the <code>job_health</code> snapshot sums the day's items and overflow per rule (<code>escalations</code>);</li>
+<li><strong>qa</strong> - a stable hash draw per verdict at <code>LLM_QA_SAMPLE_RATE</code> over the confident verdicts, positive
+  (<code>match</code> / <code>pending_review</code>) and negative (<code>no_match</code>, field rules store their negative field verdicts too),
+  split evenly over the rules and the two classes when the day's cap <code>LLM_QA_DAILY_MAX</code> is reached;</li>
+<li><strong>reverify</strong> - a harness decision the service model replaced because the subject's content changed.</li>
+</ul>
+<p>A verify call is the rule's own system prompt and rule text, the whole object in the same delimited untrusted
+<code>&lt;object&gt;</code> block as a rule call, the subject (one field or the object), the service verdict in a second delimited
+<code>&lt;assessment&gt;</code> block (an assessment to check, never an instruction) and an answer format with <code>verdict</code>,
+<code>confidence</code> (<code>high</code> | <code>low</code>), <code>needs_human</code>, <code>question</code> and <code>investigation</code>
+(<code>appsec_discovery.ai.rules.build_verify_prompt</code>, <code>VERIFY_PROMPT_VERSION</code> 2).</p>
+<p>The harness model claims items with <code>llm_work_claim(purpose="verify")</code> (<code>POST /llm_work/claim</code>
+<code>{"purpose": "verify"}</code>) and answers with <code>llm_work_submit</code>:</p>
+<ul>
+<li><code>confidence: high</code> with <code>match</code> / <code>no_match</code> is <strong>final</strong>: the hit gets that status and tier <code>harness</code>
+  (<code>verifier_model</code>, <code>verified_at</code>; <code>mark_fields</code> rules: the field hits too);</li>
+<li><code>confidence: low</code> is not applied: the item stays leased to the caller (lease extended to 900 s) for another
+  round after investigating, at most 3 rounds, then <code>needs_human</code> is required;</li>
+<li><code>needs_human: true</code> with a <code>question</code> (or MCP <code>request_human(hit_id, question)</code>,
+  <code>POST /hits/{id}/request_human</code> for any machine hit) sets <code>need_more_info</code>, tier <code>harness</code>, <code>asked_by_model</code>
+  with the question in the note: the hit appears in the review tab <strong>Questions</strong> (hits filter
+  <code>asked_by_model=true</code>).</li>
+</ul>
+<p>Every harness answer applied or refused is logged in <code>llm_verifications</code> (<code>service_status</code> / <code>service_verdict</code> /
+<code>service_model</code>, the harness verdict, <code>sample</code>, <code>outcome</code> <code>final</code> | <code>asked_human</code> | <code>stale</code>). Open verify items
+expire when the rule version changes.</p>
+<h2 id="quality">Quality</h2>
+<p><code>GET /llm_quality</code> (MCP <code>llm_quality(rule_id=None)</code>; Work desk, Pipeline health, the "Health &amp; quality" tab of an
+LLM rule) reports per rule and overall:</p>
+<ul>
+<li><code>agreement</code> of service and harness model on the QA sample (harness confidence high; overall, per service
+  verdict class, last 7 / 30 days; unsure harness answers counted as <code>unsure</code>);</li>
+<li><code>escalation_rate</code> (service <code>need_more_info</code> share), <code>escalations_30d</code> decided by the harness or sent to a human;</li>
+<li><code>questions_open</code> and <code>oldest_question_s</code>, <code>harness_decisions</code>, <code>backlog</code> of open verify items by sample;</li>
+<li><code>needs_improvement</code>: agreement of the last 30 days below <code>LLM_QA_AGREEMENT_MIN</code> (0.9) with at least 30
+  samples.</li>
+</ul>
+<p><code>GET /llm_work/stats</code> (MCP <code>llm_work_stats</code>; the Harness work page) sums up the harness work: items by purpose and
+status, open verify items by sample, leases held by owner, answers of the last 24 hours by owner.</p>
+<h2 id="improving-a-prompt-trials-and-proposals">Improving a prompt: trials and proposals</h2>
+<ol>
+<li><code>llm_mislabeled(rule_id, source="human" | "verification")</code> (<code>GET /llm_rules/{id}/mislabeled</code>): the subjects a
+   human or the harness model decided differently from the service model (<code>rule_hits.machine_status</code>).</li>
+<li><code>llm_prompt_trial(rule_id, prompt, subjects=[...] | from_mislabeled=true, include_controls=20,
+   rerun_current=true)</code> (<code>POST /llm_rules/{id}/trials</code>, UI "Try this prompt"): an <code>llm_trial</code> job runs the
+   candidate system prompt with the <strong>service model</strong> on those subjects plus random controls whose verdict a human
+   or the harness confirmed, and with <code>rerun_current</code> the current prompt on the same objects (a fair A/B). A trial
+   writes no hits, coverage or rule change. Limits: prompt &lt;= 20000 characters, <code>LLM_TRIAL_MAX_SUBJECTS</code> (200,
+   controls included), <code>LLM_TRIAL_DAILY_CALLS</code> (2000 calls of all trials a UTC day; 429 beyond).</li>
+<li><code>llm_prompt_trial_result(trial_id)</code> (<code>GET /prompt_trials/{id}</code>): per subject expected / current / re-run / new
+   verdict; metrics: fixed, still wrong, newly wrong, control regressions, accuracy before -&gt; after, calls, failures.
+   <code>llm_prompt_trials(rule_id)</code> lists a rule's trials.</li>
+<li><code>propose_prompt_change(rule_id, prompt, trial_id, rationale)</code> (<code>POST /llm_rules/{id}/proposals</code>) needs a
+   finished trial of exactly that text (sha256) and changes nothing. <code>prompt_proposals(rule_id, status)</code> lists
+   proposals.</li>
+<li><strong>Only a human accepts</strong>: the Proposals tab of the LLM rule page (listed on the Work desk: diff, trial metrics
+   and the re-ask cost, <code>GET /prompt_proposals/{id}/reask</code>) or <code>POST /prompt_proposals/{id}/accept | reject</code>.
+   Accepting makes a <strong>candidate version</strong> of the rule ("Accept as candidate only") or activates it and starts its
+   rollout ("Accept and roll out", <code>activate: true</code>); see <a href="../llm-lifecycle/">LLM rule lifecycle</a>. There is no MCP
+   tool to accept a proposal or activate a version.</li>
+</ol>
+<p>Candidate prompts from agents are stored and shown as data (a diff against the current prompt); the scanner sends
+them only as the rule's system prompt, the object stays in the delimited untrusted block.</p>
+<h2 id="human-review">Human review</h2>
+<p>The <strong>Review</strong> page (Datasec role) is the triage view: tabs <strong>Questions</strong> (the harness model asked a human),
+<strong>Pending</strong> (<code>pending_review</code>), <strong>Model unsure</strong> (<code>need_more_info</code> not asked by the model), <strong>Verified by harness</strong>
+(<code>match</code> / <code>no_match</code> with tier <code>harness</code>), <strong>All</strong>; an evidence panel (object, fields with comments and samples,
+the model's reason and verifier, presence in branches / MRs, other hits on the object); keyboard shortcuts <code>j</code> /
+<code>k</code> move, <code>c</code> / <code>r</code> / <code>i</code> confirm / reject / request info, <code>u</code> reopen, <code>x</code> select for the bulk actions, <code>o</code> open
+the hit page, <code>?</code> help. The same decisions: REST <code>POST /hits/{id}/review</code> (<code>confirm</code> | <code>reject</code> | <code>request_info</code>
+| <code>reopen</code>, with <code>category</code>, <code>severity</code>, <code>note</code>), <code>POST /hits/review_bulk</code>, MCP <code>confirm</code> / <code>reject</code> /
+<code>request_info</code> / <code>reopen</code> / <code>update_category</code> / <code>review_hits_bulk</code> (up to 50, note required, <code>dry_run</code> first).
+Decisions record the reviewer and <code>decided_via</code> (<code>rest</code> | <code>mcp</code>) and make the hit's tier <code>human</code>.</p>
+<p><strong>Deciding by filter</strong> (tens of thousands of open hits): <code>GET /hits/clusters?by=schema | field_pattern |
+object_name | rule_group</code> (MCP <code>hits_clusters</code>) groups the open hits into clusters - the same table schema copied
+into many services, one field name everywhere, one object name, one rule in one GitLab group - with counts,
+projects, the share in main, the new ones of the last 7 days, the questions inside (answer those first) and sample
+ids to look at. <code>POST /hits/decide</code> (MCP <code>decide_hits</code>) applies one action to every hit of a filter (<code>cluster</code>,
+<code>rule_id</code>, <code>group</code>, <code>status</code>, ... as <code>GET /hits</code>): the dry run (default) says how many hits would change and what
+is kept - human decisions are never overwritten (unless a human asks for it with <code>include_human</code>), the harness
+model's questions are skipped, the transitions above apply - and the apply needs <code>expected_total</code> equal to that
+figure (409 when the set changed meanwhile). Every apply is a <code>review_batches</code> row with the previous state of each
+hit; <code>POST /hits/decide/{batch_id}/undo</code> restores the hits nobody decided again since; the verdict history of each
+hit carries <code>batch_id</code>. <code>GET /hits/aggregate</code> gives the counts behind the tabs and tiles (by queue, rule, category,
+project, group, ...) in one call.</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+  
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.indexes", "navigation.top"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>

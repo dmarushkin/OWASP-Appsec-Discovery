@@ -1,0 +1,1365 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../jobs/">
+      
+      
+        <link rel="next" href="../tiers/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.2">
+    
+    
+      
+        <title>Rules and hits - AppSec Discovery</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#rules-and-hits-in-the-service" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="AppSec Discovery" class="md-header__button md-logo" aria-label="AppSec Discovery" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            AppSec Discovery
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Rules and hits
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="AppSec Discovery" class="md-nav__button md-logo" aria-label="AppSec Discovery" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    AppSec Discovery
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../cli/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI and package
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    CLI and package
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cli/config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration (conf.yaml)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cli/llm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM scoring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parsers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parsers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../scoring/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Objects, hits and scoring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Service
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Service
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration (.env)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scanning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scanning and change detection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../jobs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Jobs and workers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rules and hits
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rules and hits
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#keyword-rules-kind-keyword" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Keyword rules (kind = keyword)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#llm-rules-kind-llm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LLM rules (kind = llm)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#default-rules-of-a-new-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Default rules of a new installation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tags" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tags
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#manual-labels-and-inventory-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Manual labels and inventory mode
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#external-parser-states" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        External parser states
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tiers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tiered review
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../llm-lifecycle/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM rule lifecycle
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../external-executor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    External executor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ui/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mcp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCP server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    REST API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ingest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    External parsers (ingest)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data-model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data model and migrations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../retention/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Retention
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contrib/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#keyword-rules-kind-keyword" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Keyword rules (kind = keyword)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#llm-rules-kind-llm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LLM rules (kind = llm)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#default-rules-of-a-new-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Default rules of a new installation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tags" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tags
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#manual-labels-and-inventory-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Manual labels and inventory mode
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#external-parser-states" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        External parser states
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+  
+
+
+
+
+<h1 id="rules-and-hits-in-the-service">Rules and hits in the service</h1>
+<p>Rules live in the <code>rules</code> table and are edited in the UI (Keyword rules, LLM rules), over REST
+(<code>/api/keyword_rules</code>, <code>/api/llm_rules</code>) and over MCP (<code>create_rule</code>, <code>update_rule</code>, <code>get_rule</code>, <code>list_rules</code>,
+<code>delete_rule</code>). Rule edits apply on the next scan of each project; keyword rule edits make the branches rescan
+once by themselves, LLM rule runs are started by hand or after scans. Hits and their statuses are described in
+<a href="../../scoring/">Objects, hits and scoring</a>.</p>
+<p>Every rule has <code>name</code>, <code>category</code>, <code>severity</code> (<code>critical</code> .. <code>info</code>), <code>mode</code>, <code>enabled</code>, <code>tags</code> (object tags once a
+hit is a <code>match</code>) and a <strong>scope</strong>: <code>project_re</code>, <code>parser</code> (exact), <code>object_re</code>, <code>object_type_re</code>, <code>field_re</code>,
+<code>field_type_re</code> - patterns matched from the start of the value (regex) or as a case-insensitive substring.</p>
+<p><strong>Modes</strong>: <code>auto</code> - hits are a <code>match</code> at once (and stay in the harness model's QA sample); <code>review</code> - every hit
+waits in the review queue as <code>pending_review</code>. New rules default to <code>auto</code> and enabled, in the UI, REST and MCP
+alike; pass <code>mode: review</code> / <code>enabled: false</code> to stage one. An update without <code>mode</code> keeps the rule's mode.</p>
+<p>Deleting a rule is a soft delete (<code>deleted_at</code>, <code>enabled = false</code>): hits keep their rule.</p>
+<h2 id="keyword-rules-kind-keyword">Keyword rules (<code>kind = keyword</code>)</h2>
+<p>Besides the scope: <code>action</code> (<code>score</code> | <code>exclude</code> - exclude rules suppress every hit on the matching subjects and
+produce none) and field combinations <code>fields_all</code> (groups of regexes searched in the field names, at most 20),
+<code>fields_none</code>, <code>min_groups</code>. A rule with <code>field_re</code> / <code>field_type_re</code> / <code>fields_all</code> hits fields (a combination:
+the object, listing the fields), otherwise the object. They are mapped to the core's <code>score_rules</code> and evaluated by
+the scan itself.</p>
+<p>Built-in keyword rules (<code>scope.source = core</code>, migration <code>0028_builtin_rules</code>): <strong><code>kw-fields</code></strong> (the <code>score_tags</code>
+keywords in field names) and <strong><code>kw-props</code></strong> (in the object's properties) - <strong>disabled on a new install</strong>; enable
+them, switch their mode or set tags in the UI (nothing else of them is editable). Disabled, the core records no
+<code>score_tags</code> hit.</p>
+<p><code>POST /rules/dry_run</code> (MCP <code>dry_run_rule</code>): what a keyword rule would hit on the stored main snapshots, with how
+many of those subjects people already set to <code>match</code> / <code>no_match</code>, without writing anything; for an LLM rule the
+number of model calls a run would make. <code>GET /rules/stats</code> (MCP <code>rule_stats</code>): per rule and version, the precision
+of human decisions and the top reject notes.</p>
+<h2 id="llm-rules-kind-llm">LLM rules (<code>kind = llm</code>)</h2>
+<p>Besides the scope: <code>target</code> (<code>field</code> | <code>object</code>), <code>prompt</code> (the system prompt, up to 20000 characters),
+<code>mark_fields</code> (object rules: the fields the model names get hits too). An LLM field rule without <code>category</code> is
+the built-in classifier (pii / finance / auth / other). How field and object rules work, what the model sees and
+<code>mark_fields</code> are described in <a href="../../cli/llm/#3-llm_rules">LLM scoring in the CLI</a>; the service adds versions,
+re-asks and rollouts (<a href="../llm-lifecycle/">LLM rule lifecycle</a>) and the tiered review (<a href="../tiers/">Tiered review</a>).</p>
+<p>LLM rules run with the <strong>service model</strong> (<code>LLM_API_URL</code>, <code>LLM_API_MODEL</code>):</p>
+<ul>
+<li>after every successful main scan (every enabled rule) and MR scan (on the delta), when <code>LLM_API_URL</code> is set;</li>
+<li>on demand: <code>POST /llm_rules/run</code> (MCP <code>run_score_rules</code>, UI "Run" on the LLM rules page): <code>{"rule_ids": [6, 7],
+  "project_ids": [1, 5], "mrs": false}</code> over the stored snapshots (no clone, no parse). Only subjects without a
+  current verdict are sent, so a second run costs nothing. <code>"executor": "external"</code> (UI: "Harness model (answers
+  via MCP)") runs the rule with a model outside the service: <a href="../external-executor/">External executor</a>.</li>
+</ul>
+<p>Verdicts: a positive answer is a <code>match</code> (mode <code>auto</code>) or <code>pending_review</code> (mode <code>review</code>), <code>need_more_info</code> is a
+machine <code>need_more_info</code> hit in the review queue, a negative answer is a machine <code>no_match</code> hit so the subject is
+not asked again. Every LLM hit stores the <code>model</code>, the model's <code>reason</code>, the rule version and the core prompt
+version it was made with.</p>
+<p><strong>Coverage</strong>: <code>GET /llm_progress</code> (MCP <code>llm_progress</code>; Pipeline health "LLM coverage", the Projects page's "LLM
+rules" column) says how far the LLM rules got: per main branch exactly one of <code>current</code> (every enabled rule has a
+fresh row with nothing remaining), <code>failed</code> (the last <code>llm_score</code> / <code>llm_prepare</code> job of the branch failed),
+<code>never</code> (a rule not counted yet), <code>outdated</code> (subjects remain or a row is stale), <code>not_scanned</code>; <code>queued</code> /
+<code>running</code> / <code>awaiting_answers</code>; per rule <code>answered</code> / <code>total</code> / <code>remaining</code>, <code>answered_stale</code>, <code>pending_external</code>,
+<code>failed</code>, <code>projects_current</code>; the same for open MRs; <code>projects</code> with the same filters as <code>/scan_progress</code>
+(<code>?status=failed,never</code>, <code>incomplete</code>, ...). The scanner records the rows (table <code>llm_coverage</code>) after every LLM
+run and snapshot save and recounts stale ones with the <code>llm_coverage</code> job; no model is called for it.</p>
+<h2 id="default-rules-of-a-new-installation">Default rules of a new installation</h2>
+<p>Migration <code>0013_example_rules</code> seeds two LLM object rules in mode <code>auto</code> with <code>mark_fields</code> (one call per object
+marks it and the fields the model names); each is skipped when a live rule already has its name:</p>
+<table>
+<thead>
+<tr>
+<th>rule</th>
+<th>category / severity / tags</th>
+<th>scope</th>
+<th>state</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>db-tables-with-client-data</code></td>
+<td><code>pii</code> / <code>high</code> / <code>personal-data</code></td>
+<td><code>object_type_re: table</code></td>
+<td><strong>enabled</strong></td>
+</tr>
+<tr>
+<td><code>api-with-auth</code></td>
+<td><code>auth</code> / <code>critical</code> / <code>auth-data</code></td>
+<td><code>object_type_re: route|rpc|query|mutation</code></td>
+<td><strong>disabled</strong> - enable it in the UI / API / MCP</td>
+</tr>
+</tbody>
+</table>
+<p><code>db-tables-with-client-data</code> marks database tables that store personal data of natural persons and their columns;
+<code>api-with-auth</code> marks API operations whose request or response carries authentication secrets (passwords, PIN /
+OTP codes, access / refresh / session tokens, API keys, client secrets, private keys, CVV; not logins, ids, roles
+or public keys). Their <code>match</code> verdicts score the objects at once but stay in the tiered workflow: they are part
+of the harness model's QA sample, their <code>need_more_info</code> verdicts are escalated, and a harness or human decision
+overrides them.</p>
+<p>There is no env-managed LLM rule (<code>LLM_PROMPT</code> is gone): an LLM field rule without category made in the UI / REST
+/ MCP is the built-in classifier.</p>
+<h2 id="tags">Tags</h2>
+<p>An object's tags are read at query time: the <code>tags</code> of the rules of its <code>match</code> hits plus the tags of manual
+labels. Rule tags are edited in the UI (also on the built-in rules). <code>GET /objects?filter={"tag": "gdpr"}</code> and MCP
+<code>list_objects(tags=[...])</code> filter by them; the Landscape page shows where the data of a category / tag lives.</p>
+<h2 id="manual-labels-and-inventory-mode">Manual labels and inventory mode</h2>
+<p>A project in scan mode <code>inventory</code> (<code>PATCH /projects/{id}</code> <code>{"scan_mode": "inventory"}</code>, MCP <code>set_scan_mode</code>)
+is parsed without categorisation. Objects and fields are labelled by hand: UI Objects page, REST
+<code>POST /objects/{key}/labels</code> / <code>DELETE</code>, <code>POST /objects/labels</code> (bulk), MCP <code>label</code> / <code>unlabel</code> / <code>label_bulk</code>.
+A label is a <code>match</code> hit of the built-in <code>manual:labels</code> rule (kind <code>manual</code>) with the reviewer set, so scans
+never overwrite it; it shows up in <code>/hits</code> like any decision. Labels work in <code>rules</code> mode too.</p>
+<h2 id="external-parser-states">External parser states</h2>
+<p>Objects pushed with <code>POST /ingest</code> go through the keyword rules (and the LLM rules with <code>llm: true</code>) like parsed
+code: <a href="../ingest/">External parsers</a>.</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+  
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.indexes", "navigation.top"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>

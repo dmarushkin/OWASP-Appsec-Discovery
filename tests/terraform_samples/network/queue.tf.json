@@ -1,0 +1,15 @@
+{
+  "resource": {
+    "aws_sqs_queue": {
+      "orders": {
+        "name": "orders-queue",
+        "delay_seconds": 5,
+        "fifo_queue": false,
+        "redrive_policy": "${var.redrive}"
+      }
+    }
+  },
+  "variable": {
+    "queue_secret": {"default": "do-not-sample"}
+  }
+}

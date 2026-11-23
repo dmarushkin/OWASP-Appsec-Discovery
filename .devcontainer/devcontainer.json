@@ -17,6 +17,5 @@
 				"github.vscode-github-actions"
 			]
 		}
-	},
-	"mounts": ["source=${localEnv:HOME}/hf_models,target=/hf_models,type=bind,consistency=cached"]
+	}
 }

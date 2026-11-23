@@ -1,0 +1,2 @@
+ALTER TABLE reports ADD COLUMN status smallint NOT NULL DEFAULT 0;
+ALTER TABLE reports DROP COLUMN title;

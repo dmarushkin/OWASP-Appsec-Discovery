@@ -1,0 +1,10 @@
+# Local debugging only: publishes Postgres on 127.0.0.1:54321 (not exposed by default, P3-2).
+#   docker compose -f docker-compose.yml -f docker-compose.dev.yml up
+# The database is also attached to the (non-internal) egress network so the port can be published.
+services:
+  discovery_db:
+    ports:
+      - "127.0.0.1:${POSTGRES_DEV_PORT:-54321}:5432"
+    networks:
+      - backend
+      - egress

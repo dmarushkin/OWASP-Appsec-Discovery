@@ -1,0 +1,1543 @@
+[
+  {
+    "fields": {
+      "dc": {
+        "field_name": "dc",
+        "field_type": "string",
+        "file": "/main.tf",
+        "line": 9,
+        "samples": [
+          "dc1"
+        ]
+      },
+      "pdns_server_url": {
+        "field_name": "pdns_server_url",
+        "field_type": "string",
+        "file": "/main.tf",
+        "line": 21,
+        "samples": [
+          "http://leader.powerdns.pci-prod.example.local:8081/api/v1/"
+        ]
+      },
+      "pdns_vault_path": {
+        "field_name": "pdns_vault_path",
+        "field_type": "string",
+        "file": "/main.tf",
+        "line": 22,
+        "samples": [
+          "infra/examplepci/powerdns/pdns"
+        ]
+      },
+      "proxmox_vault_path": {
+        "field_name": "proxmox_vault_path",
+        "field_type": "string",
+        "file": "/main.tf",
+        "line": 23,
+        "samples": [
+          "infra/example/proxmox-pci/common"
+        ]
+      },
+      "source": {
+        "field_name": "source",
+        "field_type": "string",
+        "file": "/main.tf",
+        "line": 2,
+        "samples": [
+          "git@gitlab.example.com:example/infra/terraform/pve-vm.git?ref=v1.2.6"
+        ]
+      },
+      "vlan_id": {
+        "field_name": "vlan_id",
+        "field_type": "string",
+        "file": "/main.tf",
+        "line": 14,
+        "samples": [
+          "254"
+        ]
+      },
+      "vm_cpu_cores": {
+        "field_name": "vm_cpu_cores",
+        "field_type": "string",
+        "file": "/main.tf",
+        "line": 5,
+        "samples": [
+          "4"
+        ]
+      },
+      "vm_desc": {
+        "field_name": "vm_desc",
+        "field_type": "string",
+        "file": "/main.tf",
+        "line": 15,
+        "samples": [
+          "INFRA-27842"
+        ]
+      },
+      "vm_disk_size": {
+        "field_name": "vm_disk_size",
+        "field_type": "string",
+        "file": "/main.tf",
+        "line": 13,
+        "samples": [
+          "200"
+        ]
+      },
+      "vm_domain": {
+        "field_name": "vm_domain",
+        "field_type": "string",
+        "file": "/main.tf",
+        "line": 12,
+        "samples": [
+          "v.pci-prod.example.local"
+        ]
+      },
+      "vm_mem": {
+        "field_name": "vm_mem",
+        "field_type": "string",
+        "file": "/main.tf",
+        "line": 6,
+        "samples": [
+          "16384"
+        ]
+      },
+      "vm_name": {
+        "field_name": "vm_name",
+        "field_type": "string",
+        "file": "/main.tf",
+        "line": 4,
+        "samples": [
+          "keycloak01-dc1"
+        ]
+      },
+      "vm_node": {
+        "field_name": "vm_node",
+        "field_type": "string",
+        "file": "/main.tf",
+        "line": 7,
+        "samples": [
+          "pve01-dc1"
+        ]
+      },
+      "vm_node_domain": {
+        "field_name": "vm_node_domain",
+        "field_type": "string",
+        "file": "/main.tf",
+        "line": 11,
+        "samples": [
+          "h.pci-prod.example.local"
+        ]
+      },
+      "vm_pool": {
+        "field_name": "vm_pool",
+        "field_type": "string",
+        "file": "/main.tf",
+        "line": 10,
+        "samples": [
+          "app"
+        ]
+      },
+      "vm_prometheus_env": {
+        "field_name": "vm_prometheus_env",
+        "field_type": "string",
+        "file": "/main.tf",
+        "line": 20,
+        "samples": [
+          "production"
+        ]
+      },
+      "vm_server_cluster_name": {
+        "field_name": "vm_server_cluster_name",
+        "field_type": "string",
+        "file": "/main.tf",
+        "line": 19,
+        "samples": [
+          "example_pci_stg_keycloak"
+        ]
+      },
+      "vm_server_maintaining_team": {
+        "field_name": "vm_server_maintaining_team",
+        "field_type": "string",
+        "file": "/main.tf",
+        "line": 17,
+        "samples": [
+          "infra_team"
+        ]
+      },
+      "vm_server_owning_team": {
+        "field_name": "vm_server_owning_team",
+        "field_type": "string",
+        "file": "/main.tf",
+        "line": 18,
+        "samples": [
+          "infrasec_team"
+        ]
+      },
+      "vm_server_role": {
+        "field_name": "vm_server_role",
+        "field_type": "string",
+        "file": "/main.tf",
+        "line": 16,
+        "samples": [
+          "webapp"
+        ]
+      },
+      "vm_storage": {
+        "field_name": "vm_storage",
+        "field_type": "string",
+        "file": "/main.tf",
+        "line": 8,
+        "samples": [
+          "ssd_db01_pve01-dc1"
+        ]
+      },
+      "vm_template": {
+        "field_name": "vm_template",
+        "field_type": "string",
+        "file": "/main.tf",
+        "line": 3,
+        "samples": [
+          "ubuntu-2204"
+        ]
+      }
+    },
+    "file": "/main.tf",
+    "hash": "c2d407bcc4b08774efe923c9afb13bf5",
+    "line": 4,
+    "object_name": "keycloak01-dc1.v.pci-prod.example.local",
+    "object_type": "vm",
+    "parser": "terraform",
+    "properties": {
+      "dc": {
+        "prop_name": "dc",
+        "prop_value": "dc1"
+      },
+      "vlan_id": {
+        "prop_name": "vlan_id",
+        "prop_value": "254"
+      },
+      "vm_desc": {
+        "prop_name": "vm_desc",
+        "prop_value": "INFRA-27842"
+      },
+      "vm_domain": {
+        "prop_name": "vm_domain",
+        "prop_value": "v.pci-prod.example.local"
+      },
+      "vm_name": {
+        "prop_name": "vm_name",
+        "prop_value": "keycloak01-dc1"
+      },
+      "vm_pool": {
+        "prop_name": "vm_pool",
+        "prop_value": "app"
+      },
+      "vm_prometheus_env": {
+        "prop_name": "vm_prometheus_env",
+        "prop_value": "production"
+      },
+      "vm_server_cluster_name": {
+        "prop_name": "vm_server_cluster_name",
+        "prop_value": "example_pci_stg_keycloak"
+      },
+      "vm_server_maintaining_team": {
+        "prop_name": "vm_server_maintaining_team",
+        "prop_value": "infra_team"
+      },
+      "vm_server_owning_team": {
+        "prop_name": "vm_server_owning_team",
+        "prop_value": "infrasec_team"
+      },
+      "vm_server_role": {
+        "prop_name": "vm_server_role",
+        "prop_value": "webapp"
+      },
+      "vm_template": {
+        "prop_name": "vm_template",
+        "prop_value": "ubuntu-2204"
+      }
+    }
+  },
+  {
+    "fields": {
+      "dc": {
+        "field_name": "dc",
+        "field_type": "string",
+        "file": "/main.tf",
+        "line": 34,
+        "samples": [
+          "dc2"
+        ]
+      },
+      "pdns_server_url": {
+        "field_name": "pdns_server_url",
+        "field_type": "string",
+        "file": "/main.tf",
+        "line": 46,
+        "samples": [
+          "http://leader.powerdns.pci-prod.example.local:8081/api/v1/"
+        ]
+      },
+      "pdns_vault_path": {
+        "field_name": "pdns_vault_path",
+        "field_type": "string",
+        "file": "/main.tf",
+        "line": 47,
+        "samples": [
+          "infra/examplepci/powerdns/pdns"
+        ]
+      },
+      "proxmox_vault_path": {
+        "field_name": "proxmox_vault_path",
+        "field_type": "string",
+        "file": "/main.tf",
+        "line": 48,
+        "samples": [
+          "infra/example/proxmox-pci/common"
+        ]
+      },
+      "source": {
+        "field_name": "source",
+        "field_type": "string",
+        "file": "/main.tf",
+        "line": 27,
+        "samples": [
+          "git@gitlab.example.com:example/infra/terraform/pve-vm.git?ref=v1.2.6"
+        ]
+      },
+      "vlan_id": {
+        "field_name": "vlan_id",
+        "field_type": "string",
+        "file": "/main.tf",
+        "line": 39,
+        "samples": [
+          "254"
+        ]
+      },
+      "vm_cpu_cores": {
+        "field_name": "vm_cpu_cores",
+        "field_type": "string",
+        "file": "/main.tf",
+        "line": 30,
+        "samples": [
+          "4"
+        ]
+      },
+      "vm_desc": {
+        "field_name": "vm_desc",
+        "field_type": "string",
+        "file": "/main.tf",
+        "line": 40,
+        "samples": [
+          "INFRA-27842"
+        ]
+      },
+      "vm_disk_size": {
+        "field_name": "vm_disk_size",
+        "field_type": "string",
+        "file": "/main.tf",
+        "line": 38,
+        "samples": [
+          "200"
+        ]
+      },
+      "vm_domain": {
+        "field_name": "vm_domain",
+        "field_type": "string",
+        "file": "/main.tf",
+        "line": 37,
+        "samples": [
+          "v.pci-prod.example.local"
+        ]
+      },
+      "vm_mem": {
+        "field_name": "vm_mem",
+        "field_type": "string",
+        "file": "/main.tf",
+        "line": 31,
+        "samples": [
+          "16384"
+        ]
+      },
+      "vm_name": {
+        "field_name": "vm_name",
+        "field_type": "string",
+        "file": "/main.tf",
+        "line": 29,
+        "samples": [
+          "keycloak01-dc2"
+        ]
+      },
+      "vm_node": {
+        "field_name": "vm_node",
+        "field_type": "string",
+        "file": "/main.tf",
+        "line": 32,
+        "samples": [
+          "pve01-dc2"
+        ]
+      },
+      "vm_node_domain": {
+        "field_name": "vm_node_domain",
+        "field_type": "string",
+        "file": "/main.tf",
+        "line": 36,
+        "samples": [
+          "h.pci-prod.example.local"
+        ]
+      },
+      "vm_pool": {
+        "field_name": "vm_pool",
+        "field_type": "string",
+        "file": "/main.tf",
+        "line": 35,
+        "samples": [
+          "app"
+        ]
+      },
+      "vm_prometheus_env": {
+        "field_name": "vm_prometheus_env",
+        "field_type": "string",
+        "file": "/main.tf",
+        "line": 45,
+        "samples": [
+          "production"
+        ]
+      },
+      "vm_server_cluster_name": {
+        "field_name": "vm_server_cluster_name",
+        "field_type": "string",
+        "file": "/main.tf",
+        "line": 44,
+        "samples": [
+          "example_pci_stg_keycloak"
+        ]
+      },
+      "vm_server_maintaining_team": {
+        "field_name": "vm_server_maintaining_team",
+        "field_type": "string",
+        "file": "/main.tf",
+        "line": 42,
+        "samples": [
+          "infra_team"
+        ]
+      },
+      "vm_server_owning_team": {
+        "field_name": "vm_server_owning_team",
+        "field_type": "string",
+        "file": "/main.tf",
+        "line": 43,
+        "samples": [
+          "infrasec_team"
+        ]
+      },
+      "vm_server_role": {
+        "field_name": "vm_server_role",
+        "field_type": "string",
+        "file": "/main.tf",
+        "line": 41,
+        "samples": [
+          "webapp"
+        ]
+      },
+      "vm_storage": {
+        "field_name": "vm_storage",
+        "field_type": "string",
+        "file": "/main.tf",
+        "line": 33,
+        "samples": [
+          "ssd_db01_pve01-dc2"
+        ]
+      },
+      "vm_template": {
+        "field_name": "vm_template",
+        "field_type": "string",
+        "file": "/main.tf",
+        "line": 28,
+        "samples": [
+          "ubuntu-2204"
+        ]
+      }
+    },
+    "file": "/main.tf",
+    "hash": "ba91697d8f9f945c57c0acdaab6484cc",
+    "line": 29,
+    "object_name": "keycloak01-dc2.v.pci-prod.example.local",
+    "object_type": "vm",
+    "parser": "terraform",
+    "properties": {
+      "dc": {
+        "prop_name": "dc",
+        "prop_value": "dc2"
+      },
+      "vlan_id": {
+        "prop_name": "vlan_id",
+        "prop_value": "254"
+      },
+      "vm_desc": {
+        "prop_name": "vm_desc",
+        "prop_value": "INFRA-27842"
+      },
+      "vm_domain": {
+        "prop_name": "vm_domain",
+        "prop_value": "v.pci-prod.example.local"
+      },
+      "vm_name": {
+        "prop_name": "vm_name",
+        "prop_value": "keycloak01-dc2"
+      },
+      "vm_pool": {
+        "prop_name": "vm_pool",
+        "prop_value": "app"
+      },
+      "vm_prometheus_env": {
+        "prop_name": "vm_prometheus_env",
+        "prop_value": "production"
+      },
+      "vm_server_cluster_name": {
+        "prop_name": "vm_server_cluster_name",
+        "prop_value": "example_pci_stg_keycloak"
+      },
+      "vm_server_maintaining_team": {
+        "prop_name": "vm_server_maintaining_team",
+        "prop_value": "infra_team"
+      },
+      "vm_server_owning_team": {
+        "prop_name": "vm_server_owning_team",
+        "prop_value": "infrasec_team"
+      },
+      "vm_server_role": {
+        "prop_name": "vm_server_role",
+        "prop_value": "webapp"
+      },
+      "vm_template": {
+        "prop_name": "vm_template",
+        "prop_value": "ubuntu-2204"
+      }
+    }
+  },
+  {
+    "fields": {
+      "dc": {
+        "field_name": "dc",
+        "field_type": "string",
+        "file": "/main.tf",
+        "line": 59,
+        "samples": [
+          "dc4"
+        ]
+      },
+      "pdns_server_url": {
+        "field_name": "pdns_server_url",
+        "field_type": "string",
+        "file": "/main.tf",
+        "line": 71,
+        "samples": [
+          "http://leader.powerdns.pci-prod.example.local:8081/api/v1/"
+        ]
+      },
+      "pdns_vault_path": {
+        "field_name": "pdns_vault_path",
+        "field_type": "string",
+        "file": "/main.tf",
+        "line": 72,
+        "samples": [
+          "infra/examplepci/powerdns/pdns"
+        ]
+      },
+      "proxmox_vault_path": {
+        "field_name": "proxmox_vault_path",
+        "field_type": "string",
+        "file": "/main.tf",
+        "line": 73,
+        "samples": [
+          "infra/example/proxmox-pci/common"
+        ]
+      },
+      "source": {
+        "field_name": "source",
+        "field_type": "string",
+        "file": "/main.tf",
+        "line": 52,
+        "samples": [
+          "git@gitlab.example.com:example/infra/terraform/pve-vm.git?ref=v1.2.6"
+        ]
+      },
+      "vlan_id": {
+        "field_name": "vlan_id",
+        "field_type": "string",
+        "file": "/main.tf",
+        "line": 64,
+        "samples": [
+          "254"
+        ]
+      },
+      "vm_cpu_cores": {
+        "field_name": "vm_cpu_cores",
+        "field_type": "string",
+        "file": "/main.tf",
+        "line": 55,
+        "samples": [
+          "4"
+        ]
+      },
+      "vm_desc": {
+        "field_name": "vm_desc",
+        "field_type": "string",
+        "file": "/main.tf",
+        "line": 65,
+        "samples": [
+          "INFRA-27842"
+        ]
+      },
+      "vm_disk_size": {
+        "field_name": "vm_disk_size",
+        "field_type": "string",
+        "file": "/main.tf",
+        "line": 63,
+        "samples": [
+          "200"
+        ]
+      },
+      "vm_domain": {
+        "field_name": "vm_domain",
+        "field_type": "string",
+        "file": "/main.tf",
+        "line": 62,
+        "samples": [
+          "v.pci-prod.example.local"
+        ]
+      },
+      "vm_mem": {
+        "field_name": "vm_mem",
+        "field_type": "string",
+        "file": "/main.tf",
+        "line": 56,
+        "samples": [
+          "16384"
+        ]
+      },
+      "vm_name": {
+        "field_name": "vm_name",
+        "field_type": "string",
+        "file": "/main.tf",
+        "line": 54,
+        "samples": [
+          "keycloak01-dc4"
+        ]
+      },
+      "vm_node": {
+        "field_name": "vm_node",
+        "field_type": "string",
+        "file": "/main.tf",
+        "line": 57,
+        "samples": [
+          "pve01-dc4"
+        ]
+      },
+      "vm_node_domain": {
+        "field_name": "vm_node_domain",
+        "field_type": "string",
+        "file": "/main.tf",
+        "line": 61,
+        "samples": [
+          "h.pci-prod.example.local"
+        ]
+      },
+      "vm_pool": {
+        "field_name": "vm_pool",
+        "field_type": "string",
+        "file": "/main.tf",
+        "line": 60,
+        "samples": [
+          "app"
+        ]
+      },
+      "vm_prometheus_env": {
+        "field_name": "vm_prometheus_env",
+        "field_type": "string",
+        "file": "/main.tf",
+        "line": 70,
+        "samples": [
+          "production"
+        ]
+      },
+      "vm_server_cluster_name": {
+        "field_name": "vm_server_cluster_name",
+        "field_type": "string",
+        "file": "/main.tf",
+        "line": 69,
+        "samples": [
+          "example_pci_stg_keycloak"
+        ]
+      },
+      "vm_server_maintaining_team": {
+        "field_name": "vm_server_maintaining_team",
+        "field_type": "string",
+        "file": "/main.tf",
+        "line": 67,
+        "samples": [
+          "infra_team"
+        ]
+      },
+      "vm_server_owning_team": {
+        "field_name": "vm_server_owning_team",
+        "field_type": "string",
+        "file": "/main.tf",
+        "line": 68,
+        "samples": [
+          "infrasec_team"
+        ]
+      },
+      "vm_server_role": {
+        "field_name": "vm_server_role",
+        "field_type": "string",
+        "file": "/main.tf",
+        "line": 66,
+        "samples": [
+          "webapp"
+        ]
+      },
+      "vm_storage": {
+        "field_name": "vm_storage",
+        "field_type": "string",
+        "file": "/main.tf",
+        "line": 58,
+        "samples": [
+          "ssd_db01_pve01-dc4"
+        ]
+      },
+      "vm_template": {
+        "field_name": "vm_template",
+        "field_type": "string",
+        "file": "/main.tf",
+        "line": 53,
+        "samples": [
+          "ubuntu-2204"
+        ]
+      }
+    },
+    "file": "/main.tf",
+    "hash": "066d60eb27c2b2c4ab3fb5fa47a1956b",
+    "line": 54,
+    "object_name": "keycloak01-dc4.v.pci-prod.example.local",
+    "object_type": "vm",
+    "parser": "terraform",
+    "properties": {
+      "dc": {
+        "prop_name": "dc",
+        "prop_value": "dc4"
+      },
+      "vlan_id": {
+        "prop_name": "vlan_id",
+        "prop_value": "254"
+      },
+      "vm_desc": {
+        "prop_name": "vm_desc",
+        "prop_value": "INFRA-27842"
+      },
+      "vm_domain": {
+        "prop_name": "vm_domain",
+        "prop_value": "v.pci-prod.example.local"
+      },
+      "vm_name": {
+        "prop_name": "vm_name",
+        "prop_value": "keycloak01-dc4"
+      },
+      "vm_pool": {
+        "prop_name": "vm_pool",
+        "prop_value": "app"
+      },
+      "vm_prometheus_env": {
+        "prop_name": "vm_prometheus_env",
+        "prop_value": "production"
+      },
+      "vm_server_cluster_name": {
+        "prop_name": "vm_server_cluster_name",
+        "prop_value": "example_pci_stg_keycloak"
+      },
+      "vm_server_maintaining_team": {
+        "prop_name": "vm_server_maintaining_team",
+        "prop_value": "infra_team"
+      },
+      "vm_server_owning_team": {
+        "prop_name": "vm_server_owning_team",
+        "prop_value": "infrasec_team"
+      },
+      "vm_server_role": {
+        "prop_name": "vm_server_role",
+        "prop_value": "webapp"
+      },
+      "vm_template": {
+        "prop_name": "vm_template",
+        "prop_value": "ubuntu-2204"
+      }
+    }
+  },
+  {
+    "fields": {
+      "name": {
+        "field_name": "name",
+        "field_type": "string",
+        "file": "/network/broken.tf",
+        "line": 2,
+        "samples": [
+          "deploy"
+        ]
+      },
+      "path": {
+        "field_name": "path",
+        "field_type": "string",
+        "file": "/network/broken.tf",
+        "line": 3,
+        "samples": [
+          "/system/"
+        ]
+      }
+    },
+    "file": "/network/broken.tf",
+    "hash": "5efc8f16bc40f5685968ab9095c960c1",
+    "line": 1,
+    "object_name": "aws_iam_user.deploy",
+    "object_type": "resource",
+    "parser": "terraform",
+    "properties": {
+      "name": {
+        "prop_name": "name",
+        "prop_value": "deploy"
+      },
+      "type": {
+        "prop_name": "type",
+        "prop_value": "aws_iam_user"
+      }
+    }
+  },
+  {
+    "fields": {
+      "name": {
+        "field_name": "name",
+        "field_type": "string",
+        "file": "/network/broken.tf",
+        "line": 7,
+        "samples": [
+          "ops"
+        ]
+      }
+    },
+    "file": "/network/broken.tf",
+    "hash": "20eeb105dcbc4a2417b11c138140467d",
+    "line": 6,
+    "object_name": "aws_iam_group.ops",
+    "object_type": "resource",
+    "parser": "terraform",
+    "properties": {
+      "name": {
+        "prop_name": "name",
+        "prop_value": "ops"
+      },
+      "type": {
+        "prop_name": "type",
+        "prop_value": "aws_iam_group"
+      }
+    }
+  },
+  {
+    "comment": "Public bucket with the access logs of the shop.",
+    "fields": {
+      "acl": {
+        "field_name": "acl",
+        "field_type": "string",
+        "file": "/network/main.tf",
+        "line": 6,
+        "samples": [
+          "private"
+        ]
+      },
+      "bucket": {
+        "comment": "the bucket name",
+        "field_name": "bucket",
+        "field_type": "string",
+        "file": "/network/main.tf",
+        "line": 5,
+        "samples": [
+          "shop-access-logs"
+        ]
+      },
+      "force_destroy": {
+        "field_name": "force_destroy",
+        "field_type": "bool",
+        "file": "/network/main.tf",
+        "line": 7,
+        "samples": [
+          "false"
+        ]
+      },
+      "lifecycle_rule.enabled": {
+        "field_name": "lifecycle_rule.enabled",
+        "field_type": "bool",
+        "file": "/network/main.tf",
+        "line": 13,
+        "samples": [
+          "true",
+          "false"
+        ]
+      },
+      "lifecycle_rule.expiration.days": {
+        "comment": "keep logs for a year",
+        "field_name": "lifecycle_rule.expiration.days",
+        "field_type": "number",
+        "file": "/network/main.tf",
+        "line": 16,
+        "samples": [
+          "365"
+        ]
+      },
+      "tags": {
+        "field_name": "tags",
+        "field_type": "map",
+        "file": "/network/main.tf",
+        "line": 8
+      }
+    },
+    "file": "/network/main.tf",
+    "hash": "2f04d27444f18d89f1029578d8dad0a1",
+    "line": 4,
+    "object_name": "aws_s3_bucket.logs",
+    "object_type": "resource",
+    "parser": "terraform",
+    "properties": {
+      "name": {
+        "prop_name": "name",
+        "prop_value": "logs"
+      },
+      "type": {
+        "prop_name": "type",
+        "prop_value": "aws_s3_bucket"
+      }
+    }
+  },
+  {
+    "fields": {
+      "allocated_storage": {
+        "field_name": "allocated_storage",
+        "field_type": "number",
+        "file": "/network/main.tf",
+        "line": 29,
+        "samples": [
+          "20"
+        ]
+      },
+      "endpoint": {
+        "field_name": "endpoint",
+        "field_type": "string",
+        "file": "/network/main.tf",
+        "line": 33
+      },
+      "engine": {
+        "field_name": "engine",
+        "field_type": "string",
+        "file": "/network/main.tf",
+        "line": 26,
+        "samples": [
+          "postgres"
+        ]
+      },
+      "identifier": {
+        "field_name": "identifier",
+        "field_type": "string",
+        "file": "/network/main.tf",
+        "line": 25,
+        "samples": [
+          "orders-db"
+        ]
+      },
+      "ingress.for_each": {
+        "field_name": "ingress.for_each",
+        "field_type": "reference",
+        "file": "/network/main.tf",
+        "line": 39
+      },
+      "ingress.from_port": {
+        "field_name": "ingress.from_port",
+        "field_type": "reference",
+        "file": "/network/main.tf",
+        "line": 41
+      },
+      "ingress.protocol": {
+        "field_name": "ingress.protocol",
+        "field_type": "string",
+        "file": "/network/main.tf",
+        "line": 42,
+        "samples": [
+          "tcp"
+        ]
+      },
+      "kms_key_id": {
+        "field_name": "kms_key_id",
+        "field_type": "string",
+        "file": "/network/main.tf",
+        "line": 32,
+        "samples": [
+          "arn:aws:kms:eu-west-1:111111111111:key/abc"
+        ]
+      },
+      "name": {
+        "field_name": "name",
+        "field_type": "expression",
+        "file": "/network/main.tf",
+        "line": 35
+      },
+      "password": {
+        "field_name": "password",
+        "field_type": "string",
+        "file": "/network/main.tf",
+        "line": 28,
+        "severity": "high",
+        "tags": [
+          "auth"
+        ]
+      },
+      "replica": {
+        "field_name": "replica",
+        "field_type": "expression",
+        "file": "/network/main.tf",
+        "line": 36
+      },
+      "storage_type": {
+        "field_name": "storage_type",
+        "field_type": "reference",
+        "file": "/network/main.tf",
+        "line": 34
+      },
+      "subnet_ids": {
+        "field_name": "subnet_ids",
+        "field_type": "list",
+        "file": "/network/main.tf",
+        "line": 31,
+        "samples": [
+          "subnet-a",
+          "subnet-b"
+        ]
+      },
+      "username": {
+        "field_name": "username",
+        "field_type": "string",
+        "file": "/network/main.tf",
+        "line": 27,
+        "samples": [
+          "orders"
+        ],
+        "severity": "medium",
+        "tags": [
+          "auth"
+        ]
+      },
+      "vpc_security_group_ids": {
+        "field_name": "vpc_security_group_ids",
+        "field_type": "list",
+        "file": "/network/main.tf",
+        "line": 30,
+        "samples": [
+          "sg-0123"
+        ]
+      }
+    },
+    "file": "/network/main.tf",
+    "hash": "dbe9e9a00618e0e4cf9ae6dcff32ade8",
+    "hits": [
+      {
+        "keyword": "password",
+        "prop_name": "sensitive_fields",
+        "rule": "score_tags/auth/high",
+        "rule_type": "keyword",
+        "severity": "high",
+        "status": "match",
+        "subject": "prop",
+        "tags": [
+          "auth"
+        ]
+      },
+      {
+        "field_name": "password",
+        "keyword": "password",
+        "rule": "score_tags/auth/high",
+        "rule_type": "keyword",
+        "severity": "high",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "auth"
+        ]
+      },
+      {
+        "field_name": "username",
+        "keyword": "username",
+        "rule": "score_tags/auth/medium",
+        "rule_type": "keyword",
+        "severity": "medium",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "auth"
+        ]
+      }
+    ],
+    "line": 24,
+    "object_name": "aws_db_instance.orders",
+    "object_type": "resource",
+    "parser": "terraform",
+    "properties": {
+      "name": {
+        "prop_name": "name",
+        "prop_value": "orders"
+      },
+      "sensitive_fields": {
+        "prop_name": "sensitive_fields",
+        "prop_value": "password",
+        "severity": "high",
+        "tags": [
+          "auth"
+        ]
+      },
+      "type": {
+        "prop_name": "type",
+        "prop_value": "aws_db_instance"
+      }
+    },
+    "severity": "high",
+    "tags": [
+      "auth"
+    ]
+  },
+  {
+    "fields": {
+      "most_recent": {
+        "field_name": "most_recent",
+        "field_type": "bool",
+        "file": "/network/main.tf",
+        "line": 48,
+        "samples": [
+          "true"
+        ]
+      },
+      "owners": {
+        "field_name": "owners",
+        "field_type": "list",
+        "file": "/network/main.tf",
+        "line": 49,
+        "samples": [
+          "099720109477"
+        ]
+      }
+    },
+    "file": "/network/main.tf",
+    "hash": "2c95534ef107dded86aa35fa6309437f",
+    "line": 47,
+    "object_name": "aws_ami.ubuntu",
+    "object_type": "data",
+    "parser": "terraform",
+    "properties": {
+      "name": {
+        "prop_name": "name",
+        "prop_value": "ubuntu"
+      },
+      "type": {
+        "prop_name": "type",
+        "prop_value": "aws_ami"
+      }
+    }
+  },
+  {
+    "fields": {
+      "api_token": {
+        "field_name": "api_token",
+        "field_type": "reference",
+        "file": "/network/main.tf",
+        "line": 56,
+        "severity": "high",
+        "tags": [
+          "auth"
+        ]
+      },
+      "cidr": {
+        "field_name": "cidr",
+        "field_type": "string",
+        "file": "/network/main.tf",
+        "line": 55,
+        "samples": [
+          "10.0.0.0/16"
+        ]
+      },
+      "source": {
+        "field_name": "source",
+        "field_type": "string",
+        "file": "/network/main.tf",
+        "line": 53,
+        "samples": [
+          "terraform-aws-modules/vpc/aws"
+        ]
+      },
+      "version": {
+        "field_name": "version",
+        "field_type": "string",
+        "file": "/network/main.tf",
+        "line": 54,
+        "samples": [
+          "5.1.0"
+        ]
+      }
+    },
+    "file": "/network/main.tf",
+    "hash": "6f3e15213c5bbfbf5fe963b9b54c0d35",
+    "hits": [
+      {
+        "keyword": "token",
+        "prop_name": "sensitive_fields",
+        "rule": "score_tags/auth/high",
+        "rule_type": "keyword",
+        "severity": "high",
+        "status": "match",
+        "subject": "prop",
+        "tags": [
+          "auth"
+        ]
+      },
+      {
+        "field_name": "api_token",
+        "keyword": "token",
+        "rule": "score_tags/auth/high",
+        "rule_type": "keyword",
+        "severity": "high",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "auth"
+        ]
+      }
+    ],
+    "line": 52,
+    "object_name": "vpc",
+    "object_type": "module",
+    "parser": "terraform",
+    "properties": {
+      "sensitive_fields": {
+        "prop_name": "sensitive_fields",
+        "prop_value": "api_token",
+        "severity": "high",
+        "tags": [
+          "auth"
+        ]
+      },
+      "source": {
+        "prop_name": "source",
+        "prop_value": "terraform-aws-modules/vpc/aws"
+      },
+      "version": {
+        "prop_name": "version",
+        "prop_value": "5.1.0"
+      }
+    },
+    "severity": "high",
+    "tags": [
+      "auth"
+    ]
+  },
+  {
+    "fields": {
+      "region": {
+        "field_name": "region",
+        "field_type": "string",
+        "file": "/network/main.tf",
+        "line": 60,
+        "samples": [
+          "eu-west-1"
+        ]
+      }
+    },
+    "file": "/network/main.tf",
+    "hash": "7117801d3cdcd5e42f6350e33b28612f",
+    "line": 59,
+    "object_name": "aws",
+    "object_type": "provider",
+    "parser": "terraform",
+    "properties": {}
+  },
+  {
+    "fields": {
+      "alias": {
+        "field_name": "alias",
+        "field_type": "string",
+        "file": "/network/main.tf",
+        "line": 64,
+        "samples": [
+          "us"
+        ]
+      },
+      "region": {
+        "field_name": "region",
+        "field_type": "string",
+        "file": "/network/main.tf",
+        "line": 65,
+        "samples": [
+          "us-east-1"
+        ]
+      }
+    },
+    "file": "/network/main.tf",
+    "hash": "4e702f2b2bba69759018745ce2ff0e4f",
+    "line": 63,
+    "object_name": "aws.us",
+    "object_type": "provider",
+    "parser": "terraform",
+    "properties": {}
+  },
+  {
+    "fields": {
+      "delay_seconds": {
+        "field_name": "delay_seconds",
+        "field_type": "number",
+        "file": "/network/queue.tf.json",
+        "line": 4,
+        "samples": [
+          "5"
+        ]
+      },
+      "fifo_queue": {
+        "field_name": "fifo_queue",
+        "field_type": "bool",
+        "file": "/network/queue.tf.json",
+        "line": 4,
+        "samples": [
+          "false"
+        ]
+      },
+      "name": {
+        "field_name": "name",
+        "field_type": "string",
+        "file": "/network/queue.tf.json",
+        "line": 4,
+        "samples": [
+          "orders-queue"
+        ]
+      },
+      "redrive_policy": {
+        "field_name": "redrive_policy",
+        "field_type": "reference",
+        "file": "/network/queue.tf.json",
+        "line": 4
+      }
+    },
+    "file": "/network/queue.tf.json",
+    "hash": "43e344589a621615a2663b74eb8a762f",
+    "line": 4,
+    "object_name": "aws_sqs_queue.orders",
+    "object_type": "resource",
+    "parser": "terraform",
+    "properties": {
+      "name": {
+        "prop_name": "name",
+        "prop_value": "orders"
+      },
+      "type": {
+        "prop_name": "type",
+        "prop_value": "aws_sqs_queue"
+      }
+    }
+  },
+  {
+    "fields": {
+      "default": {
+        "field_name": "default",
+        "field_type": "string",
+        "file": "/network/queue.tf.json",
+        "line": 13
+      }
+    },
+    "file": "/network/queue.tf.json",
+    "hash": "6718f03d231b0cd15fac5afba0f4dc08",
+    "line": 13,
+    "object_name": "queue_secret",
+    "object_type": "variable",
+    "parser": "terraform",
+    "properties": {
+      "sensitive_fields": {
+        "prop_name": "sensitive_fields",
+        "prop_value": "default"
+      }
+    }
+  },
+  {
+    "comment": "Name prefix\nThe prefix of every resource name",
+    "fields": {
+      "default": {
+        "field_name": "default",
+        "field_type": "string",
+        "file": "/network/variables.tf",
+        "line": 4,
+        "samples": [
+          "shop"
+        ]
+      },
+      "description": {
+        "field_name": "description",
+        "field_type": "string",
+        "file": "/network/variables.tf",
+        "line": 5
+      },
+      "type": {
+        "field_name": "type",
+        "field_type": "expression",
+        "file": "/network/variables.tf",
+        "line": 3,
+        "samples": [
+          "string"
+        ]
+      }
+    },
+    "file": "/network/variables.tf",
+    "hash": "0acbda161a8ff1c994fbbcab437202db",
+    "line": 2,
+    "object_name": "prefix",
+    "object_type": "variable",
+    "parser": "terraform",
+    "properties": {}
+  },
+  {
+    "fields": {
+      "default": {
+        "field_name": "default",
+        "field_type": "string",
+        "file": "/network/variables.tf",
+        "line": 10
+      },
+      "type": {
+        "field_name": "type",
+        "field_type": "expression",
+        "file": "/network/variables.tf",
+        "line": 9,
+        "samples": [
+          "string"
+        ]
+      }
+    },
+    "file": "/network/variables.tf",
+    "hash": "f8bb7a2118e86562c9e7d77f47e753b8",
+    "line": 8,
+    "object_name": "db_password",
+    "object_type": "variable",
+    "parser": "terraform",
+    "properties": {
+      "sensitive_fields": {
+        "prop_name": "sensitive_fields",
+        "prop_value": "default"
+      }
+    }
+  },
+  {
+    "fields": {
+      "default": {
+        "field_name": "default",
+        "field_type": "string",
+        "file": "/network/variables.tf",
+        "line": 15
+      },
+      "sensitive": {
+        "field_name": "sensitive",
+        "field_type": "bool",
+        "file": "/network/variables.tf",
+        "line": 16,
+        "samples": [
+          "true"
+        ]
+      },
+      "type": {
+        "field_name": "type",
+        "field_type": "expression",
+        "file": "/network/variables.tf",
+        "line": 14,
+        "samples": [
+          "string"
+        ]
+      }
+    },
+    "file": "/network/variables.tf",
+    "hash": "b90ec800f6db45667744f8e6935cd9c3",
+    "line": 13,
+    "object_name": "admin_login",
+    "object_type": "variable",
+    "parser": "terraform",
+    "properties": {
+      "sensitive_fields": {
+        "prop_name": "sensitive_fields",
+        "prop_value": "default"
+      }
+    }
+  },
+  {
+    "fields": {
+      "default": {
+        "field_name": "default",
+        "field_type": "list",
+        "file": "/network/variables.tf",
+        "line": 21,
+        "samples": [
+          "80",
+          "443"
+        ]
+      },
+      "type": {
+        "field_name": "type",
+        "field_type": "expression",
+        "file": "/network/variables.tf",
+        "line": 20,
+        "samples": [
+          "list(number)"
+        ]
+      }
+    },
+    "file": "/network/variables.tf",
+    "hash": "80360eb664c4b32200ca900a082fa297",
+    "line": 19,
+    "object_name": "ingress_ports",
+    "object_type": "variable",
+    "parser": "terraform",
+    "properties": {}
+  },
+  {
+    "comment": "Endpoint of the orders database",
+    "fields": {
+      "description": {
+        "field_name": "description",
+        "field_type": "string",
+        "file": "/network/variables.tf",
+        "line": 26
+      },
+      "sensitive": {
+        "field_name": "sensitive",
+        "field_type": "bool",
+        "file": "/network/variables.tf",
+        "line": 27,
+        "samples": [
+          "true"
+        ]
+      },
+      "value": {
+        "field_name": "value",
+        "field_type": "reference",
+        "file": "/network/variables.tf",
+        "line": 25
+      }
+    },
+    "file": "/network/variables.tf",
+    "hash": "115e1bfe86f2c64629e78d1a4719f6a7",
+    "line": 24,
+    "object_name": "db_endpoint",
+    "object_type": "output",
+    "parser": "terraform",
+    "properties": {
+      "sensitive_fields": {
+        "prop_name": "sensitive_fields",
+        "prop_value": "value"
+      }
+    }
+  }
+]

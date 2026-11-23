@@ -1,0 +1,142 @@
+[
+  {
+    "fields": {
+      "input.airportId": {
+        "field_name": "input.airportId",
+        "field_type": "String",
+        "file": "/mutation.graphql",
+        "line": 15
+      },
+      "input.businessLoungeId": {
+        "field_name": "input.businessLoungeId",
+        "field_type": "UUID",
+        "file": "/mutation.graphql",
+        "line": 14
+      },
+      "input.idempotencyKey": {
+        "field_name": "input.idempotencyKey",
+        "field_type": "UUID",
+        "file": "/mutation.graphql",
+        "line": 13
+      },
+      "input.personCount": {
+        "field_name": "input.personCount",
+        "field_type": "Int",
+        "file": "/mutation.graphql",
+        "line": 16
+      },
+      "output.clientId": {
+        "field_name": "output.clientId",
+        "field_type": "UUID",
+        "file": "/mutation.graphql",
+        "line": 32
+      },
+      "output.createdAt": {
+        "field_name": "output.createdAt",
+        "field_type": "DateTime",
+        "file": "/mutation.graphql",
+        "line": 34
+      },
+      "output.orderNumber": {
+        "field_name": "output.orderNumber",
+        "field_type": "String",
+        "file": "/mutation.graphql",
+        "line": 31
+      },
+      "output.personCount": {
+        "field_name": "output.personCount",
+        "field_type": "Int",
+        "file": "/mutation.graphql",
+        "line": 33
+      }
+    },
+    "file": "/mutation.graphql",
+    "hash": "b16539fd1e1476ec41e3d2f6e3a1a455",
+    "line": 8,
+    "object_name": "BusinessLoungesMutations.createOrder",
+    "object_type": "mutation",
+    "parser": "graphql",
+    "properties": {}
+  },
+  {
+    "fields": {
+      "input.idempotencyKey": {
+        "field_name": "input.idempotencyKey",
+        "field_type": "UUID",
+        "file": "/mutation.graphql",
+        "line": 20
+      },
+      "input.orderNumber": {
+        "field_name": "input.orderNumber",
+        "field_type": "String",
+        "file": "/mutation.graphql",
+        "line": 21
+      },
+      "output.success": {
+        "field_name": "output.success",
+        "field_type": "Boolean",
+        "file": "/mutation.graphql",
+        "line": 38
+      }
+    },
+    "file": "/mutation.graphql",
+    "hash": "0ef1eab5ce118ee69253d6a01b4df924",
+    "line": 9,
+    "object_name": "BusinessLoungesMutations.cancelOrder",
+    "object_type": "mutation",
+    "parser": "graphql",
+    "properties": {}
+  },
+  {
+    "fields": {
+      "input.link": {
+        "field_name": "input.link",
+        "field_type": "String",
+        "file": "/query.graphql",
+        "line": 13
+      },
+      "output.offer": {
+        "field_name": "output.offer",
+        "field_type": "MgmOffer",
+        "file": "/query.graphql",
+        "line": 26
+      }
+    },
+    "file": "/query.graphql",
+    "hash": "8b28b980a4a5f54b5f32c20ddbee5e3d",
+    "line": 8,
+    "object_name": "MgmQueries.offer",
+    "object_type": "query",
+    "parser": "graphql",
+    "properties": {}
+  },
+  {
+    "fields": {
+      "input.link": {
+        "field_name": "input.link",
+        "field_type": "String",
+        "file": "/query.graphql",
+        "line": 17
+      },
+      "output.firstName": {
+        "field_name": "output.firstName",
+        "field_type": "String",
+        "file": "/query.graphql",
+        "line": 21
+      },
+      "output.lastName": {
+        "field_name": "output.lastName",
+        "field_type": "String",
+        "file": "/query.graphql",
+        "line": 22
+      }
+    },
+    "file": "/query.graphql",
+    "hash": "dbcf1f5521bf65563f8fdbdfba075e98",
+    "line": 9,
+    "object_name": "MgmQueries.promoterInfo",
+    "object_type": "query",
+    "parser": "graphql",
+    "properties": {}
+  }
+]

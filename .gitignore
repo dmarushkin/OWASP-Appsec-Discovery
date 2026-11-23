@@ -10,3 +10,10 @@ appsec_discovery_service/discovery_ui/npm_modules/*
 
 appsec_discovery_service/.env
 
+
+# uv / build artifacts
+.venv/
+dist/
+
+# default GGUF bind-mount dir of the local llama.cpp server (docker compose creates it)
+llm_models/

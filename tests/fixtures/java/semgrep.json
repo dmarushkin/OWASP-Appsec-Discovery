@@ -1,0 +1,382 @@
+[
+  {
+    "check_id": "appsec_discovery.parsers.java.scanner_rules.dto-javax-data-object",
+    "end": {
+      "col": 6,
+      "line": 17,
+      "offset": 368
+    },
+    "extra": {
+      "engine_kind": "OSS",
+      "fingerprint": "b27242f423c7b26d94a8272a8ae52a50b6d1ec97646c751e4a51951d53923ddf3f363bd434a5610e9f748680955af83f46bbab5420bc57727644cc275d1b4e56_0",
+      "is_ignored": false,
+      "lines": "    @Id\n    @javax.persistence.Column(name = \"counter\")\n    public int getCounter() {\n        return counter;\n    }",
+      "message": "AudioEntity \"audio\" $FIELD \"counter\" int",
+      "metadata": {
+        "framework": "javax",
+        "object_type": "dto",
+        "parser": "java"
+      },
+      "metavars": {
+        "$DB_FIELD": {
+          "abstract_content": "\"counter\"",
+          "end": {
+            "col": 47,
+            "line": 14,
+            "offset": 307
+          },
+          "start": {
+            "col": 38,
+            "line": 14,
+            "offset": 298
+          }
+        },
+        "$DB_NAME": {
+          "abstract_content": "\"audio\"",
+          "end": {
+            "col": 40,
+            "line": 8,
+            "offset": 159
+          },
+          "start": {
+            "col": 33,
+            "line": 8,
+            "offset": 152
+          }
+        },
+        "$GETTER": {
+          "abstract_content": "getCounter",
+          "end": {
+            "col": 26,
+            "line": 15,
+            "offset": 334
+          },
+          "start": {
+            "col": 16,
+            "line": 15,
+            "offset": 324
+          }
+        },
+        "$OBJECT": {
+          "abstract_content": "AudioEntity",
+          "end": {
+            "col": 25,
+            "line": 9,
+            "offset": 223
+          },
+          "start": {
+            "col": 14,
+            "line": 9,
+            "offset": 212
+          }
+        },
+        "$TYPE": {
+          "abstract_content": "int",
+          "end": {
+            "col": 15,
+            "line": 15,
+            "offset": 323
+          },
+          "start": {
+            "col": 12,
+            "line": 15,
+            "offset": 320
+          }
+        }
+      },
+      "severity": "INFO",
+      "validation_state": "NO_VALIDATOR"
+    },
+    "path": "/javax.java",
+    "start": {
+      "col": 5,
+      "line": 13,
+      "offset": 257
+    }
+  },
+  {
+    "check_id": "appsec_discovery.parsers.java.scanner_rules.dto-javax-data-object",
+    "end": {
+      "col": 6,
+      "line": 29,
+      "offset": 581
+    },
+    "extra": {
+      "engine_kind": "OSS",
+      "fingerprint": "21337d04db9b200ed6cdabf30f7843da7914833755d1b1b7721d43b7dbe16017c1d3fa41a7a94d67159ec428c5c1df8a8fe6725589ece2fd83137c06dcca8a07_0",
+      "is_ignored": false,
+      "lines": "    @Basic\n    @javax.persistence.Column(name = \"id\")\n    public String getId() {\n        return id;\n    }",
+      "message": "AudioEntity \"audio\" $FIELD \"id\" String",
+      "metadata": {
+        "framework": "javax",
+        "object_type": "dto",
+        "parser": "java"
+      },
+      "metavars": {
+        "$DB_FIELD": {
+          "abstract_content": "\"id\"",
+          "end": {
+            "col": 42,
+            "line": 26,
+            "offset": 527
+          },
+          "start": {
+            "col": 38,
+            "line": 26,
+            "offset": 523
+          }
+        },
+        "$DB_NAME": {
+          "abstract_content": "\"audio\"",
+          "end": {
+            "col": 40,
+            "line": 8,
+            "offset": 159
+          },
+          "start": {
+            "col": 33,
+            "line": 8,
+            "offset": 152
+          }
+        },
+        "$GETTER": {
+          "abstract_content": "getId",
+          "end": {
+            "col": 24,
+            "line": 27,
+            "offset": 552
+          },
+          "start": {
+            "col": 19,
+            "line": 27,
+            "offset": 547
+          }
+        },
+        "$OBJECT": {
+          "abstract_content": "AudioEntity",
+          "end": {
+            "col": 25,
+            "line": 9,
+            "offset": 223
+          },
+          "start": {
+            "col": 14,
+            "line": 9,
+            "offset": 212
+          }
+        },
+        "$TYPE": {
+          "abstract_content": "String",
+          "end": {
+            "col": 18,
+            "line": 27,
+            "offset": 546
+          },
+          "start": {
+            "col": 12,
+            "line": 27,
+            "offset": 540
+          }
+        }
+      },
+      "severity": "INFO",
+      "validation_state": "NO_VALIDATOR"
+    },
+    "path": "/javax.java",
+    "start": {
+      "col": 5,
+      "line": 25,
+      "offset": 479
+    }
+  },
+  {
+    "check_id": "appsec_discovery.parsers.java.scanner_rules.dto-javax-data-object",
+    "end": {
+      "col": 6,
+      "line": 41,
+      "offset": 799
+    },
+    "extra": {
+      "engine_kind": "OSS",
+      "fingerprint": "e0585243832baa3779de057856a91b2294e20f79f3608e70f610706eb7fcd31cb572d593504237a2b0a5a90a3dfcc43db6d0d19d0d0b51bd521c828d651918bd_0",
+      "is_ignored": false,
+      "lines": "    @Basic\n    @Column(name = \"acSampleRate\")\n    public String getAcSampleRate() {\n        return acSampleRate;\n    }",
+      "message": "AudioEntity \"audio\" $FIELD \"acSampleRate\" String",
+      "metadata": {
+        "framework": "javax",
+        "object_type": "dto",
+        "parser": "java"
+      },
+      "metavars": {
+        "$DB_FIELD": {
+          "abstract_content": "\"acSampleRate\"",
+          "end": {
+            "col": 34,
+            "line": 38,
+            "offset": 725
+          },
+          "start": {
+            "col": 20,
+            "line": 38,
+            "offset": 711
+          }
+        },
+        "$DB_NAME": {
+          "abstract_content": "\"audio\"",
+          "end": {
+            "col": 40,
+            "line": 8,
+            "offset": 159
+          },
+          "start": {
+            "col": 33,
+            "line": 8,
+            "offset": 152
+          }
+        },
+        "$GETTER": {
+          "abstract_content": "getAcSampleRate",
+          "end": {
+            "col": 34,
+            "line": 39,
+            "offset": 760
+          },
+          "start": {
+            "col": 19,
+            "line": 39,
+            "offset": 745
+          }
+        },
+        "$OBJECT": {
+          "abstract_content": "AudioEntity",
+          "end": {
+            "col": 25,
+            "line": 9,
+            "offset": 223
+          },
+          "start": {
+            "col": 14,
+            "line": 9,
+            "offset": 212
+          }
+        },
+        "$TYPE": {
+          "abstract_content": "String",
+          "end": {
+            "col": 18,
+            "line": 39,
+            "offset": 744
+          },
+          "start": {
+            "col": 12,
+            "line": 39,
+            "offset": 738
+          }
+        }
+      },
+      "severity": "INFO",
+      "validation_state": "NO_VALIDATOR"
+    },
+    "path": "/javax.java",
+    "start": {
+      "col": 5,
+      "line": 37,
+      "offset": 685
+    }
+  },
+  {
+    "check_id": "appsec_discovery.parsers.java.scanner_rules.dto-javax-data-object",
+    "end": {
+      "col": 6,
+      "line": 53,
+      "offset": 1055
+    },
+    "extra": {
+      "engine_kind": "OSS",
+      "fingerprint": "b3ead16e9e338e76b5ae7c699819543bcd63bbf50aee44e5e9908f0034acfe283fd5e5c43cb7781cf313eba947b8cb8e19c0212b843f3276bf4c42c05a2273f6_0",
+      "is_ignored": false,
+      "lines": "    @Basic\n    @javax.persistence.Column(name = \"acState\")\n    public String getAcState() {\n        return acState;\n    }",
+      "message": "AudioEntity \"audio\" $FIELD \"acState\" String",
+      "metadata": {
+        "framework": "javax",
+        "object_type": "dto",
+        "parser": "java"
+      },
+      "metavars": {
+        "$DB_FIELD": {
+          "abstract_content": "\"acState\"",
+          "end": {
+            "col": 47,
+            "line": 50,
+            "offset": 991
+          },
+          "start": {
+            "col": 38,
+            "line": 50,
+            "offset": 982
+          }
+        },
+        "$DB_NAME": {
+          "abstract_content": "\"audio\"",
+          "end": {
+            "col": 40,
+            "line": 8,
+            "offset": 159
+          },
+          "start": {
+            "col": 33,
+            "line": 8,
+            "offset": 152
+          }
+        },
+        "$GETTER": {
+          "abstract_content": "getAcState",
+          "end": {
+            "col": 29,
+            "line": 51,
+            "offset": 1021
+          },
+          "start": {
+            "col": 19,
+            "line": 51,
+            "offset": 1011
+          }
+        },
+        "$OBJECT": {
+          "abstract_content": "AudioEntity",
+          "end": {
+            "col": 25,
+            "line": 9,
+            "offset": 223
+          },
+          "start": {
+            "col": 14,
+            "line": 9,
+            "offset": 212
+          }
+        },
+        "$TYPE": {
+          "abstract_content": "String",
+          "end": {
+            "col": 18,
+            "line": 51,
+            "offset": 1010
+          },
+          "start": {
+            "col": 12,
+            "line": 51,
+            "offset": 1004
+          }
+        }
+      },
+      "severity": "INFO",
+      "validation_state": "NO_VALIDATOR"
+    },
+    "path": "/javax.java",
+    "start": {
+      "col": 5,
+      "line": 49,
+      "offset": 938
+    }
+  }
+]

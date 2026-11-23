@@ -1,0 +1,33 @@
+# Local LLM for the appsec-discovery CLI: the official llama.cpp server with an
+# OpenAI-compatible API on http://localhost:8080/v1.
+#
+#   docker compose -f docs/local-llm.compose.yml up -d     # first start downloads the model
+#   appsec-discovery --source <code> --config conf.yaml     # conf.yaml: ai_api.base_url: http://localhost:8080/v1
+#   docker compose -f docs/local-llm.compose.yml down
+#
+# Pick another model with LLM_HF_REPO="<hf repo>[:quant]" (any GGUF repo), or serve a local file:
+#   LLM_HF_REPO= LLM_MODEL_FILE=/models/<file>.gguf LLM_MODELS_DIR=/path/to/gguf/dir docker compose ... up -d
+services:
+  llm:
+    image: ghcr.io/ggml-org/llama.cpp:server-b12098
+    ports:
+      - "127.0.0.1:8080:8080"
+    environment:
+      - LLAMA_ARG_HF_REPO=${LLM_HF_REPO-Qwen/Qwen2.5-3B-Instruct-GGUF:Q4_K_M}
+      - LLAMA_ARG_MODEL=${LLM_MODEL_FILE:-}
+      - LLAMA_ARG_ALIAS=local-model
+      - LLAMA_ARG_CTX_SIZE=8192
+      - LLAMA_ARG_HOST=0.0.0.0
+      - LLAMA_ARG_PORT=8080
+    volumes:
+      - llm_cache:/root/.cache                      # downloaded models survive restarts
+      - "${LLM_MODELS_DIR:-./llm_models}:/models:ro"
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:8080/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+      start_period: 600s
+
+volumes:
+  llm_cache:

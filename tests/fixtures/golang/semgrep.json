@@ -1,0 +1,1037 @@
+[
+  {
+    "check_id": "appsec_discovery.parsers.golang.scanner_rules.dto-struct-data-object",
+    "end": {
+      "col": 17,
+      "line": 6,
+      "offset": 95
+    },
+    "extra": {
+      "engine_kind": "OSS",
+      "fingerprint": "3fed16ff4489563b0ded13bed34aabac21e57e155fb785f60ba47bde37d07e3727fa12940fc5a73585ead238f2244a0824e25b291a1c6a7a4136983443a02eed_0",
+      "is_ignored": false,
+      "lines": "    ID       int    `json:\"id\"`",
+      "message": "UserDTO ID int",
+      "metadata": {
+        "framework": "struct",
+        "object_type": "dto",
+        "parser": "golang"
+      },
+      "metavars": {
+        "$FIELD": {
+          "abstract_content": "ID",
+          "end": {
+            "col": 7,
+            "line": 6,
+            "offset": 85
+          },
+          "start": {
+            "col": 5,
+            "line": 6,
+            "offset": 83
+          }
+        },
+        "$OBJECT": {
+          "abstract_content": "UserDTO",
+          "end": {
+            "col": 13,
+            "line": 5,
+            "offset": 69
+          },
+          "start": {
+            "col": 6,
+            "line": 5,
+            "offset": 62
+          }
+        },
+        "$TYPE": {
+          "abstract_content": "int",
+          "end": {
+            "col": 17,
+            "line": 6,
+            "offset": 95
+          },
+          "start": {
+            "col": 14,
+            "line": 6,
+            "offset": 92
+          }
+        }
+      },
+      "severity": "INFO",
+      "validation_state": "NO_VALIDATOR"
+    },
+    "path": "/main.go",
+    "start": {
+      "col": 5,
+      "line": 6,
+      "offset": 83
+    }
+  },
+  {
+    "check_id": "appsec_discovery.parsers.golang.scanner_rules.dto-struct-data-object",
+    "end": {
+      "col": 20,
+      "line": 7,
+      "offset": 130
+    },
+    "extra": {
+      "engine_kind": "OSS",
+      "fingerprint": "f2a45931d4694c8cb95bd1c586ccacb396b262497790daa76f73fd5ae0c95fdb31c19f39d996e1e9ef12626efa0b8b5903a4f6ba410adb17c4ae5d92652e9c5b_0",
+      "is_ignored": false,
+      "lines": "    Name     string `json:\"name\" validate:\"required\"`",
+      "message": "UserDTO Name string",
+      "metadata": {
+        "framework": "struct",
+        "object_type": "dto",
+        "parser": "golang"
+      },
+      "metavars": {
+        "$FIELD": {
+          "abstract_content": "Name",
+          "end": {
+            "col": 9,
+            "line": 7,
+            "offset": 119
+          },
+          "start": {
+            "col": 5,
+            "line": 7,
+            "offset": 115
+          }
+        },
+        "$OBJECT": {
+          "abstract_content": "UserDTO",
+          "end": {
+            "col": 13,
+            "line": 5,
+            "offset": 69
+          },
+          "start": {
+            "col": 6,
+            "line": 5,
+            "offset": 62
+          }
+        },
+        "$TYPE": {
+          "abstract_content": "string",
+          "end": {
+            "col": 20,
+            "line": 7,
+            "offset": 130
+          },
+          "start": {
+            "col": 14,
+            "line": 7,
+            "offset": 124
+          }
+        }
+      },
+      "severity": "INFO",
+      "validation_state": "NO_VALIDATOR"
+    },
+    "path": "/main.go",
+    "start": {
+      "col": 5,
+      "line": 7,
+      "offset": 115
+    }
+  },
+  {
+    "check_id": "appsec_discovery.parsers.golang.scanner_rules.dto-struct-data-object",
+    "end": {
+      "col": 20,
+      "line": 8,
+      "offset": 184
+    },
+    "extra": {
+      "engine_kind": "OSS",
+      "fingerprint": "ee3136a17b48feec9dc455028dda941a9c1a10239ba1267ea84d39273ffa26be39794ee0237b8a537d68cc4802695e0a95322474d79a66f9b83ca0ba423493c7_0",
+      "is_ignored": false,
+      "lines": "    Email    string `json:\"email\" validate:\"email\"`",
+      "message": "UserDTO Email string",
+      "metadata": {
+        "framework": "struct",
+        "object_type": "dto",
+        "parser": "golang"
+      },
+      "metavars": {
+        "$FIELD": {
+          "abstract_content": "Email",
+          "end": {
+            "col": 10,
+            "line": 8,
+            "offset": 174
+          },
+          "start": {
+            "col": 5,
+            "line": 8,
+            "offset": 169
+          }
+        },
+        "$OBJECT": {
+          "abstract_content": "UserDTO",
+          "end": {
+            "col": 13,
+            "line": 5,
+            "offset": 69
+          },
+          "start": {
+            "col": 6,
+            "line": 5,
+            "offset": 62
+          }
+        },
+        "$TYPE": {
+          "abstract_content": "string",
+          "end": {
+            "col": 20,
+            "line": 8,
+            "offset": 184
+          },
+          "start": {
+            "col": 14,
+            "line": 8,
+            "offset": 178
+          }
+        }
+      },
+      "severity": "INFO",
+      "validation_state": "NO_VALIDATOR"
+    },
+    "path": "/main.go",
+    "start": {
+      "col": 5,
+      "line": 8,
+      "offset": 169
+    }
+  },
+  {
+    "check_id": "appsec_discovery.parsers.golang.scanner_rules.dto-struct-data-object",
+    "end": {
+      "col": 20,
+      "line": 9,
+      "offset": 236
+    },
+    "extra": {
+      "engine_kind": "OSS",
+      "fingerprint": "d1fcf0c948bbaff03b033a525cf8fdfcfccdca8a5d374b99eec4f4ac54b9c9aeaacebc6f45d9908367c3f73afd9975a8e283ffedb2aa4431104f39ed7fbb58cd_0",
+      "is_ignored": false,
+      "lines": "    Password string `json:\"password,omitempty\" validate:\"min=8\"`",
+      "message": "UserDTO Password string",
+      "metadata": {
+        "framework": "struct",
+        "object_type": "dto",
+        "parser": "golang"
+      },
+      "metavars": {
+        "$FIELD": {
+          "abstract_content": "Password",
+          "end": {
+            "col": 13,
+            "line": 9,
+            "offset": 229
+          },
+          "start": {
+            "col": 5,
+            "line": 9,
+            "offset": 221
+          }
+        },
+        "$OBJECT": {
+          "abstract_content": "UserDTO",
+          "end": {
+            "col": 13,
+            "line": 5,
+            "offset": 69
+          },
+          "start": {
+            "col": 6,
+            "line": 5,
+            "offset": 62
+          }
+        },
+        "$TYPE": {
+          "abstract_content": "string",
+          "end": {
+            "col": 20,
+            "line": 9,
+            "offset": 236
+          },
+          "start": {
+            "col": 14,
+            "line": 9,
+            "offset": 230
+          }
+        }
+      },
+      "severity": "INFO",
+      "validation_state": "NO_VALIDATOR"
+    },
+    "path": "/main.go",
+    "start": {
+      "col": 5,
+      "line": 9,
+      "offset": 221
+    }
+  },
+  {
+    "check_id": "appsec_discovery.parsers.golang.scanner_rules.dto-struct-data-object",
+    "end": {
+      "col": 17,
+      "line": 13,
+      "offset": 333
+    },
+    "extra": {
+      "engine_kind": "OSS",
+      "fingerprint": "80be73f8999ecdd384e19fa8fbecc175a713dee8bb99bbed3631197e3084acf1a8c653ebd52092a8c2479f06e44ce420e3bf4713fedd2249123427f67e0160d7_0",
+      "is_ignored": false,
+      "lines": "\tPinCode  string",
+      "message": "PreSavePincodeCmd PinCode string",
+      "metadata": {
+        "framework": "struct",
+        "object_type": "dto",
+        "parser": "golang"
+      },
+      "metavars": {
+        "$FIELD": {
+          "abstract_content": "PinCode",
+          "end": {
+            "col": 9,
+            "line": 13,
+            "offset": 325
+          },
+          "start": {
+            "col": 2,
+            "line": 13,
+            "offset": 318
+          }
+        },
+        "$OBJECT": {
+          "abstract_content": "PreSavePincodeCmd",
+          "end": {
+            "col": 23,
+            "line": 12,
+            "offset": 307
+          },
+          "start": {
+            "col": 6,
+            "line": 12,
+            "offset": 290
+          }
+        },
+        "$TYPE": {
+          "abstract_content": "string",
+          "end": {
+            "col": 17,
+            "line": 13,
+            "offset": 333
+          },
+          "start": {
+            "col": 11,
+            "line": 13,
+            "offset": 327
+          }
+        }
+      },
+      "severity": "INFO",
+      "validation_state": "NO_VALIDATOR"
+    },
+    "path": "/main.go",
+    "start": {
+      "col": 2,
+      "line": 13,
+      "offset": 318
+    }
+  },
+  {
+    "check_id": "appsec_discovery.parsers.golang.scanner_rules.dto-struct-data-object",
+    "end": {
+      "col": 17,
+      "line": 14,
+      "offset": 350
+    },
+    "extra": {
+      "engine_kind": "OSS",
+      "fingerprint": "74bb287eb66f912d82dc14a5fbe8a019ca7fa4d84499d3b2cf15ec1b2768054e030c372695726311de773ed37ffb982e203529d9501d94693a7adaf999f0d7aa_0",
+      "is_ignored": false,
+      "lines": "\tPersonID string",
+      "message": "PreSavePincodeCmd PersonID string",
+      "metadata": {
+        "framework": "struct",
+        "object_type": "dto",
+        "parser": "golang"
+      },
+      "metavars": {
+        "$FIELD": {
+          "abstract_content": "PersonID",
+          "end": {
+            "col": 10,
+            "line": 14,
+            "offset": 343
+          },
+          "start": {
+            "col": 2,
+            "line": 14,
+            "offset": 335
+          }
+        },
+        "$OBJECT": {
+          "abstract_content": "PreSavePincodeCmd",
+          "end": {
+            "col": 23,
+            "line": 12,
+            "offset": 307
+          },
+          "start": {
+            "col": 6,
+            "line": 12,
+            "offset": 290
+          }
+        },
+        "$TYPE": {
+          "abstract_content": "string",
+          "end": {
+            "col": 17,
+            "line": 14,
+            "offset": 350
+          },
+          "start": {
+            "col": 11,
+            "line": 14,
+            "offset": 344
+          }
+        }
+      },
+      "severity": "INFO",
+      "validation_state": "NO_VALIDATOR"
+    },
+    "path": "/main.go",
+    "start": {
+      "col": 2,
+      "line": 14,
+      "offset": 335
+    }
+  },
+  {
+    "check_id": "appsec_discovery.parsers.golang.scanner_rules.dto-struct-data-object",
+    "end": {
+      "col": 25,
+      "line": 18,
+      "offset": 413
+    },
+    "extra": {
+      "engine_kind": "OSS",
+      "fingerprint": "9613d79f856209ad27e801a460685b961909c8c78c5ad5968c589e9599cd910172c923322a87818d1361cf39c3e8b4c4f5d5b4f28f8e26ca8770b27c1a595e06_0",
+      "is_ignored": false,
+      "lines": "\tPreSavePinCodeID string",
+      "message": "PreSavePincodeResult PreSavePinCodeID string",
+      "metadata": {
+        "framework": "struct",
+        "object_type": "dto",
+        "parser": "golang"
+      },
+      "metavars": {
+        "$FIELD": {
+          "abstract_content": "PreSavePinCodeID",
+          "end": {
+            "col": 18,
+            "line": 18,
+            "offset": 406
+          },
+          "start": {
+            "col": 2,
+            "line": 18,
+            "offset": 390
+          }
+        },
+        "$OBJECT": {
+          "abstract_content": "PreSavePincodeResult",
+          "end": {
+            "col": 26,
+            "line": 17,
+            "offset": 379
+          },
+          "start": {
+            "col": 6,
+            "line": 17,
+            "offset": 359
+          }
+        },
+        "$TYPE": {
+          "abstract_content": "string",
+          "end": {
+            "col": 25,
+            "line": 18,
+            "offset": 413
+          },
+          "start": {
+            "col": 19,
+            "line": 18,
+            "offset": 407
+          }
+        }
+      },
+      "severity": "INFO",
+      "validation_state": "NO_VALIDATOR"
+    },
+    "path": "/main.go",
+    "start": {
+      "col": 2,
+      "line": 18,
+      "offset": 390
+    }
+  },
+  {
+    "check_id": "appsec_discovery.parsers.golang.scanner_rules.dto-struct-data-object",
+    "end": {
+      "col": 26,
+      "line": 22,
+      "offset": 474
+    },
+    "extra": {
+      "engine_kind": "OSS",
+      "fingerprint": "7cb4824198aeb37082bb5b9fffae5e3850c72970fa4cd1b4e8e140cc3a0c1574d755cb81e0814fd85e3e166454eab0b3ca6e2f1fc04a3e483c857d6f984281dd_0",
+      "is_ignored": false,
+      "lines": "\tPersonID          string",
+      "message": "UpdateCodewordCmd PersonID string",
+      "metadata": {
+        "framework": "struct",
+        "object_type": "dto",
+        "parser": "golang"
+      },
+      "metavars": {
+        "$FIELD": {
+          "abstract_content": "PersonID",
+          "end": {
+            "col": 10,
+            "line": 22,
+            "offset": 458
+          },
+          "start": {
+            "col": 2,
+            "line": 22,
+            "offset": 450
+          }
+        },
+        "$OBJECT": {
+          "abstract_content": "UpdateCodewordCmd",
+          "end": {
+            "col": 23,
+            "line": 21,
+            "offset": 439
+          },
+          "start": {
+            "col": 6,
+            "line": 21,
+            "offset": 422
+          }
+        },
+        "$TYPE": {
+          "abstract_content": "string",
+          "end": {
+            "col": 26,
+            "line": 22,
+            "offset": 474
+          },
+          "start": {
+            "col": 20,
+            "line": 22,
+            "offset": 468
+          }
+        }
+      },
+      "severity": "INFO",
+      "validation_state": "NO_VALIDATOR"
+    },
+    "path": "/main.go",
+    "start": {
+      "col": 2,
+      "line": 22,
+      "offset": 450
+    }
+  },
+  {
+    "check_id": "appsec_discovery.parsers.golang.scanner_rules.dto-struct-data-object",
+    "end": {
+      "col": 26,
+      "line": 23,
+      "offset": 500
+    },
+    "extra": {
+      "engine_kind": "OSS",
+      "fingerprint": "9db6ad9e59f4d1c7360a17c7b83118257638adb4e29640fcac078175cf4fbbd362031a82c3cc21d287a5e75b25d0ab4c1a540c364a98d14b3300ab86fa13e704_0",
+      "is_ignored": false,
+      "lines": "\tEncryptedCodeword string",
+      "message": "UpdateCodewordCmd EncryptedCodeword string",
+      "metadata": {
+        "framework": "struct",
+        "object_type": "dto",
+        "parser": "golang"
+      },
+      "metavars": {
+        "$FIELD": {
+          "abstract_content": "EncryptedCodeword",
+          "end": {
+            "col": 19,
+            "line": 23,
+            "offset": 493
+          },
+          "start": {
+            "col": 2,
+            "line": 23,
+            "offset": 476
+          }
+        },
+        "$OBJECT": {
+          "abstract_content": "UpdateCodewordCmd",
+          "end": {
+            "col": 23,
+            "line": 21,
+            "offset": 439
+          },
+          "start": {
+            "col": 6,
+            "line": 21,
+            "offset": 422
+          }
+        },
+        "$TYPE": {
+          "abstract_content": "string",
+          "end": {
+            "col": 26,
+            "line": 23,
+            "offset": 500
+          },
+          "start": {
+            "col": 20,
+            "line": 23,
+            "offset": 494
+          }
+        }
+      },
+      "severity": "INFO",
+      "validation_state": "NO_VALIDATOR"
+    },
+    "path": "/main.go",
+    "start": {
+      "col": 2,
+      "line": 23,
+      "offset": 476
+    }
+  },
+  {
+    "check_id": "appsec_discovery.parsers.golang.scanner_rules.dto-struct-data-object",
+    "end": {
+      "col": 27,
+      "line": 27,
+      "offset": 582
+    },
+    "extra": {
+      "engine_kind": "OSS",
+      "fingerprint": "3847bedbb1d6ad8e42f70dca74da133ce22a881a7d2dd6e4c460b7ff87ef78bb8d07e13ca864de7602e8166ccdbfef83fc2308fd0ceb8911d89836b2e281133e_0",
+      "is_ignored": false,
+      "lines": "\tClientID           string",
+      "message": "CreateFullAccessRecoveryAuthorizedCmd ClientID string",
+      "metadata": {
+        "framework": "struct",
+        "object_type": "dto",
+        "parser": "golang"
+      },
+      "metavars": {
+        "$FIELD": {
+          "abstract_content": "ClientID",
+          "end": {
+            "col": 10,
+            "line": 27,
+            "offset": 565
+          },
+          "start": {
+            "col": 2,
+            "line": 27,
+            "offset": 557
+          }
+        },
+        "$OBJECT": {
+          "abstract_content": "CreateFullAccessRecoveryAuthorizedCmd",
+          "end": {
+            "col": 43,
+            "line": 26,
+            "offset": 546
+          },
+          "start": {
+            "col": 6,
+            "line": 26,
+            "offset": 509
+          }
+        },
+        "$TYPE": {
+          "abstract_content": "string",
+          "end": {
+            "col": 27,
+            "line": 27,
+            "offset": 582
+          },
+          "start": {
+            "col": 21,
+            "line": 27,
+            "offset": 576
+          }
+        }
+      },
+      "severity": "INFO",
+      "validation_state": "NO_VALIDATOR"
+    },
+    "path": "/main.go",
+    "start": {
+      "col": 2,
+      "line": 27,
+      "offset": 557
+    }
+  },
+  {
+    "check_id": "appsec_discovery.parsers.golang.scanner_rules.dto-struct-data-object",
+    "end": {
+      "col": 25,
+      "line": 28,
+      "offset": 607
+    },
+    "extra": {
+      "engine_kind": "OSS",
+      "fingerprint": "70532f0dd1825db6ff5fc726f7935556f981a46a52b50341a5e7024c8b58fd71282e443403859e90f0854cd64e189ed14dde7d8b5c061d5d7ea64c5eecc993fb_0",
+      "is_ignored": false,
+      "lines": "\tPeriodAfterExpires time.Duration",
+      "message": "CreateFullAccessRecoveryAuthorizedCmd PeriodAfterExpires time",
+      "metadata": {
+        "framework": "struct",
+        "object_type": "dto",
+        "parser": "golang"
+      },
+      "metavars": {
+        "$FIELD": {
+          "abstract_content": "PeriodAfterExpires",
+          "end": {
+            "col": 20,
+            "line": 28,
+            "offset": 602
+          },
+          "start": {
+            "col": 2,
+            "line": 28,
+            "offset": 584
+          }
+        },
+        "$OBJECT": {
+          "abstract_content": "CreateFullAccessRecoveryAuthorizedCmd",
+          "end": {
+            "col": 43,
+            "line": 26,
+            "offset": 546
+          },
+          "start": {
+            "col": 6,
+            "line": 26,
+            "offset": 509
+          }
+        },
+        "$TYPE": {
+          "abstract_content": "time",
+          "end": {
+            "col": 25,
+            "line": 28,
+            "offset": 607
+          },
+          "start": {
+            "col": 21,
+            "line": 28,
+            "offset": 603
+          }
+        }
+      },
+      "severity": "INFO",
+      "validation_state": "NO_VALIDATOR"
+    },
+    "path": "/main.go",
+    "start": {
+      "col": 2,
+      "line": 28,
+      "offset": 584
+    }
+  },
+  {
+    "check_id": "appsec_discovery.parsers.golang.scanner_rules.dto-struct-data-object",
+    "end": {
+      "col": 18,
+      "line": 32,
+      "offset": 677
+    },
+    "extra": {
+      "engine_kind": "OSS",
+      "fingerprint": "f454da795c42b278b0a3660ed9623c605a04580ea67352698c7f26e7f3485c7617e979255f29001679485bbdb2bc1a54030d7832b6862433c39c3b4d276ff17b_0",
+      "is_ignored": false,
+      "lines": "\tID        string                  `db:\"id\"`",
+      "message": "FullAccessRecoveryComment ID string",
+      "metadata": {
+        "framework": "struct",
+        "object_type": "dto",
+        "parser": "golang"
+      },
+      "metavars": {
+        "$FIELD": {
+          "abstract_content": "ID",
+          "end": {
+            "col": 4,
+            "line": 32,
+            "offset": 663
+          },
+          "start": {
+            "col": 2,
+            "line": 32,
+            "offset": 661
+          }
+        },
+        "$OBJECT": {
+          "abstract_content": "FullAccessRecoveryComment",
+          "end": {
+            "col": 31,
+            "line": 31,
+            "offset": 650
+          },
+          "start": {
+            "col": 6,
+            "line": 31,
+            "offset": 625
+          }
+        },
+        "$TYPE": {
+          "abstract_content": "string",
+          "end": {
+            "col": 18,
+            "line": 32,
+            "offset": 677
+          },
+          "start": {
+            "col": 12,
+            "line": 32,
+            "offset": 671
+          }
+        }
+      },
+      "severity": "INFO",
+      "validation_state": "NO_VALIDATOR"
+    },
+    "path": "/main.go",
+    "start": {
+      "col": 2,
+      "line": 32,
+      "offset": 661
+    }
+  },
+  {
+    "check_id": "appsec_discovery.parsers.golang.scanner_rules.dto-struct-data-object",
+    "end": {
+      "col": 16,
+      "line": 33,
+      "offset": 720
+    },
+    "extra": {
+      "engine_kind": "OSS",
+      "fingerprint": "f209e00aa12b83323f6b2b540b694a3a813dfe25b34e7df8186a0d019a5ec01ee217dcacff4beb9ae753e834e8750307617b16fec191150e2db17313fb56ca87_0",
+      "is_ignored": false,
+      "lines": "\tCreatedAt time.Time               `db:\"created_at\"`",
+      "message": "FullAccessRecoveryComment CreatedAt time",
+      "metadata": {
+        "framework": "struct",
+        "object_type": "dto",
+        "parser": "golang"
+      },
+      "metavars": {
+        "$FIELD": {
+          "abstract_content": "CreatedAt",
+          "end": {
+            "col": 11,
+            "line": 33,
+            "offset": 715
+          },
+          "start": {
+            "col": 2,
+            "line": 33,
+            "offset": 706
+          }
+        },
+        "$OBJECT": {
+          "abstract_content": "FullAccessRecoveryComment",
+          "end": {
+            "col": 31,
+            "line": 31,
+            "offset": 650
+          },
+          "start": {
+            "col": 6,
+            "line": 31,
+            "offset": 625
+          }
+        },
+        "$TYPE": {
+          "abstract_content": "time",
+          "end": {
+            "col": 16,
+            "line": 33,
+            "offset": 720
+          },
+          "start": {
+            "col": 12,
+            "line": 33,
+            "offset": 716
+          }
+        }
+      },
+      "severity": "INFO",
+      "validation_state": "NO_VALIDATOR"
+    },
+    "path": "/main.go",
+    "start": {
+      "col": 2,
+      "line": 33,
+      "offset": 706
+    }
+  },
+  {
+    "check_id": "appsec_discovery.parsers.golang.scanner_rules.dto-struct-data-object",
+    "end": {
+      "col": 18,
+      "line": 34,
+      "offset": 775
+    },
+    "extra": {
+      "engine_kind": "OSS",
+      "fingerprint": "9d168d1566477aec990099557e25c57e454fa9a799230c8c201338144d0dffd9677fe37880655ad180c955ea445c80bdf209fe16a38b524e055c82825570faa5_0",
+      "is_ignored": false,
+      "lines": "\tSupportID string                  `db:\"support_id\"`",
+      "message": "FullAccessRecoveryComment SupportID string",
+      "metadata": {
+        "framework": "struct",
+        "object_type": "dto",
+        "parser": "golang"
+      },
+      "metavars": {
+        "$FIELD": {
+          "abstract_content": "SupportID",
+          "end": {
+            "col": 11,
+            "line": 34,
+            "offset": 768
+          },
+          "start": {
+            "col": 2,
+            "line": 34,
+            "offset": 759
+          }
+        },
+        "$OBJECT": {
+          "abstract_content": "FullAccessRecoveryComment",
+          "end": {
+            "col": 31,
+            "line": 31,
+            "offset": 650
+          },
+          "start": {
+            "col": 6,
+            "line": 31,
+            "offset": 625
+          }
+        },
+        "$TYPE": {
+          "abstract_content": "string",
+          "end": {
+            "col": 18,
+            "line": 34,
+            "offset": 775
+          },
+          "start": {
+            "col": 12,
+            "line": 34,
+            "offset": 769
+          }
+        }
+      },
+      "severity": "INFO",
+      "validation_state": "NO_VALIDATOR"
+    },
+    "path": "/main.go",
+    "start": {
+      "col": 2,
+      "line": 34,
+      "offset": 759
+    }
+  },
+  {
+    "check_id": "appsec_discovery.parsers.golang.scanner_rules.dto-struct-data-object",
+    "end": {
+      "col": 18,
+      "line": 35,
+      "offset": 828
+    },
+    "extra": {
+      "engine_kind": "OSS",
+      "fingerprint": "e4e8cc563d80da8303cf00714ba3f76c597b102ac96bec485c01e0330e11065b406fd176fbdda679aea8b61d87812d83d6c507b83a9c8a3d3364985b39047afd_0",
+      "is_ignored": false,
+      "lines": "\tIssueID   string                  `db:\"issue_id\"`",
+      "message": "FullAccessRecoveryComment IssueID string",
+      "metadata": {
+        "framework": "struct",
+        "object_type": "dto",
+        "parser": "golang"
+      },
+      "metavars": {
+        "$FIELD": {
+          "abstract_content": "IssueID",
+          "end": {
+            "col": 9,
+            "line": 35,
+            "offset": 819
+          },
+          "start": {
+            "col": 2,
+            "line": 35,
+            "offset": 812
+          }
+        },
+        "$OBJECT": {
+          "abstract_content": "FullAccessRecoveryComment",
+          "end": {
+            "col": 31,
+            "line": 31,
+            "offset": 650
+          },
+          "start": {
+            "col": 6,
+            "line": 31,
+            "offset": 625
+          }
+        },
+        "$TYPE": {
+          "abstract_content": "string",
+          "end": {
+            "col": 18,
+            "line": 35,
+            "offset": 828
+          },
+          "start": {
+            "col": 12,
+            "line": 35,
+            "offset": 822
+          }
+        }
+      },
+      "severity": "INFO",
+      "validation_state": "NO_VALIDATOR"
+    },
+    "path": "/main.go",
+    "start": {
+      "col": 2,
+      "line": 35,
+      "offset": 812
+    }
+  }
+]

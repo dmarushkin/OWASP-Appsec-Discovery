@@ -1,0 +1,378 @@
+[
+  {
+    "fields": {
+      "Email": {
+        "field_name": "Email",
+        "field_type": "string",
+        "file": "/main.go",
+        "line": 8,
+        "severity": "medium",
+        "tags": [
+          "pii",
+          "auth"
+        ]
+      },
+      "ID": {
+        "field_name": "ID",
+        "field_type": "int",
+        "file": "/main.go",
+        "line": 6
+      },
+      "Name": {
+        "field_name": "Name",
+        "field_type": "string",
+        "file": "/main.go",
+        "line": 7
+      },
+      "Password": {
+        "field_name": "Password",
+        "field_type": "string",
+        "file": "/main.go",
+        "line": 9,
+        "severity": "high",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "file": "/main.go",
+    "hash": "64392b4ba5c7714344c41148dedc7096",
+    "hits": [
+      {
+        "field_name": "Email",
+        "keyword": "email",
+        "rule": "score_tags/pii/medium",
+        "rule_type": "keyword",
+        "severity": "medium",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "pii"
+        ]
+      },
+      {
+        "field_name": "Password",
+        "keyword": "password",
+        "rule": "score_tags/auth/high",
+        "rule_type": "keyword",
+        "severity": "high",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "auth"
+        ]
+      },
+      {
+        "field_name": "Email",
+        "keyword": "email",
+        "rule": "score_tags/auth/medium",
+        "rule_type": "keyword",
+        "severity": "medium",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "auth"
+        ]
+      }
+    ],
+    "line": 6,
+    "object_name": "UserDTO",
+    "object_type": "dto",
+    "parser": "golang",
+    "properties": {
+      "framework": {
+        "prop_name": "framework",
+        "prop_value": "struct"
+      },
+      "object": {
+        "prop_name": "object",
+        "prop_value": "UserDTO"
+      }
+    },
+    "severity": "high",
+    "tags": [
+      "pii",
+      "auth"
+    ]
+  },
+  {
+    "fields": {
+      "PersonID": {
+        "field_name": "PersonID",
+        "field_type": "string",
+        "file": "/main.go",
+        "line": 14
+      },
+      "PinCode": {
+        "field_name": "PinCode",
+        "field_type": "string",
+        "file": "/main.go",
+        "line": 13,
+        "severity": "high",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "file": "/main.go",
+    "hash": "a0c87fdec3f5c05e54006369c9bb0b96",
+    "hits": [
+      {
+        "keyword": "pincode",
+        "prop_name": "object",
+        "rule": "score_tags/auth/high",
+        "rule_type": "keyword",
+        "severity": "high",
+        "status": "match",
+        "subject": "prop",
+        "tags": [
+          "auth"
+        ]
+      },
+      {
+        "field_name": "PinCode",
+        "keyword": "pincode",
+        "rule": "score_tags/auth/high",
+        "rule_type": "keyword",
+        "severity": "high",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "auth"
+        ]
+      }
+    ],
+    "line": 13,
+    "object_name": "PreSavePincodeCmd",
+    "object_type": "dto",
+    "parser": "golang",
+    "properties": {
+      "framework": {
+        "prop_name": "framework",
+        "prop_value": "struct"
+      },
+      "object": {
+        "prop_name": "object",
+        "prop_value": "PreSavePincodeCmd",
+        "severity": "high",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "severity": "high",
+    "tags": [
+      "auth"
+    ]
+  },
+  {
+    "fields": {
+      "PreSavePinCodeID": {
+        "field_name": "PreSavePinCodeID",
+        "field_type": "string",
+        "file": "/main.go",
+        "line": 18,
+        "severity": "high",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "file": "/main.go",
+    "hash": "d32a36c43abdbac62079b02337d0a529",
+    "hits": [
+      {
+        "keyword": "pincode",
+        "prop_name": "object",
+        "rule": "score_tags/auth/high",
+        "rule_type": "keyword",
+        "severity": "high",
+        "status": "match",
+        "subject": "prop",
+        "tags": [
+          "auth"
+        ]
+      },
+      {
+        "field_name": "PreSavePinCodeID",
+        "keyword": "pincode",
+        "rule": "score_tags/auth/high",
+        "rule_type": "keyword",
+        "severity": "high",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "auth"
+        ]
+      }
+    ],
+    "line": 18,
+    "object_name": "PreSavePincodeResult",
+    "object_type": "dto",
+    "parser": "golang",
+    "properties": {
+      "framework": {
+        "prop_name": "framework",
+        "prop_value": "struct"
+      },
+      "object": {
+        "prop_name": "object",
+        "prop_value": "PreSavePincodeResult",
+        "severity": "high",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "severity": "high",
+    "tags": [
+      "auth"
+    ]
+  },
+  {
+    "fields": {
+      "EncryptedCodeword": {
+        "field_name": "EncryptedCodeword",
+        "field_type": "string",
+        "file": "/main.go",
+        "line": 23,
+        "severity": "high",
+        "tags": [
+          "auth"
+        ]
+      },
+      "PersonID": {
+        "field_name": "PersonID",
+        "field_type": "string",
+        "file": "/main.go",
+        "line": 22
+      }
+    },
+    "file": "/main.go",
+    "hash": "ef02fce064d825f6ad386c1f04c6ae88",
+    "hits": [
+      {
+        "keyword": "codeword",
+        "prop_name": "object",
+        "rule": "score_tags/auth/high",
+        "rule_type": "keyword",
+        "severity": "high",
+        "status": "match",
+        "subject": "prop",
+        "tags": [
+          "auth"
+        ]
+      },
+      {
+        "field_name": "EncryptedCodeword",
+        "keyword": "codeword",
+        "rule": "score_tags/auth/high",
+        "rule_type": "keyword",
+        "severity": "high",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "auth"
+        ]
+      }
+    ],
+    "line": 22,
+    "object_name": "UpdateCodewordCmd",
+    "object_type": "dto",
+    "parser": "golang",
+    "properties": {
+      "framework": {
+        "prop_name": "framework",
+        "prop_value": "struct"
+      },
+      "object": {
+        "prop_name": "object",
+        "prop_value": "UpdateCodewordCmd",
+        "severity": "high",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "severity": "high",
+    "tags": [
+      "auth"
+    ]
+  },
+  {
+    "fields": {
+      "ClientID": {
+        "field_name": "ClientID",
+        "field_type": "string",
+        "file": "/main.go",
+        "line": 27
+      },
+      "PeriodAfterExpires": {
+        "field_name": "PeriodAfterExpires",
+        "field_type": "time",
+        "file": "/main.go",
+        "line": 28
+      }
+    },
+    "file": "/main.go",
+    "hash": "14b14002d06a93fb03e93d32d389d0a8",
+    "line": 27,
+    "object_name": "CreateFullAccessRecoveryAuthorizedCmd",
+    "object_type": "dto",
+    "parser": "golang",
+    "properties": {
+      "framework": {
+        "prop_name": "framework",
+        "prop_value": "struct"
+      },
+      "object": {
+        "prop_name": "object",
+        "prop_value": "CreateFullAccessRecoveryAuthorizedCmd"
+      }
+    }
+  },
+  {
+    "fields": {
+      "CreatedAt": {
+        "field_name": "CreatedAt",
+        "field_type": "time",
+        "file": "/main.go",
+        "line": 33
+      },
+      "ID": {
+        "field_name": "ID",
+        "field_type": "string",
+        "file": "/main.go",
+        "line": 32
+      },
+      "IssueID": {
+        "field_name": "IssueID",
+        "field_type": "string",
+        "file": "/main.go",
+        "line": 35
+      },
+      "SupportID": {
+        "field_name": "SupportID",
+        "field_type": "string",
+        "file": "/main.go",
+        "line": 34
+      }
+    },
+    "file": "/main.go",
+    "hash": "9325ca34665612466d534c8b5d7265d8",
+    "line": 32,
+    "object_name": "FullAccessRecoveryComment",
+    "object_type": "dto",
+    "parser": "golang",
+    "properties": {
+      "framework": {
+        "prop_name": "framework",
+        "prop_value": "struct"
+      },
+      "object": {
+        "prop_name": "object",
+        "prop_value": "FullAccessRecoveryComment"
+      }
+    }
+  }
+]

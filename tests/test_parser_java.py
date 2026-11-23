@@ -2,6 +2,10 @@ from appsec_discovery.parsers import ParserFactory
 from appsec_discovery.parsers.java.parser import JavaParser
 import os
 from pathlib import Path
+import pytest
+
+# positional checks over a live semgrep run; the full output is pinned by tests/test_golden.py
+pytestmark = pytest.mark.semgrep
 
 def test_parser_java_get_parser():
 
@@ -27,6 +31,6 @@ def test_parser_java_parse_folder():
     assert len(results) == 1 
 
     assert results[0].parser == 'java'
-    assert results[0].object_name == 'Javax dto AudioEntity'
+    assert results[0].object_name == 'AudioEntity'
     assert 'counter' in results[0].fields
     assert results[0].fields['acState'].file == '/javax.java'

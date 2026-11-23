@@ -1,9 +1,2 @@
-import logging
-
-def get_logger(name=__name__):
-    logging.basicConfig(
-        level=logging.INFO,
-        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-        datefmt='%Y-%m-%d %H:%M:%S'
-    )
-    return logging.getLogger(name)
+# Shared logging setup (P2-5): discovery_common.log.
+from discovery_common.log import get_logger  # noqa: F401

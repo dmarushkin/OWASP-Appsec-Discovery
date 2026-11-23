@@ -2,6 +2,10 @@ from appsec_discovery.parsers import ParserFactory
 from appsec_discovery.parsers.golang.parser import GolangParser
 import os
 from pathlib import Path
+import pytest
+
+# positional checks over a live semgrep run; the full output is pinned by tests/test_golden.py
+pytestmark = pytest.mark.semgrep
 
 def test_parser_golang_get_parser():
 
@@ -27,8 +31,8 @@ def test_parser_golang_parse_folder():
     assert len(results) == 6 
 
     assert results[0].parser == 'golang'
-    assert results[0].object_name == 'Struct dto UserDTO'
+    assert results[0].object_name == 'UserDTO'
 
     assert results[-1].parser == 'golang'
-    assert results[-1].object_name == 'Struct dto FullAccessRecoveryComment'
+    assert results[-1].object_name == 'FullAccessRecoveryComment'
     assert results[-1].fields['ID'].field_name == 'ID'

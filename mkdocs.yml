@@ -1,4 +1,4 @@
-site_name: Appsec Discovery
+site_name: AppSec Discovery
 theme:
   name: material
   palette:
@@ -15,11 +15,28 @@ markdown_extensions:
   - pymdownx.superfences
   - def_list
 nav:
-  - Quik start: 
-    - 'index.md'
-  - Configure: 
-    - 'config/index.md'
-  - Parsers: 
-    - 'parsers/index.md'
-  - Contribution: 
-    - 'contrib/index.md'
+  - Overview: 'index.md'
+  - CLI and package:
+    - Quick start: 'cli/index.md'
+    - Configuration (conf.yaml): 'cli/config.md'
+    - LLM scoring: 'cli/llm.md'
+  - Parsers: 'parsers/index.md'
+  - Objects, hits and scoring: 'scoring.md'
+  - Service:
+    - Overview and quick start: 'service/index.md'
+    - Configuration (.env): 'service/config.md'
+    - Scanning and change detection: 'service/scanning.md'
+    - Jobs and workers: 'service/jobs.md'
+    - Rules and hits: 'service/rules.md'
+    - Tiered review: 'service/tiers.md'
+    - LLM rule lifecycle: 'service/llm-lifecycle.md'
+    - External executor: 'service/external-executor.md'
+    - UI: 'service/ui.md'
+    - MCP server: 'service/mcp.md'
+    - REST API: 'service/api.md'
+    - External parsers (ingest): 'service/ingest.md'
+    - Data model and migrations: 'service/data-model.md'
+    - Retention: 'service/retention.md'
+    - Troubleshooting: 'service/troubleshooting.md'
+  - Changelog: 'changelog.md'
+  - Contributing: 'contrib/index.md'

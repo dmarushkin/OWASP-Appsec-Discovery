@@ -1,0 +1,35 @@
+# Rules engine (stage 5b) example: keyword rules with a mode, score_rules (P1-6) and LLM rules.
+score_tags_mode: review          # score_tags hits wait for triage (pending_review)
+score_tags:
+  pii:
+    high: [passport]
+score_rules:
+  - name: cards-in-dtos
+    object_type: dto
+    field: card
+    severity: critical
+    tag: pci
+    mode: auto
+  - name: admin-routes
+    object: /admin
+    tag: admin
+    severity: high               # action defaults to score
+  - object: Legacy
+    action: exclude              # suppresses every hit on Legacy* objects
+ai_api:
+  base_url: http://localhost:8080/v1
+  model: local-model
+llm_rules:
+  - name: pci-fields
+    category: pci
+    severity: high
+    system_prompt: You look for payment card data (PAN, CVV, expiry) in API fields.
+    prompt_version: 1
+    target: field
+    mode: review
+    object_types: [route, dto]
+  - name: privileged-object
+    category: privileged
+    target: object
+    parsers: [swagger, golang]
+    projects: [payments/*]

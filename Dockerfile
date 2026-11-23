@@ -1,25 +1,21 @@
 FROM python:3.12.2-slim-bookworm
 
-ENV ENV=local
 ENV PROJECT_ROOT=/app
 WORKDIR $PROJECT_ROOT
 
-RUN apt update && apt install -y git gcc g++ curl apt-transport-https ca-certificates gnupg-agent software-properties-common curl
+# git: semgrep and the tests; no compiler toolchain (every dependency ships wheels)
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends git curl ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
 
-# install poetry and appsec discovery cli deps
-RUN pip install --upgrade pip
-RUN pip install poetry
-RUN pip install pytest
+# install uv and appsec discovery cli deps (incl. dev group) into system python
+COPY --from=ghcr.io/astral-sh/uv:0.8.13 /uv /uvx /bin/
+ENV UV_PROJECT_ENVIRONMENT=/usr/local \
+    UV_LINK_MODE=copy \
+    UV_COMPILE_BYTECODE=1
 
-COPY pyproject.toml $PROJECT_ROOT
-COPY *.lock $PROJECT_ROOT
+COPY pyproject.toml uv.lock $PROJECT_ROOT/
 
-ENV CMAKE_ARGS="-DGGML_METAL=off"
-
-RUN poetry config virtualenvs.create false
-RUN poetry install --no-root --with dev
+RUN uv sync --locked --no-install-project
 
 COPY . $PROJECT_ROOT
-
-RUN PATH="$PROJECT_ROOT/bin:$PATH"
-RUN PYTHONPATH="$PROJECT_ROOT:$PYTHONPATH"

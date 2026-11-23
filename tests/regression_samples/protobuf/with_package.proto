@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package demo.v1;
+
+service Users {
+  rpc Get (GetUserRequest) returns (User);
+}
+
+message GetUserRequest {
+  int64 id = 5;
+}
+
+message User {
+  int64 id = 1;
+  string email = 2;
+}

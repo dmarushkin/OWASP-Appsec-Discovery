@@ -1,270 +1,174 @@
-from llama_cpp import Llama, LlamaRAMCache
-from openai import OpenAI
+"""LLM rules runner (the ``AiScorer`` used by ``ScanPipeline``).
 
-import re
+Runs every ``LlmRule`` in scope on every object through one ``LlmBackend``
+(so one OpenAI client per run). Each rule is one structured request per
+object; errors are isolated per object and rule. Results are recorded as
+``RuleHit``s: mode ``auto`` -> ``match`` (scores the subject), mode
+``review`` -> ``pending_review``; a ``need_more_info`` verdict is recorded
+with that status and never scores.
 
-from typing import List, Dict
+Without explicit ``llm_rules`` the service runs one implicit rule, the
+built-in classifier (pii/finance/auth/other, severity medium, mode auto):
+exactly the pre-rules LLM scoring.
+"""
 import logging
+from typing import List, Optional, Sequence
 
-from appsec_discovery.models import CodeObject, ExcludeScoring, AiLocal, AiApi
-
-severities_int = {'critical': 5, 'high': 4, 'medium': 3, 'low': 2, 'info': 1}
-skip_ai = ['created_at', 'updated_at', 'deleted_at']
+from appsec_discovery.ai import LlmBackend, backend_from_config, classify, select_candidate_fields
+from appsec_discovery.ai.classifier import PROMPT_VERSION
+from appsec_discovery.ai.rules import NEED_MORE_INFO, NO_MATCH, RULE_PROMPT_VERSION, run_field_rule, run_object_rule
+from appsec_discovery.hits import record_hit
+from appsec_discovery.matching import Severity
+from appsec_discovery.models import (
+    AiApi, AiLocal, CodeObject, ExcludeScoring, HitStatus, HitSubject, LlmRule, LlmTarget, RuleHit,
+)
+from appsec_discovery.models.config import IMPLICIT_LLM_RULE
+from appsec_discovery.models.rules import status_for_mode
 
 logger = logging.getLogger(__name__)
 
+# Severity of the implicit rule's hits (the classifier gives a category, not a severity).
+AI_SEVERITY = Severity.medium
+
+LLM = 'llm'
+
+
+def implicit_llm_rule(ai_api: Optional[AiApi]) -> LlmRule:
+    """The rule an ``ai_api`` block without ``llm_rules`` stands for."""
+    return LlmRule(name=IMPLICIT_LLM_RULE, system_prompt=ai_api.system_prompt if ai_api is not None else None,
+                   severity=AI_SEVERITY.value)
+
+
+def rule_version(rule: LlmRule) -> str:
+    """Version stored with a hit: the classifier's PROMPT_VERSION, or ``<engine>.<rule>`` for other rules."""
+    if rule.is_classifier:
+        return rule.prompt_version or PROMPT_VERSION
+    return f"{RULE_PROMPT_VERSION}.{rule.prompt_version or '0'}"
+
+
 class AiService:
 
-    def __init__(self, exclude_scoring: List[ExcludeScoring], ai_local: AiLocal = None, ai_api: AiApi = None):
-
-        self.ai_local = ai_local
+    def __init__(self, exclude_scoring: List[ExcludeScoring], ai_local: Optional[AiLocal] = None,
+                 ai_api: Optional[AiApi] = None, backend: Optional[LlmBackend] = None,
+                 llm_rules: Optional[Sequence[LlmRule]] = None, project: Optional[str] = None):
+        """``backend`` overrides the one built from ``ai_api`` (or the deprecated ``ai_local``,
+        mapped to a local OpenAI-compatible server). ``llm_rules=None`` runs the implicit rule.
+        ``project`` (if known) is checked against the rules' ``projects`` scope."""
+        if ai_api is None and ai_local is not None:
+            ai_api = ai_local.to_ai_api()
+        if backend is None and ai_api is None:
+            raise ValueError("AiService needs ai_api (or a backend)")
         self.ai_api = ai_api
+        self.exclude_scoring = exclude_scoring
+        self.system_prompt = ai_api.system_prompt if ai_api is not None else None
+        self.rules: List[LlmRule] = (
+            [implicit_llm_rule(ai_api)] if llm_rules is None else [r for r in llm_rules if r.enabled]
+        )
+        self.project = project
+        self._backend = backend
 
-        self.exclude_scoring = exclude_scoring       
+    @property
+    def backend(self) -> LlmBackend:
+        if self._backend is None:
+            self._backend = backend_from_config(self.ai_api)
+        return self._backend
+
+    # -- helpers ------------------------------------------------------------------------------------
+
+    def _excluded(self, obj: CodeObject, tags: List[str], field=None) -> bool:
+        # keyword=None: LLM tags have no keyword, so an exclude rule that sets
+        # `keyword` never applies to LLM scoring (intentional).
+        return any(exclude.matches(obj, field=field, tag=tags, keyword=None) for exclude in self.exclude_scoring)
+
+    def _hit(self, rule: LlmRule, tags: List[str], verdict: str, reason: Optional[str], **subject) -> RuleHit:
+        status = HitStatus.need_more_info.value if verdict == NEED_MORE_INFO else status_for_mode(rule.mode)
+        return RuleHit(rule=rule.name, rule_id=rule.id, rule_type=LLM, rule_version=rule_version(rule),
+                       model=getattr(self.backend, 'model', None), severity=rule.severity, tags=tags,
+                       status=status, reason=reason, object_tags=rule.tags or None, **subject)
+
+    # -- rules --------------------------------------------------------------------------------------
+
+    def _run_classifier(self, rule: LlmRule, obj: CodeObject) -> List[RuleHit]:
+        candidates = select_candidate_fields((f.field_name, f.field_type) for f in obj.fields.values())
+        if not candidates:
+            return []
+        docs = {f.field_name: (f.comment, f.samples) for f in obj.fields.values() if f.comment or f.samples}
+        categories = classify(obj.object_name, candidates, self.backend, rule.system_prompt, docs, obj.comment)
+        hits = []
+        for field in obj.fields.values():
+            cats = categories.get(field.field_name)
+            if not cats:
+                continue
+            tags = [f'llm-{cat}' for cat in cats]
+            if self._excluded(obj, tags, field=field):
+                continue
+            hits.append(self._hit(rule, tags, 'match', None, subject=HitSubject.field.value,
+                                  field_name=field.field_name))
+        return hits
+
+    def _run_field_rule(self, rule: LlmRule, obj: CodeObject) -> List[RuleHit]:
+        candidates = select_candidate_fields((f.field_name, f.field_type) for f in obj.fields.values())
+        verdicts = run_field_rule(rule, obj, candidates, self.backend)
+        hits = []
+        for field in obj.fields.values():
+            if field.field_name not in verdicts:
+                continue
+            verdict, reason = verdicts[field.field_name]
+            if self._excluded(obj, [rule.hit_tag], field=field):
+                continue
+            hits.append(self._hit(rule, [rule.hit_tag], verdict, reason, subject=HitSubject.field.value,
+                                  field_name=field.field_name))
+        return hits
+
+    def _run_object_rule(self, rule: LlmRule, obj: CodeObject) -> List[RuleHit]:
+        verdict, reason, fields = run_object_rule(rule, obj, self.backend)
+        if verdict == NO_MATCH or self._excluded(obj, [rule.hit_tag]):
+            return []
+        hits = [self._hit(rule, [rule.hit_tag], verdict, reason, subject=HitSubject.object.value,
+                          fields=fields or None)]
+        if rule.mark_fields:
+            # the same verdict on each field the model named (no extra model call)
+            for name in fields or []:
+                field = obj.fields.get(name)
+                if field is None or self._excluded(obj, [rule.hit_tag], field=field):
+                    continue
+                hits.append(self._hit(rule, [rule.hit_tag], verdict, reason, subject=HitSubject.field.value,
+                                      field_name=name))
+        return hits
+
+    def run_rule(self, rule: LlmRule, obj: CodeObject) -> List[RuleHit]:
+        """Hits of ``rule`` on ``obj`` (not recorded); raises when the LLM call or its answer fails."""
+        if rule.is_classifier:
+            return self._run_classifier(rule, obj)
+        if rule.target == LlmTarget.object.value:
+            return self._run_object_rule(rule, obj)
+        return self._run_field_rule(rule, obj)
+
+    def _record(self, rule: LlmRule, obj: CodeObject, hits: List[RuleHit]) -> None:
+        for hit in hits:
+            if record_hit(obj, hit):
+                logger.info(f"Rule {rule.name}: {obj.object_name} {hit.subject} {hit.subject_name or ''} "
+                            f"-> {hit.tags} ({hit.status})")
+
+    def ai_score_object(self, obj: CodeObject) -> CodeObject:
+        """Run every rule in scope on ``obj`` (in place); raises on the first failing rule.
+
+        A rule's hits are recorded only after its answer was parsed, so a failure
+        never leaves a rule half applied.
+        """
+        for rule in self.rules:
+            if rule.applies_to(obj, self.project):
+                self._record(rule, obj, self.run_rule(rule, obj))
+        return obj
 
     def ai_score_objects(self, code_objects: List[CodeObject]) -> List[CodeObject]:
-
-        scored_objects: List[CodeObject] = []
-
-        try:
-
-            for object in code_objects:
-
-                choosen_fields = []
-                fields_str = ''
-
-                scored_fields = {}
-
-                for field in object.fields.values():
-                    if ( 'int' in field.field_type.lower() or 'str' in field.field_type.lower() ) and \
-                    ( 'idempotency' not in field.field_name.lower() 
-                        and not field.field_name.endswith('Id')
-                        and not field.field_name.endswith('ID')
-                        and not field.field_name.lower().endswith('_id')
-                        and not field.field_name.lower().endswith('_ids')
-                        and not field.field_name.lower().endswith('.id')
-                        and not field.field_name.lower().endswith('.ids')
-                        and not field.field_name.lower().endswith('_date')
-                        and not field.field_name.lower().endswith('page')
-                        and not field.field_name.lower().endswith('per_page')
-                        and not field.field_name.lower().endswith('limit')
-                        and not field.field_name.lower().endswith('total')
-                        and not field.field_name.lower().endswith('total_items') 
-                        and not field.field_name.lower().endswith('_filename') 
-                        and not field.field_name.lower().endswith('_size') 
-                        and not field.field_name.lower().endswith('id_in') 
-                        and not field.field_name.lower().endswith('ids_in') 
-                        and not field.field_name.lower() == 'id') :
-                        
-                        fields_str += f" - {field.field_name}\n"
-                        choosen_fields.append(field.field_name)
-
-                question1 = f'''
-                    For object: {object.object_name}
-                    Fields: 
-                    {fields_str}
-                    Can contain private data? Answer only 'yes' or 'no',
-                '''
-
-                question2 = f'''
-                    For object: {object.object_name}
-                    Fields: 
-                    {fields_str}
-                    Choose category for private data from lost: pii, finance, auth, other 
-                    Answer only with category name word.
-                '''
-
-                question3 = f'''
-                    For object: {object.object_name}
-                    Fields: 
-                    {fields_str}
-                    Choose only fields that can contain private data.
-                    Answer only with choosen field names separated by comma.
-                '''
-                
-                # Local
-                if choosen_fields and self.ai_local:
-
-                    llm = Llama.from_pretrained(
-                        repo_id=self.ai_local.model_id,
-                        filename=self.ai_local.gguf_file,
-                        verbose=False,
-                        cache_dir=self.ai_local.model_folder,
-
-                    )
-
-                    response = llm.create_chat_completion(
-                        messages = [
-                            {"role": "system", "content": self.ai_local.system_prompt},
-                            {"role": "user", "content": question1 },
-                        ]
-                    )
-
-                    answer1 = response['choices'][0]["message"]["content"]
-
-                    logger.info(f"For question {question1} llm answer is {answer1}")
-
-                    if 'yes' in answer1.lower():
-
-                        response2 = llm.create_chat_completion(
-                            messages = [
-                                {"role": "system", "content": self.ai_local.system_prompt},
-                                {"role": "user", "content": question2 },
-                            ]
-                        )
-
-                        answer2 = response2['choices'][0]["message"]["content"]
-
-                        logger.info(f"For question {question2} llm answer is {answer2}")
-
-                        result_cats = []
-
-                        for cat in ['pii', 'auth', 'finance', 'other']:
-                            if cat in answer2.lower():
-                                result_cats.append(f'llm-{cat}')
-
-                        response3 = llm.create_chat_completion(
-                            messages = [
-                                {"role": "system", "content": self.ai_local.system_prompt},
-                                {"role": "user", "content": question3 },
-                            ]
-                        )
-
-                        answer3 = response3['choices'][0]["message"]["content"]
-
-                        logger.info(f"For question {question3} llm answer is {answer3}")
-
-                        for field in object.fields.values():
-                            if field.field_name in choosen_fields and field.field_name.split('.')[-1].lower() in answer3.lower():
-
-                                scored_fields[field.field_name] = result_cats
-                                logger.info(f"For object {object.object_name} field {field.field_name} scored as {result_cats}")
-
-
-                # API
-                if choosen_fields and self.ai_api and not self.ai_local:
-
-                    client = OpenAI(api_key=self.ai_api.api_key, base_url=self.ai_api.base_url)
-
-                    response1 = client.chat.completions.create(
-                        model=self.ai_api.model,
-                        messages=[
-                            {"role": "system", "content": self.ai_api.system_prompt},
-                            {"role": "user", "content": question1},
-                        ],
-                        stream=False
-                    )
-                    
-                    answer1 = response1.choices[0].message.content
-
-                    logger.info(f"For question {question1} llm answer is {answer1}")
-
-                    if 'yes' in answer1.lower():
-
-                        response2 = client.chat.completions.create(
-                            model=self.ai_api.model,
-                            messages=[
-                                {"role": "system", "content": self.ai_api.system_prompt},
-                                {"role": "user", "content": question2},
-                            ],
-                            stream=False
-                        )
-
-                        answer2 = response2.choices[0].message.content
-
-                        logger.info(f"For question {question2} llm answer is {answer2}")
-
-                        result_cats = []
-
-                        for cat in ['pii', 'auth', 'finance', 'other']:
-                            if cat in answer2.lower():
-                                result_cats.append(f'llm-{cat}')
-                        
-                        response3 = client.chat.completions.create(
-                            model=self.ai_api.model,
-                            messages=[
-                                {"role": "system", "content": self.ai_api.system_prompt},
-                                {"role": "user", "content": question3},
-                            ],
-                            stream=False
-                        )
-
-                        answer3 = response3.choices[0].message.content
-
-                        logger.info(f"For question {question3} llm answer is {answer3}")
-
-                        for field in object.fields.values():
-                            if field.field_name in choosen_fields and field.field_name.split('.')[-1].lower() in answer3.lower():
-
-                                scored_fields[field.field_name] = result_cats
-                                logger.info(f"For object {object.object_name} field {field.field_name} scored as {result_cats}")
-                                
-                        
-                severity = "medium"
-
-                all_fields = {}
-
-                for field_name, field in object.fields.items():
-
-                    if field.field_name in scored_fields.keys():
-
-                        excluded = False
-
-                        tags = scored_fields[field.field_name]
-
-                        for exclude in self.exclude_scoring:
-
-                            if ( exclude.file or exclude.parser or exclude.object_name or exclude.object_type or exclude.prop_name 
-                                    or exclude.field_name or exclude.field_type or exclude.tag or exclude.keyword ) \
-                                and (exclude.parser is None or exclude.parser.lower() == object.parser.lower()) \
-                                and (exclude.file is None or re.match(exclude.file, object.file) or exclude.file.lower() in object.file.lower()) \
-                                and (exclude.object_name is None or re.match(exclude.object_name, object.object_name) or exclude.object_name.lower() in object.object_name.lower()) \
-                                and (exclude.object_type is None or re.match(exclude.object_type, object.object_type) or exclude.object_type.lower() in object.object_type.lower()) \
-                                and (exclude.prop_name is None ) \
-                                and (exclude.field_name is None or re.match(exclude.field_name, field.field_name) or exclude.field_name.lower() in field.field_name.lower()) \
-                                and (exclude.field_type is None or re.match(exclude.field_type, field.field_type) or exclude.field_type.lower() in field.field_type.lower()) \
-                                and (exclude.tag is None or exclude.tag in tags ) \
-                                and (exclude.keyword is None ) :
-                                
-                                excluded = True
-
-                        if not excluded :
-
-                            if not field.severity:
-                                field.severity = severity
-                                field.tags = tags
-                            else:
-
-                                for tag in tags:
-                                    if tag not in field.tags:
-                                        field.tags.append(tag)
-
-                                if severities_int[severity] > severities_int[field.severity]:
-                                    field.severity = severity
-
-                            if not object.severity:
-                                object.severity = severity
-                                object.tags = tags
-                            else:
-                                for tag in tags:
-                                    if tag not in object.tags:
-                                        object.tags.append(tag)
-
-                                if severities_int[severity] > severities_int[object.severity]:
-                                    object.severity = severity
-
-                    all_fields[field_name] = field
-                
-                object.fields = all_fields
-
-                scored_objects.append(object)
-
-        except Exception as ex:
-            logger.error(f"Error while ai scoring: {ex}")
-
-        # Check that all processed
-        if len(scored_objects) == len(code_objects):
-            return scored_objects
-        
-        else:
-            return code_objects
+        """Run the rules on every object; a failing rule is skipped for that object (logged)."""
+        for obj in code_objects:
+            for rule in self.rules:
+                if not rule.applies_to(obj, self.project):
+                    continue
+                try:
+                    self._record(rule, obj, self.run_rule(rule, obj))
+                except Exception as ex:
+                    logger.error(f"Error while running LLM rule {rule.name} on {obj.object_name}: {ex}")
+        return code_objects

@@ -1,0 +1,43 @@
+openapi: 3.0.0
+info:
+  title: Regression
+  version: "1.0"
+paths:
+  /search:
+    get:
+      parameters:
+        - name: filter
+          in: query
+          schema: {}
+        - name: kind
+          in: query
+          schema:
+            oneOf:
+              - type: string
+              - type: integer
+        - name: limit
+          in: query
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total:
+                    type: integer
+  /items:
+    get:
+      responses:
+        "200":
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string

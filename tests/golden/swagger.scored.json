@@ -1,0 +1,3982 @@
+[
+  {
+    "comment": "Get user list\nMethod to get user list",
+    "fields": {
+      "output.code": {
+        "comment": "Internal error code",
+        "field_name": "output.code",
+        "field_type": "integer",
+        "file": "/swagger.json",
+        "line": 1,
+        "samples": [
+          "1044"
+        ]
+      },
+      "output.error": {
+        "comment": "Error details",
+        "field_name": "output.error",
+        "field_type": "string",
+        "file": "/swagger.json",
+        "line": 1,
+        "samples": [
+          "Invalid user id value"
+        ]
+      },
+      "output.total_count": {
+        "comment": "Total count of users",
+        "field_name": "output.total_count",
+        "field_type": "integer",
+        "file": "/swagger.json",
+        "line": 1
+      },
+      "output.users.email": {
+        "comment": "User E-mail address",
+        "field_name": "output.users.email",
+        "field_type": "string",
+        "file": "/swagger.json",
+        "line": 1,
+        "samples": [
+          "user@mail.com"
+        ],
+        "severity": "medium",
+        "tags": [
+          "pii",
+          "auth"
+        ]
+      },
+      "output.users.login": {
+        "comment": "User login or nickname",
+        "field_name": "output.users.login",
+        "field_type": "string",
+        "file": "/swagger.json",
+        "line": 1,
+        "samples": [
+          "super-admin"
+        ],
+        "severity": "medium",
+        "tags": [
+          "auth"
+        ]
+      },
+      "output.users.uuid": {
+        "comment": "Unique user id",
+        "field_name": "output.users.uuid",
+        "field_type": "string",
+        "file": "/swagger.json",
+        "line": 1,
+        "samples": [
+          "12345678-1234-5678-1234-567812345678"
+        ]
+      },
+      "query.param.limit": {
+        "comment": "Result items limit",
+        "field_name": "query.param.limit",
+        "field_type": "integer",
+        "file": "/swagger.json",
+        "line": 1,
+        "samples": [
+          "10"
+        ]
+      },
+      "query.param.offset": {
+        "comment": "Result items start offset",
+        "field_name": "query.param.offset",
+        "field_type": "integer",
+        "file": "/swagger.json",
+        "line": 1,
+        "samples": [
+          "0"
+        ]
+      }
+    },
+    "file": "/swagger.json",
+    "hash": "9241211db427ba3ba2817e339b6bac9e",
+    "hits": [
+      {
+        "field_name": "output.users.email",
+        "keyword": "email",
+        "rule": "score_tags/pii/medium",
+        "rule_type": "keyword",
+        "severity": "medium",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "pii"
+        ]
+      },
+      {
+        "field_name": "output.users.login",
+        "keyword": "login",
+        "rule": "score_tags/auth/medium",
+        "rule_type": "keyword",
+        "severity": "medium",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "auth"
+        ]
+      },
+      {
+        "field_name": "output.users.email",
+        "keyword": "email",
+        "rule": "score_tags/auth/medium",
+        "rule_type": "keyword",
+        "severity": "medium",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "auth"
+        ]
+      }
+    ],
+    "line": 1,
+    "object_name": "GET /users",
+    "object_type": "route",
+    "parser": "swagger",
+    "properties": {
+      "method": {
+        "prop_name": "method",
+        "prop_value": "GET"
+      },
+      "path": {
+        "prop_name": "path",
+        "prop_value": "/users"
+      }
+    },
+    "severity": "medium",
+    "tags": [
+      "pii",
+      "auth"
+    ]
+  },
+  {
+    "comment": "Get user model\nMethod to get user details",
+    "fields": {
+      "output.code": {
+        "comment": "Internal error code",
+        "field_name": "output.code",
+        "field_type": "integer",
+        "file": "/swagger.json",
+        "line": 1,
+        "samples": [
+          "1044"
+        ]
+      },
+      "output.error": {
+        "comment": "Error details",
+        "field_name": "output.error",
+        "field_type": "string",
+        "file": "/swagger.json",
+        "line": 1,
+        "samples": [
+          "Invalid user id value"
+        ]
+      },
+      "output.user.email": {
+        "comment": "User E-mail address",
+        "field_name": "output.user.email",
+        "field_type": "string",
+        "file": "/swagger.json",
+        "line": 1,
+        "samples": [
+          "user@mail.com"
+        ],
+        "severity": "medium",
+        "tags": [
+          "pii",
+          "auth"
+        ]
+      },
+      "output.user.login": {
+        "comment": "User login or nickname",
+        "field_name": "output.user.login",
+        "field_type": "string",
+        "file": "/swagger.json",
+        "line": 1,
+        "samples": [
+          "super-admin"
+        ],
+        "severity": "medium",
+        "tags": [
+          "auth"
+        ]
+      },
+      "output.user.uuid": {
+        "comment": "Unique user id",
+        "field_name": "output.user.uuid",
+        "field_type": "string",
+        "file": "/swagger.json",
+        "line": 1,
+        "samples": [
+          "12345678-1234-5678-1234-567812345678"
+        ]
+      },
+      "path.param.uuid": {
+        "comment": "User unique id",
+        "field_name": "path.param.uuid",
+        "field_type": "string",
+        "file": "/swagger.json",
+        "line": 1,
+        "samples": [
+          "12345678-1234-5678-1234-567812345678"
+        ]
+      }
+    },
+    "file": "/swagger.json",
+    "hash": "716c333ea2892f369a4a9ae3f0faa415",
+    "hits": [
+      {
+        "field_name": "output.user.email",
+        "keyword": "email",
+        "rule": "score_tags/pii/medium",
+        "rule_type": "keyword",
+        "severity": "medium",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "pii"
+        ]
+      },
+      {
+        "field_name": "output.user.login",
+        "keyword": "login",
+        "rule": "score_tags/auth/medium",
+        "rule_type": "keyword",
+        "severity": "medium",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "auth"
+        ]
+      },
+      {
+        "field_name": "output.user.email",
+        "keyword": "email",
+        "rule": "score_tags/auth/medium",
+        "rule_type": "keyword",
+        "severity": "medium",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "auth"
+        ]
+      }
+    ],
+    "line": 1,
+    "object_name": "GET /users/{uuid}",
+    "object_type": "route",
+    "parser": "swagger",
+    "properties": {
+      "method": {
+        "prop_name": "method",
+        "prop_value": "GET"
+      },
+      "path": {
+        "prop_name": "path",
+        "prop_value": "/users/{uuid}"
+      }
+    },
+    "severity": "medium",
+    "tags": [
+      "pii",
+      "auth"
+    ]
+  },
+  {
+    "comment": "Add new user\nMethod to add new user",
+    "fields": {
+      "input.email": {
+        "comment": "User E-mail address",
+        "field_name": "input.email",
+        "field_type": "string",
+        "file": "/swagger.json",
+        "line": 1,
+        "samples": [
+          "user@mail.com"
+        ],
+        "severity": "medium",
+        "tags": [
+          "pii",
+          "auth"
+        ]
+      },
+      "input.login": {
+        "comment": "User login or nickname",
+        "field_name": "input.login",
+        "field_type": "string",
+        "file": "/swagger.json",
+        "line": 1,
+        "samples": [
+          "super-admin"
+        ],
+        "severity": "medium",
+        "tags": [
+          "auth"
+        ]
+      },
+      "input.uuid": {
+        "comment": "Unique user id",
+        "field_name": "input.uuid",
+        "field_type": "string",
+        "file": "/swagger.json",
+        "line": 1,
+        "samples": [
+          "12345678-1234-5678-1234-567812345678"
+        ]
+      },
+      "output.code": {
+        "comment": "Internal error code",
+        "field_name": "output.code",
+        "field_type": "integer",
+        "file": "/swagger.json",
+        "line": 1,
+        "samples": [
+          "1044"
+        ]
+      },
+      "output.error": {
+        "comment": "Error details",
+        "field_name": "output.error",
+        "field_type": "string",
+        "file": "/swagger.json",
+        "line": 1,
+        "samples": [
+          "Invalid user id value"
+        ]
+      },
+      "output.user.email": {
+        "comment": "User E-mail address",
+        "field_name": "output.user.email",
+        "field_type": "string",
+        "file": "/swagger.json",
+        "line": 1,
+        "samples": [
+          "user@mail.com"
+        ],
+        "severity": "medium",
+        "tags": [
+          "pii",
+          "auth"
+        ]
+      },
+      "output.user.login": {
+        "comment": "User login or nickname",
+        "field_name": "output.user.login",
+        "field_type": "string",
+        "file": "/swagger.json",
+        "line": 1,
+        "samples": [
+          "super-admin"
+        ],
+        "severity": "medium",
+        "tags": [
+          "auth"
+        ]
+      },
+      "output.user.uuid": {
+        "comment": "Unique user id",
+        "field_name": "output.user.uuid",
+        "field_type": "string",
+        "file": "/swagger.json",
+        "line": 1,
+        "samples": [
+          "12345678-1234-5678-1234-567812345678"
+        ]
+      }
+    },
+    "file": "/swagger.json",
+    "hash": "dc367889afd4e1dccbaf7a08043f1523",
+    "hits": [
+      {
+        "field_name": "input.email",
+        "keyword": "email",
+        "rule": "score_tags/pii/medium",
+        "rule_type": "keyword",
+        "severity": "medium",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "pii"
+        ]
+      },
+      {
+        "field_name": "output.user.email",
+        "keyword": "email",
+        "rule": "score_tags/pii/medium",
+        "rule_type": "keyword",
+        "severity": "medium",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "pii"
+        ]
+      },
+      {
+        "field_name": "input.login",
+        "keyword": "login",
+        "rule": "score_tags/auth/medium",
+        "rule_type": "keyword",
+        "severity": "medium",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "auth"
+        ]
+      },
+      {
+        "field_name": "output.user.login",
+        "keyword": "login",
+        "rule": "score_tags/auth/medium",
+        "rule_type": "keyword",
+        "severity": "medium",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "auth"
+        ]
+      },
+      {
+        "field_name": "input.email",
+        "keyword": "email",
+        "rule": "score_tags/auth/medium",
+        "rule_type": "keyword",
+        "severity": "medium",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "auth"
+        ]
+      },
+      {
+        "field_name": "output.user.email",
+        "keyword": "email",
+        "rule": "score_tags/auth/medium",
+        "rule_type": "keyword",
+        "severity": "medium",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "auth"
+        ]
+      }
+    ],
+    "line": 1,
+    "object_name": "POST /users",
+    "object_type": "route",
+    "parser": "swagger",
+    "properties": {
+      "method": {
+        "prop_name": "method",
+        "prop_value": "POST"
+      },
+      "path": {
+        "prop_name": "path",
+        "prop_value": "/users"
+      }
+    },
+    "severity": "medium",
+    "tags": [
+      "pii",
+      "auth"
+    ]
+  },
+  {
+    "comment": "Update existed user model",
+    "fields": {
+      "output.code": {
+        "comment": "Internal error code",
+        "field_name": "output.code",
+        "field_type": "integer",
+        "file": "/swagger.json",
+        "line": 1,
+        "samples": [
+          "1044"
+        ]
+      },
+      "output.error": {
+        "comment": "Error details",
+        "field_name": "output.error",
+        "field_type": "string",
+        "file": "/swagger.json",
+        "line": 1,
+        "samples": [
+          "Invalid user id value"
+        ]
+      },
+      "path.param.uuid": {
+        "comment": "User unique id",
+        "field_name": "path.param.uuid",
+        "field_type": "string",
+        "file": "/swagger.json",
+        "line": 1,
+        "samples": [
+          "12345678-1234-5678-1234-567812345678"
+        ]
+      }
+    },
+    "file": "/swagger.json",
+    "hash": "2678b47bdfc6cc13fa788adb72d904ff",
+    "line": 1,
+    "object_name": "PUT /users/{uuid}",
+    "object_type": "route",
+    "parser": "swagger",
+    "properties": {
+      "method": {
+        "prop_name": "method",
+        "prop_value": "PUT"
+      },
+      "path": {
+        "prop_name": "path",
+        "prop_value": "/users/{uuid}"
+      }
+    }
+  },
+  {
+    "comment": "Deletes a pet\ndelete a pet",
+    "fields": {
+      "header.param.api_key": {
+        "field_name": "header.param.api_key",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1
+      },
+      "path.param.petId": {
+        "comment": "Pet id to delete",
+        "field_name": "path.param.petId",
+        "field_type": "integer",
+        "file": "/swagger.yaml",
+        "line": 1
+      }
+    },
+    "file": "/swagger.yaml",
+    "hash": "f021d84120f807da82aec8fc09c7823f",
+    "line": 1,
+    "object_name": "DELETE /pet/{petId}",
+    "object_type": "route",
+    "parser": "swagger",
+    "properties": {
+      "method": {
+        "prop_name": "method",
+        "prop_value": "DELETE"
+      },
+      "path": {
+        "prop_name": "path",
+        "prop_value": "/pet/{petId}"
+      }
+    }
+  },
+  {
+    "comment": "Delete purchase order by ID\nFor valid response try integer IDs with value < 1000. Anything above 1000 or nonintegers will generate API errors",
+    "fields": {
+      "path.param.orderId": {
+        "comment": "ID of the order that needs to be deleted",
+        "field_name": "path.param.orderId",
+        "field_type": "integer",
+        "file": "/swagger.yaml",
+        "line": 1
+      }
+    },
+    "file": "/swagger.yaml",
+    "hash": "8007ca55870d84813332dee028a3c3ad",
+    "line": 1,
+    "object_name": "DELETE /store/order/{orderId}",
+    "object_type": "route",
+    "parser": "swagger",
+    "properties": {
+      "method": {
+        "prop_name": "method",
+        "prop_value": "DELETE"
+      },
+      "path": {
+        "prop_name": "path",
+        "prop_value": "/store/order/{orderId}"
+      }
+    }
+  },
+  {
+    "comment": "Delete user\nThis can only be done by the logged in user.",
+    "fields": {
+      "path.param.username": {
+        "comment": "The name that needs to be deleted",
+        "field_name": "path.param.username",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "severity": "medium",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "file": "/swagger.yaml",
+    "hash": "a6588a4ab27d9fc76a4bf9ff35b4b4c0",
+    "hits": [
+      {
+        "keyword": "username",
+        "prop_name": "path",
+        "rule": "score_tags/auth/medium",
+        "rule_type": "keyword",
+        "severity": "medium",
+        "status": "match",
+        "subject": "prop",
+        "tags": [
+          "auth"
+        ]
+      },
+      {
+        "field_name": "path.param.username",
+        "keyword": "username",
+        "rule": "score_tags/auth/medium",
+        "rule_type": "keyword",
+        "severity": "medium",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "auth"
+        ]
+      }
+    ],
+    "line": 1,
+    "object_name": "DELETE /user/{username}",
+    "object_type": "route",
+    "parser": "swagger",
+    "properties": {
+      "method": {
+        "prop_name": "method",
+        "prop_value": "DELETE"
+      },
+      "path": {
+        "prop_name": "path",
+        "prop_value": "/user/{username}",
+        "severity": "medium",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "severity": "medium",
+    "tags": [
+      "auth"
+    ]
+  },
+  {
+    "comment": "Finds Pets by status\nMultiple status values can be provided with comma separated strings",
+    "fields": {
+      "output.category.id": {
+        "field_name": "output.category.id",
+        "field_type": "integer",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "1"
+        ]
+      },
+      "output.category.name": {
+        "field_name": "output.category.name",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "Dogs"
+        ]
+      },
+      "output.id": {
+        "field_name": "output.id",
+        "field_type": "integer",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "10"
+        ]
+      },
+      "output.name": {
+        "field_name": "output.name",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "doggie"
+        ]
+      },
+      "output.photoUrls": {
+        "field_name": "output.photoUrls",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1
+      },
+      "output.status": {
+        "comment": "pet status in the store",
+        "field_name": "output.status",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "available",
+          "pending",
+          "sold"
+        ]
+      },
+      "output.tags.id": {
+        "field_name": "output.tags.id",
+        "field_type": "integer",
+        "file": "/swagger.yaml",
+        "line": 1
+      },
+      "output.tags.name": {
+        "field_name": "output.tags.name",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1
+      },
+      "query.param.status": {
+        "comment": "Status values that need to be considered for filter",
+        "field_name": "query.param.status",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "available",
+          "pending",
+          "sold"
+        ]
+      }
+    },
+    "file": "/swagger.yaml",
+    "hash": "833199dd67269522b87c6ef6876ab225",
+    "line": 1,
+    "object_name": "GET /pet/findByStatus",
+    "object_type": "route",
+    "parser": "swagger",
+    "properties": {
+      "method": {
+        "prop_name": "method",
+        "prop_value": "GET"
+      },
+      "path": {
+        "prop_name": "path",
+        "prop_value": "/pet/findByStatus"
+      }
+    }
+  },
+  {
+    "comment": "Finds Pets by tags\nMultiple tags can be provided with comma separated strings. Use tag1, tag2, tag3 for testing.",
+    "fields": {
+      "output.category.id": {
+        "field_name": "output.category.id",
+        "field_type": "integer",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "1"
+        ]
+      },
+      "output.category.name": {
+        "field_name": "output.category.name",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "Dogs"
+        ]
+      },
+      "output.id": {
+        "field_name": "output.id",
+        "field_type": "integer",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "10"
+        ]
+      },
+      "output.name": {
+        "field_name": "output.name",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "doggie"
+        ]
+      },
+      "output.photoUrls": {
+        "field_name": "output.photoUrls",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1
+      },
+      "output.status": {
+        "comment": "pet status in the store",
+        "field_name": "output.status",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "available",
+          "pending",
+          "sold"
+        ]
+      },
+      "output.tags.id": {
+        "field_name": "output.tags.id",
+        "field_type": "integer",
+        "file": "/swagger.yaml",
+        "line": 1
+      },
+      "output.tags.name": {
+        "field_name": "output.tags.name",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1
+      },
+      "query.param.tags": {
+        "comment": "Tags to filter by",
+        "field_name": "query.param.tags",
+        "field_type": "array",
+        "file": "/swagger.yaml",
+        "line": 1
+      }
+    },
+    "file": "/swagger.yaml",
+    "hash": "1518f7a5b0ddfb01fbe0d9d407391a87",
+    "line": 1,
+    "object_name": "GET /pet/findByTags",
+    "object_type": "route",
+    "parser": "swagger",
+    "properties": {
+      "method": {
+        "prop_name": "method",
+        "prop_value": "GET"
+      },
+      "path": {
+        "prop_name": "path",
+        "prop_value": "/pet/findByTags"
+      }
+    }
+  },
+  {
+    "comment": "Find pet by ID\nReturns a single pet",
+    "fields": {
+      "output.category.id": {
+        "field_name": "output.category.id",
+        "field_type": "integer",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "1"
+        ]
+      },
+      "output.category.name": {
+        "field_name": "output.category.name",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "Dogs"
+        ]
+      },
+      "output.id": {
+        "field_name": "output.id",
+        "field_type": "integer",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "10"
+        ]
+      },
+      "output.name": {
+        "field_name": "output.name",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "doggie"
+        ]
+      },
+      "output.photoUrls.": {
+        "field_name": "output.photoUrls.",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1
+      },
+      "output.status": {
+        "comment": "pet status in the store",
+        "field_name": "output.status",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "available",
+          "pending",
+          "sold"
+        ]
+      },
+      "output.tags.id": {
+        "field_name": "output.tags.id",
+        "field_type": "integer",
+        "file": "/swagger.yaml",
+        "line": 1
+      },
+      "output.tags.name": {
+        "field_name": "output.tags.name",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1
+      },
+      "path.param.petId": {
+        "comment": "ID of pet to return",
+        "field_name": "path.param.petId",
+        "field_type": "integer",
+        "file": "/swagger.yaml",
+        "line": 1
+      }
+    },
+    "file": "/swagger.yaml",
+    "hash": "fc191a39a9e67231c52650d2f494325c",
+    "line": 1,
+    "object_name": "GET /pet/{petId}",
+    "object_type": "route",
+    "parser": "swagger",
+    "properties": {
+      "method": {
+        "prop_name": "method",
+        "prop_value": "GET"
+      },
+      "path": {
+        "prop_name": "path",
+        "prop_value": "/pet/{petId}"
+      }
+    }
+  },
+  {
+    "comment": "Returns pet inventories by status\nReturns a map of status codes to quantities",
+    "fields": {},
+    "file": "/swagger.yaml",
+    "hash": "f9d7786be585047dfd4786fcfd30b264",
+    "line": 1,
+    "object_name": "GET /store/inventory",
+    "object_type": "route",
+    "parser": "swagger",
+    "properties": {
+      "method": {
+        "prop_name": "method",
+        "prop_value": "GET"
+      },
+      "path": {
+        "prop_name": "path",
+        "prop_value": "/store/inventory"
+      }
+    }
+  },
+  {
+    "comment": "Find purchase order by ID\nFor valid response try integer IDs with value <= 5 or > 10. Other values will generate exceptions.",
+    "fields": {
+      "output.complete": {
+        "field_name": "output.complete",
+        "field_type": "boolean",
+        "file": "/swagger.yaml",
+        "line": 1
+      },
+      "output.id": {
+        "field_name": "output.id",
+        "field_type": "integer",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "10"
+        ]
+      },
+      "output.petId": {
+        "field_name": "output.petId",
+        "field_type": "integer",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "198772"
+        ]
+      },
+      "output.quantity": {
+        "field_name": "output.quantity",
+        "field_type": "integer",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "7"
+        ]
+      },
+      "output.shipDate": {
+        "field_name": "output.shipDate",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1
+      },
+      "output.status": {
+        "comment": "Order Status",
+        "field_name": "output.status",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "approved",
+          "placed",
+          "delivered"
+        ]
+      },
+      "path.param.orderId": {
+        "comment": "ID of order that needs to be fetched",
+        "field_name": "path.param.orderId",
+        "field_type": "integer",
+        "file": "/swagger.yaml",
+        "line": 1
+      }
+    },
+    "file": "/swagger.yaml",
+    "hash": "136cbbd7be984565a87ae03391d59cd8",
+    "line": 1,
+    "object_name": "GET /store/order/{orderId}",
+    "object_type": "route",
+    "parser": "swagger",
+    "properties": {
+      "method": {
+        "prop_name": "method",
+        "prop_value": "GET"
+      },
+      "path": {
+        "prop_name": "path",
+        "prop_value": "/store/order/{orderId}"
+      }
+    }
+  },
+  {
+    "comment": "Logs user into the system",
+    "fields": {
+      "output": {
+        "field_name": "output",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1
+      },
+      "query.param.password": {
+        "comment": "The password for login in clear text",
+        "field_name": "query.param.password",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "severity": "high",
+        "tags": [
+          "auth"
+        ]
+      },
+      "query.param.username": {
+        "comment": "The user name for login",
+        "field_name": "query.param.username",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "severity": "medium",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "file": "/swagger.yaml",
+    "hash": "a3e81120a3b14900e90e2fa397efe37f",
+    "hits": [
+      {
+        "field_name": "query.param.password",
+        "keyword": "password",
+        "rule": "score_tags/auth/high",
+        "rule_type": "keyword",
+        "severity": "high",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "auth"
+        ]
+      },
+      {
+        "keyword": "login",
+        "prop_name": "path",
+        "rule": "score_tags/auth/medium",
+        "rule_type": "keyword",
+        "severity": "medium",
+        "status": "match",
+        "subject": "prop",
+        "tags": [
+          "auth"
+        ]
+      },
+      {
+        "field_name": "query.param.username",
+        "keyword": "username",
+        "rule": "score_tags/auth/medium",
+        "rule_type": "keyword",
+        "severity": "medium",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "auth"
+        ]
+      }
+    ],
+    "line": 1,
+    "object_name": "GET /user/login",
+    "object_type": "route",
+    "parser": "swagger",
+    "properties": {
+      "method": {
+        "prop_name": "method",
+        "prop_value": "GET"
+      },
+      "path": {
+        "prop_name": "path",
+        "prop_value": "/user/login",
+        "severity": "medium",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "severity": "high",
+    "tags": [
+      "auth"
+    ]
+  },
+  {
+    "comment": "Logs out current logged in user session",
+    "fields": {},
+    "file": "/swagger.yaml",
+    "hash": "b96f4dfcc78691c3265487b1a02d1693",
+    "line": 1,
+    "object_name": "GET /user/logout",
+    "object_type": "route",
+    "parser": "swagger",
+    "properties": {
+      "method": {
+        "prop_name": "method",
+        "prop_value": "GET"
+      },
+      "path": {
+        "prop_name": "path",
+        "prop_value": "/user/logout"
+      }
+    }
+  },
+  {
+    "comment": "Get user by user name",
+    "fields": {
+      "output.email": {
+        "field_name": "output.email",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "john@email.com"
+        ],
+        "severity": "medium",
+        "tags": [
+          "pii",
+          "auth"
+        ]
+      },
+      "output.firstName": {
+        "field_name": "output.firstName",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "John"
+        ],
+        "severity": "high",
+        "tags": [
+          "pii"
+        ]
+      },
+      "output.id": {
+        "field_name": "output.id",
+        "field_type": "integer",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "10"
+        ]
+      },
+      "output.lastName": {
+        "field_name": "output.lastName",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "James"
+        ],
+        "severity": "high",
+        "tags": [
+          "pii"
+        ]
+      },
+      "output.password": {
+        "field_name": "output.password",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "severity": "high",
+        "tags": [
+          "auth"
+        ]
+      },
+      "output.phone": {
+        "field_name": "output.phone",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "12345"
+        ],
+        "severity": "high",
+        "tags": [
+          "pii",
+          "auth"
+        ]
+      },
+      "output.userStatus": {
+        "comment": "User Status",
+        "field_name": "output.userStatus",
+        "field_type": "integer",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "1"
+        ]
+      },
+      "output.username": {
+        "field_name": "output.username",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "theUser"
+        ],
+        "severity": "medium",
+        "tags": [
+          "auth"
+        ]
+      },
+      "path.param.username": {
+        "comment": "The name that needs to be fetched. Use user1 for testing.",
+        "field_name": "path.param.username",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "severity": "medium",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "file": "/swagger.yaml",
+    "hash": "dfada72072d2a6128621abed6f26407a",
+    "hits": [
+      {
+        "field_name": "output.firstName",
+        "keyword": "firstname",
+        "rule": "score_tags/pii/high",
+        "rule_type": "keyword",
+        "severity": "high",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "pii"
+        ]
+      },
+      {
+        "field_name": "output.lastName",
+        "keyword": "lastname",
+        "rule": "score_tags/pii/high",
+        "rule_type": "keyword",
+        "severity": "high",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "pii"
+        ]
+      },
+      {
+        "field_name": "output.phone",
+        "keyword": "phone",
+        "rule": "score_tags/pii/high",
+        "rule_type": "keyword",
+        "severity": "high",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "pii"
+        ]
+      },
+      {
+        "field_name": "output.email",
+        "keyword": "email",
+        "rule": "score_tags/pii/medium",
+        "rule_type": "keyword",
+        "severity": "medium",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "pii"
+        ]
+      },
+      {
+        "field_name": "output.password",
+        "keyword": "password",
+        "rule": "score_tags/auth/high",
+        "rule_type": "keyword",
+        "severity": "high",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "auth"
+        ]
+      },
+      {
+        "field_name": "output.email",
+        "keyword": "email",
+        "rule": "score_tags/auth/medium",
+        "rule_type": "keyword",
+        "severity": "medium",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "auth"
+        ]
+      },
+      {
+        "field_name": "output.phone",
+        "keyword": "phone",
+        "rule": "score_tags/auth/medium",
+        "rule_type": "keyword",
+        "severity": "medium",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "auth"
+        ]
+      },
+      {
+        "keyword": "username",
+        "prop_name": "path",
+        "rule": "score_tags/auth/medium",
+        "rule_type": "keyword",
+        "severity": "medium",
+        "status": "match",
+        "subject": "prop",
+        "tags": [
+          "auth"
+        ]
+      },
+      {
+        "field_name": "path.param.username",
+        "keyword": "username",
+        "rule": "score_tags/auth/medium",
+        "rule_type": "keyword",
+        "severity": "medium",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "auth"
+        ]
+      },
+      {
+        "field_name": "output.username",
+        "keyword": "username",
+        "rule": "score_tags/auth/medium",
+        "rule_type": "keyword",
+        "severity": "medium",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "auth"
+        ]
+      }
+    ],
+    "line": 1,
+    "object_name": "GET /user/{username}",
+    "object_type": "route",
+    "parser": "swagger",
+    "properties": {
+      "method": {
+        "prop_name": "method",
+        "prop_value": "GET"
+      },
+      "path": {
+        "prop_name": "path",
+        "prop_value": "/user/{username}",
+        "severity": "medium",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "severity": "high",
+    "tags": [
+      "pii",
+      "auth"
+    ]
+  },
+  {
+    "comment": "Add a new pet to the store",
+    "fields": {
+      "input.category.id": {
+        "field_name": "input.category.id",
+        "field_type": "integer",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "1"
+        ]
+      },
+      "input.category.name": {
+        "field_name": "input.category.name",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "Dogs"
+        ]
+      },
+      "input.id": {
+        "field_name": "input.id",
+        "field_type": "integer",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "10"
+        ]
+      },
+      "input.name": {
+        "field_name": "input.name",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "doggie"
+        ]
+      },
+      "input.photoUrls.": {
+        "field_name": "input.photoUrls.",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1
+      },
+      "input.status": {
+        "comment": "pet status in the store",
+        "field_name": "input.status",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "available",
+          "pending",
+          "sold"
+        ]
+      },
+      "input.tags.id": {
+        "field_name": "input.tags.id",
+        "field_type": "integer",
+        "file": "/swagger.yaml",
+        "line": 1
+      },
+      "input.tags.name": {
+        "field_name": "input.tags.name",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1
+      },
+      "output.category.id": {
+        "field_name": "output.category.id",
+        "field_type": "integer",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "1"
+        ]
+      },
+      "output.category.name": {
+        "field_name": "output.category.name",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "Dogs"
+        ]
+      },
+      "output.id": {
+        "field_name": "output.id",
+        "field_type": "integer",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "10"
+        ]
+      },
+      "output.name": {
+        "field_name": "output.name",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "doggie"
+        ]
+      },
+      "output.photoUrls.": {
+        "field_name": "output.photoUrls.",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1
+      },
+      "output.status": {
+        "comment": "pet status in the store",
+        "field_name": "output.status",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "available",
+          "pending",
+          "sold"
+        ]
+      },
+      "output.tags.id": {
+        "field_name": "output.tags.id",
+        "field_type": "integer",
+        "file": "/swagger.yaml",
+        "line": 1
+      },
+      "output.tags.name": {
+        "field_name": "output.tags.name",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1
+      }
+    },
+    "file": "/swagger.yaml",
+    "hash": "a08bf00f7cb8f0cce8cbe643a8295fa5",
+    "line": 1,
+    "object_name": "POST /pet",
+    "object_type": "route",
+    "parser": "swagger",
+    "properties": {
+      "method": {
+        "prop_name": "method",
+        "prop_value": "POST"
+      },
+      "path": {
+        "prop_name": "path",
+        "prop_value": "/pet"
+      }
+    }
+  },
+  {
+    "comment": "Updates a pet in the store with form data",
+    "fields": {
+      "path.param.petId": {
+        "comment": "ID of pet that needs to be updated",
+        "field_name": "path.param.petId",
+        "field_type": "integer",
+        "file": "/swagger.yaml",
+        "line": 1
+      },
+      "query.param.name": {
+        "comment": "Name of pet that needs to be updated",
+        "field_name": "query.param.name",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1
+      },
+      "query.param.status": {
+        "comment": "Status of pet that needs to be updated",
+        "field_name": "query.param.status",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1
+      }
+    },
+    "file": "/swagger.yaml",
+    "hash": "80758ab397050c08dcbd39ace5ba9473",
+    "line": 1,
+    "object_name": "POST /pet/{petId}",
+    "object_type": "route",
+    "parser": "swagger",
+    "properties": {
+      "method": {
+        "prop_name": "method",
+        "prop_value": "POST"
+      },
+      "path": {
+        "prop_name": "path",
+        "prop_value": "/pet/{petId}"
+      }
+    }
+  },
+  {
+    "comment": "uploads an image",
+    "fields": {
+      "input": {
+        "field_name": "input",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1
+      },
+      "output.code": {
+        "field_name": "output.code",
+        "field_type": "integer",
+        "file": "/swagger.yaml",
+        "line": 1
+      },
+      "output.message": {
+        "field_name": "output.message",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1
+      },
+      "output.type": {
+        "field_name": "output.type",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1
+      },
+      "path.param.petId": {
+        "comment": "ID of pet to update",
+        "field_name": "path.param.petId",
+        "field_type": "integer",
+        "file": "/swagger.yaml",
+        "line": 1
+      },
+      "query.param.additionalMetadata": {
+        "comment": "Additional Metadata",
+        "field_name": "query.param.additionalMetadata",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1
+      }
+    },
+    "file": "/swagger.yaml",
+    "hash": "d04030f781c077b6388d1cae51c3acd8",
+    "line": 1,
+    "object_name": "POST /pet/{petId}/uploadImage",
+    "object_type": "route",
+    "parser": "swagger",
+    "properties": {
+      "method": {
+        "prop_name": "method",
+        "prop_value": "POST"
+      },
+      "path": {
+        "prop_name": "path",
+        "prop_value": "/pet/{petId}/uploadImage"
+      }
+    }
+  },
+  {
+    "comment": "Place an order for a pet\nPlace a new order in the store",
+    "fields": {
+      "input.complete": {
+        "field_name": "input.complete",
+        "field_type": "boolean",
+        "file": "/swagger.yaml",
+        "line": 1
+      },
+      "input.id": {
+        "field_name": "input.id",
+        "field_type": "integer",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "10"
+        ]
+      },
+      "input.petId": {
+        "field_name": "input.petId",
+        "field_type": "integer",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "198772"
+        ]
+      },
+      "input.quantity": {
+        "field_name": "input.quantity",
+        "field_type": "integer",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "7"
+        ]
+      },
+      "input.shipDate": {
+        "field_name": "input.shipDate",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1
+      },
+      "input.status": {
+        "comment": "Order Status",
+        "field_name": "input.status",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "approved",
+          "placed",
+          "delivered"
+        ]
+      },
+      "output.complete": {
+        "field_name": "output.complete",
+        "field_type": "boolean",
+        "file": "/swagger.yaml",
+        "line": 1
+      },
+      "output.id": {
+        "field_name": "output.id",
+        "field_type": "integer",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "10"
+        ]
+      },
+      "output.petId": {
+        "field_name": "output.petId",
+        "field_type": "integer",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "198772"
+        ]
+      },
+      "output.quantity": {
+        "field_name": "output.quantity",
+        "field_type": "integer",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "7"
+        ]
+      },
+      "output.shipDate": {
+        "field_name": "output.shipDate",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1
+      },
+      "output.status": {
+        "comment": "Order Status",
+        "field_name": "output.status",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "approved",
+          "placed",
+          "delivered"
+        ]
+      }
+    },
+    "file": "/swagger.yaml",
+    "hash": "c7633f7dd336b6e2f6735ae1903c171e",
+    "line": 1,
+    "object_name": "POST /store/order",
+    "object_type": "route",
+    "parser": "swagger",
+    "properties": {
+      "method": {
+        "prop_name": "method",
+        "prop_value": "POST"
+      },
+      "path": {
+        "prop_name": "path",
+        "prop_value": "/store/order"
+      }
+    }
+  },
+  {
+    "comment": "Create user\nThis can only be done by the logged in user.",
+    "fields": {
+      "input.email": {
+        "field_name": "input.email",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "john@email.com"
+        ],
+        "severity": "medium",
+        "tags": [
+          "pii",
+          "auth"
+        ]
+      },
+      "input.firstName": {
+        "field_name": "input.firstName",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "John"
+        ],
+        "severity": "high",
+        "tags": [
+          "pii"
+        ]
+      },
+      "input.id": {
+        "field_name": "input.id",
+        "field_type": "integer",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "10"
+        ]
+      },
+      "input.lastName": {
+        "field_name": "input.lastName",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "James"
+        ],
+        "severity": "high",
+        "tags": [
+          "pii"
+        ]
+      },
+      "input.password": {
+        "field_name": "input.password",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "severity": "high",
+        "tags": [
+          "auth"
+        ]
+      },
+      "input.phone": {
+        "field_name": "input.phone",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "12345"
+        ],
+        "severity": "high",
+        "tags": [
+          "pii",
+          "auth"
+        ]
+      },
+      "input.userStatus": {
+        "comment": "User Status",
+        "field_name": "input.userStatus",
+        "field_type": "integer",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "1"
+        ]
+      },
+      "input.username": {
+        "field_name": "input.username",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "theUser"
+        ],
+        "severity": "medium",
+        "tags": [
+          "auth"
+        ]
+      },
+      "output.email": {
+        "field_name": "output.email",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "john@email.com"
+        ],
+        "severity": "medium",
+        "tags": [
+          "pii",
+          "auth"
+        ]
+      },
+      "output.firstName": {
+        "field_name": "output.firstName",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "John"
+        ],
+        "severity": "high",
+        "tags": [
+          "pii"
+        ]
+      },
+      "output.id": {
+        "field_name": "output.id",
+        "field_type": "integer",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "10"
+        ]
+      },
+      "output.lastName": {
+        "field_name": "output.lastName",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "James"
+        ],
+        "severity": "high",
+        "tags": [
+          "pii"
+        ]
+      },
+      "output.password": {
+        "field_name": "output.password",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "severity": "high",
+        "tags": [
+          "auth"
+        ]
+      },
+      "output.phone": {
+        "field_name": "output.phone",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "12345"
+        ],
+        "severity": "high",
+        "tags": [
+          "pii",
+          "auth"
+        ]
+      },
+      "output.userStatus": {
+        "comment": "User Status",
+        "field_name": "output.userStatus",
+        "field_type": "integer",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "1"
+        ]
+      },
+      "output.username": {
+        "field_name": "output.username",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "theUser"
+        ],
+        "severity": "medium",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "file": "/swagger.yaml",
+    "hash": "57cd400c3944760b3ab130e29cb981f9",
+    "hits": [
+      {
+        "field_name": "input.firstName",
+        "keyword": "firstname",
+        "rule": "score_tags/pii/high",
+        "rule_type": "keyword",
+        "severity": "high",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "pii"
+        ]
+      },
+      {
+        "field_name": "output.firstName",
+        "keyword": "firstname",
+        "rule": "score_tags/pii/high",
+        "rule_type": "keyword",
+        "severity": "high",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "pii"
+        ]
+      },
+      {
+        "field_name": "input.lastName",
+        "keyword": "lastname",
+        "rule": "score_tags/pii/high",
+        "rule_type": "keyword",
+        "severity": "high",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "pii"
+        ]
+      },
+      {
+        "field_name": "output.lastName",
+        "keyword": "lastname",
+        "rule": "score_tags/pii/high",
+        "rule_type": "keyword",
+        "severity": "high",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "pii"
+        ]
+      },
+      {
+        "field_name": "input.phone",
+        "keyword": "phone",
+        "rule": "score_tags/pii/high",
+        "rule_type": "keyword",
+        "severity": "high",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "pii"
+        ]
+      },
+      {
+        "field_name": "output.phone",
+        "keyword": "phone",
+        "rule": "score_tags/pii/high",
+        "rule_type": "keyword",
+        "severity": "high",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "pii"
+        ]
+      },
+      {
+        "field_name": "input.email",
+        "keyword": "email",
+        "rule": "score_tags/pii/medium",
+        "rule_type": "keyword",
+        "severity": "medium",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "pii"
+        ]
+      },
+      {
+        "field_name": "output.email",
+        "keyword": "email",
+        "rule": "score_tags/pii/medium",
+        "rule_type": "keyword",
+        "severity": "medium",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "pii"
+        ]
+      },
+      {
+        "field_name": "input.password",
+        "keyword": "password",
+        "rule": "score_tags/auth/high",
+        "rule_type": "keyword",
+        "severity": "high",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "auth"
+        ]
+      },
+      {
+        "field_name": "output.password",
+        "keyword": "password",
+        "rule": "score_tags/auth/high",
+        "rule_type": "keyword",
+        "severity": "high",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "auth"
+        ]
+      },
+      {
+        "field_name": "input.email",
+        "keyword": "email",
+        "rule": "score_tags/auth/medium",
+        "rule_type": "keyword",
+        "severity": "medium",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "auth"
+        ]
+      },
+      {
+        "field_name": "output.email",
+        "keyword": "email",
+        "rule": "score_tags/auth/medium",
+        "rule_type": "keyword",
+        "severity": "medium",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "auth"
+        ]
+      },
+      {
+        "field_name": "input.phone",
+        "keyword": "phone",
+        "rule": "score_tags/auth/medium",
+        "rule_type": "keyword",
+        "severity": "medium",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "auth"
+        ]
+      },
+      {
+        "field_name": "output.phone",
+        "keyword": "phone",
+        "rule": "score_tags/auth/medium",
+        "rule_type": "keyword",
+        "severity": "medium",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "auth"
+        ]
+      },
+      {
+        "field_name": "input.username",
+        "keyword": "username",
+        "rule": "score_tags/auth/medium",
+        "rule_type": "keyword",
+        "severity": "medium",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "auth"
+        ]
+      },
+      {
+        "field_name": "output.username",
+        "keyword": "username",
+        "rule": "score_tags/auth/medium",
+        "rule_type": "keyword",
+        "severity": "medium",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "auth"
+        ]
+      }
+    ],
+    "line": 1,
+    "object_name": "POST /user",
+    "object_type": "route",
+    "parser": "swagger",
+    "properties": {
+      "method": {
+        "prop_name": "method",
+        "prop_value": "POST"
+      },
+      "path": {
+        "prop_name": "path",
+        "prop_value": "/user"
+      }
+    },
+    "severity": "high",
+    "tags": [
+      "pii",
+      "auth"
+    ]
+  },
+  {
+    "comment": "Creates list of users with given input array",
+    "fields": {
+      "input.email": {
+        "field_name": "input.email",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "john@email.com"
+        ],
+        "severity": "medium",
+        "tags": [
+          "pii",
+          "auth"
+        ]
+      },
+      "input.firstName": {
+        "field_name": "input.firstName",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "John"
+        ],
+        "severity": "high",
+        "tags": [
+          "pii"
+        ]
+      },
+      "input.id": {
+        "field_name": "input.id",
+        "field_type": "integer",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "10"
+        ]
+      },
+      "input.lastName": {
+        "field_name": "input.lastName",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "James"
+        ],
+        "severity": "high",
+        "tags": [
+          "pii"
+        ]
+      },
+      "input.password": {
+        "field_name": "input.password",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "severity": "high",
+        "tags": [
+          "auth"
+        ]
+      },
+      "input.phone": {
+        "field_name": "input.phone",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "12345"
+        ],
+        "severity": "high",
+        "tags": [
+          "pii",
+          "auth"
+        ]
+      },
+      "input.userStatus": {
+        "comment": "User Status",
+        "field_name": "input.userStatus",
+        "field_type": "integer",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "1"
+        ]
+      },
+      "input.username": {
+        "field_name": "input.username",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "theUser"
+        ],
+        "severity": "medium",
+        "tags": [
+          "auth"
+        ]
+      },
+      "output.email": {
+        "field_name": "output.email",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "john@email.com"
+        ],
+        "severity": "medium",
+        "tags": [
+          "pii",
+          "auth"
+        ]
+      },
+      "output.firstName": {
+        "field_name": "output.firstName",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "John"
+        ],
+        "severity": "high",
+        "tags": [
+          "pii"
+        ]
+      },
+      "output.id": {
+        "field_name": "output.id",
+        "field_type": "integer",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "10"
+        ]
+      },
+      "output.lastName": {
+        "field_name": "output.lastName",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "James"
+        ],
+        "severity": "high",
+        "tags": [
+          "pii"
+        ]
+      },
+      "output.password": {
+        "field_name": "output.password",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "severity": "high",
+        "tags": [
+          "auth"
+        ]
+      },
+      "output.phone": {
+        "field_name": "output.phone",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "12345"
+        ],
+        "severity": "high",
+        "tags": [
+          "pii",
+          "auth"
+        ]
+      },
+      "output.userStatus": {
+        "comment": "User Status",
+        "field_name": "output.userStatus",
+        "field_type": "integer",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "1"
+        ]
+      },
+      "output.username": {
+        "field_name": "output.username",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "theUser"
+        ],
+        "severity": "medium",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "file": "/swagger.yaml",
+    "hash": "3a1ad8a6f7682b72a2b2c276b7ed8750",
+    "hits": [
+      {
+        "field_name": "input.firstName",
+        "keyword": "firstname",
+        "rule": "score_tags/pii/high",
+        "rule_type": "keyword",
+        "severity": "high",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "pii"
+        ]
+      },
+      {
+        "field_name": "output.firstName",
+        "keyword": "firstname",
+        "rule": "score_tags/pii/high",
+        "rule_type": "keyword",
+        "severity": "high",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "pii"
+        ]
+      },
+      {
+        "field_name": "input.lastName",
+        "keyword": "lastname",
+        "rule": "score_tags/pii/high",
+        "rule_type": "keyword",
+        "severity": "high",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "pii"
+        ]
+      },
+      {
+        "field_name": "output.lastName",
+        "keyword": "lastname",
+        "rule": "score_tags/pii/high",
+        "rule_type": "keyword",
+        "severity": "high",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "pii"
+        ]
+      },
+      {
+        "field_name": "input.phone",
+        "keyword": "phone",
+        "rule": "score_tags/pii/high",
+        "rule_type": "keyword",
+        "severity": "high",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "pii"
+        ]
+      },
+      {
+        "field_name": "output.phone",
+        "keyword": "phone",
+        "rule": "score_tags/pii/high",
+        "rule_type": "keyword",
+        "severity": "high",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "pii"
+        ]
+      },
+      {
+        "field_name": "input.email",
+        "keyword": "email",
+        "rule": "score_tags/pii/medium",
+        "rule_type": "keyword",
+        "severity": "medium",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "pii"
+        ]
+      },
+      {
+        "field_name": "output.email",
+        "keyword": "email",
+        "rule": "score_tags/pii/medium",
+        "rule_type": "keyword",
+        "severity": "medium",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "pii"
+        ]
+      },
+      {
+        "field_name": "input.password",
+        "keyword": "password",
+        "rule": "score_tags/auth/high",
+        "rule_type": "keyword",
+        "severity": "high",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "auth"
+        ]
+      },
+      {
+        "field_name": "output.password",
+        "keyword": "password",
+        "rule": "score_tags/auth/high",
+        "rule_type": "keyword",
+        "severity": "high",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "auth"
+        ]
+      },
+      {
+        "field_name": "input.email",
+        "keyword": "email",
+        "rule": "score_tags/auth/medium",
+        "rule_type": "keyword",
+        "severity": "medium",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "auth"
+        ]
+      },
+      {
+        "field_name": "output.email",
+        "keyword": "email",
+        "rule": "score_tags/auth/medium",
+        "rule_type": "keyword",
+        "severity": "medium",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "auth"
+        ]
+      },
+      {
+        "field_name": "input.phone",
+        "keyword": "phone",
+        "rule": "score_tags/auth/medium",
+        "rule_type": "keyword",
+        "severity": "medium",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "auth"
+        ]
+      },
+      {
+        "field_name": "output.phone",
+        "keyword": "phone",
+        "rule": "score_tags/auth/medium",
+        "rule_type": "keyword",
+        "severity": "medium",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "auth"
+        ]
+      },
+      {
+        "field_name": "input.username",
+        "keyword": "username",
+        "rule": "score_tags/auth/medium",
+        "rule_type": "keyword",
+        "severity": "medium",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "auth"
+        ]
+      },
+      {
+        "field_name": "output.username",
+        "keyword": "username",
+        "rule": "score_tags/auth/medium",
+        "rule_type": "keyword",
+        "severity": "medium",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "auth"
+        ]
+      }
+    ],
+    "line": 1,
+    "object_name": "POST /user/createWithList",
+    "object_type": "route",
+    "parser": "swagger",
+    "properties": {
+      "method": {
+        "prop_name": "method",
+        "prop_value": "POST"
+      },
+      "path": {
+        "prop_name": "path",
+        "prop_value": "/user/createWithList"
+      }
+    },
+    "severity": "high",
+    "tags": [
+      "pii",
+      "auth"
+    ]
+  },
+  {
+    "comment": "Update an existing pet\nUpdate an existing pet by Id",
+    "fields": {
+      "input.category.id": {
+        "field_name": "input.category.id",
+        "field_type": "integer",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "1"
+        ]
+      },
+      "input.category.name": {
+        "field_name": "input.category.name",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "Dogs"
+        ]
+      },
+      "input.id": {
+        "field_name": "input.id",
+        "field_type": "integer",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "10"
+        ]
+      },
+      "input.name": {
+        "field_name": "input.name",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "doggie"
+        ]
+      },
+      "input.photoUrls.": {
+        "field_name": "input.photoUrls.",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1
+      },
+      "input.status": {
+        "comment": "pet status in the store",
+        "field_name": "input.status",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "available",
+          "pending",
+          "sold"
+        ]
+      },
+      "input.tags.id": {
+        "field_name": "input.tags.id",
+        "field_type": "integer",
+        "file": "/swagger.yaml",
+        "line": 1
+      },
+      "input.tags.name": {
+        "field_name": "input.tags.name",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1
+      },
+      "output.category.id": {
+        "field_name": "output.category.id",
+        "field_type": "integer",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "1"
+        ]
+      },
+      "output.category.name": {
+        "field_name": "output.category.name",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "Dogs"
+        ]
+      },
+      "output.id": {
+        "field_name": "output.id",
+        "field_type": "integer",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "10"
+        ]
+      },
+      "output.name": {
+        "field_name": "output.name",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "doggie"
+        ]
+      },
+      "output.photoUrls.": {
+        "field_name": "output.photoUrls.",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1
+      },
+      "output.status": {
+        "comment": "pet status in the store",
+        "field_name": "output.status",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "available",
+          "pending",
+          "sold"
+        ]
+      },
+      "output.tags.id": {
+        "field_name": "output.tags.id",
+        "field_type": "integer",
+        "file": "/swagger.yaml",
+        "line": 1
+      },
+      "output.tags.name": {
+        "field_name": "output.tags.name",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1
+      }
+    },
+    "file": "/swagger.yaml",
+    "hash": "463515bfdc490b7b98557b4f0d6c83b6",
+    "line": 1,
+    "object_name": "PUT /pet",
+    "object_type": "route",
+    "parser": "swagger",
+    "properties": {
+      "method": {
+        "prop_name": "method",
+        "prop_value": "PUT"
+      },
+      "path": {
+        "prop_name": "path",
+        "prop_value": "/pet"
+      }
+    }
+  },
+  {
+    "comment": "Update user\nThis can only be done by the logged in user.",
+    "fields": {
+      "input.email": {
+        "field_name": "input.email",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "john@email.com"
+        ],
+        "severity": "medium",
+        "tags": [
+          "pii",
+          "auth"
+        ]
+      },
+      "input.firstName": {
+        "field_name": "input.firstName",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "John"
+        ],
+        "severity": "high",
+        "tags": [
+          "pii"
+        ]
+      },
+      "input.id": {
+        "field_name": "input.id",
+        "field_type": "integer",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "10"
+        ]
+      },
+      "input.lastName": {
+        "field_name": "input.lastName",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "James"
+        ],
+        "severity": "high",
+        "tags": [
+          "pii"
+        ]
+      },
+      "input.password": {
+        "field_name": "input.password",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "severity": "high",
+        "tags": [
+          "auth"
+        ]
+      },
+      "input.phone": {
+        "field_name": "input.phone",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "12345"
+        ],
+        "severity": "high",
+        "tags": [
+          "pii",
+          "auth"
+        ]
+      },
+      "input.userStatus": {
+        "comment": "User Status",
+        "field_name": "input.userStatus",
+        "field_type": "integer",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "1"
+        ]
+      },
+      "input.username": {
+        "field_name": "input.username",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "samples": [
+          "theUser"
+        ],
+        "severity": "medium",
+        "tags": [
+          "auth"
+        ]
+      },
+      "path.param.username": {
+        "comment": "name that need to be deleted",
+        "field_name": "path.param.username",
+        "field_type": "string",
+        "file": "/swagger.yaml",
+        "line": 1,
+        "severity": "medium",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "file": "/swagger.yaml",
+    "hash": "4430c72344cc9a682f35708c08d53f36",
+    "hits": [
+      {
+        "field_name": "input.firstName",
+        "keyword": "firstname",
+        "rule": "score_tags/pii/high",
+        "rule_type": "keyword",
+        "severity": "high",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "pii"
+        ]
+      },
+      {
+        "field_name": "input.lastName",
+        "keyword": "lastname",
+        "rule": "score_tags/pii/high",
+        "rule_type": "keyword",
+        "severity": "high",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "pii"
+        ]
+      },
+      {
+        "field_name": "input.phone",
+        "keyword": "phone",
+        "rule": "score_tags/pii/high",
+        "rule_type": "keyword",
+        "severity": "high",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "pii"
+        ]
+      },
+      {
+        "field_name": "input.email",
+        "keyword": "email",
+        "rule": "score_tags/pii/medium",
+        "rule_type": "keyword",
+        "severity": "medium",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "pii"
+        ]
+      },
+      {
+        "field_name": "input.password",
+        "keyword": "password",
+        "rule": "score_tags/auth/high",
+        "rule_type": "keyword",
+        "severity": "high",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "auth"
+        ]
+      },
+      {
+        "field_name": "input.email",
+        "keyword": "email",
+        "rule": "score_tags/auth/medium",
+        "rule_type": "keyword",
+        "severity": "medium",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "auth"
+        ]
+      },
+      {
+        "field_name": "input.phone",
+        "keyword": "phone",
+        "rule": "score_tags/auth/medium",
+        "rule_type": "keyword",
+        "severity": "medium",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "auth"
+        ]
+      },
+      {
+        "keyword": "username",
+        "prop_name": "path",
+        "rule": "score_tags/auth/medium",
+        "rule_type": "keyword",
+        "severity": "medium",
+        "status": "match",
+        "subject": "prop",
+        "tags": [
+          "auth"
+        ]
+      },
+      {
+        "field_name": "path.param.username",
+        "keyword": "username",
+        "rule": "score_tags/auth/medium",
+        "rule_type": "keyword",
+        "severity": "medium",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "auth"
+        ]
+      },
+      {
+        "field_name": "input.username",
+        "keyword": "username",
+        "rule": "score_tags/auth/medium",
+        "rule_type": "keyword",
+        "severity": "medium",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "auth"
+        ]
+      }
+    ],
+    "line": 1,
+    "object_name": "PUT /user/{username}",
+    "object_type": "route",
+    "parser": "swagger",
+    "properties": {
+      "method": {
+        "prop_name": "method",
+        "prop_value": "PUT"
+      },
+      "path": {
+        "prop_name": "path",
+        "prop_value": "/user/{username}",
+        "severity": "medium",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "severity": "high",
+    "tags": [
+      "pii",
+      "auth"
+    ]
+  },
+  {
+    "comment": "Remove a book",
+    "fields": {
+      "header.param.X-Request-Id": {
+        "field_name": "header.param.X-Request-Id",
+        "field_type": "string",
+        "file": "/swagger2-gateway.json",
+        "line": 1
+      },
+      "path.param.isbn": {
+        "comment": "ISBN of the book to remove.",
+        "field_name": "path.param.isbn",
+        "field_type": "string",
+        "file": "/swagger2-gateway.json",
+        "line": 1
+      }
+    },
+    "file": "/swagger2-gateway.json",
+    "hash": "391d8eaa1a893e512a267f8cc4cb833a",
+    "line": 1,
+    "object_name": "DELETE /v1/books/{isbn}",
+    "object_type": "route",
+    "parser": "swagger",
+    "properties": {
+      "method": {
+        "prop_name": "method",
+        "prop_value": "DELETE"
+      },
+      "path": {
+        "prop_name": "path",
+        "prop_value": "/v1/books/{isbn}"
+      }
+    }
+  },
+  {
+    "comment": "List books\nBooks of the library, filtered by status.",
+    "fields": {
+      "output.books.author.id": {
+        "comment": "Author id.",
+        "field_name": "output.books.author.id",
+        "field_type": "string",
+        "file": "/swagger2-gateway.json",
+        "line": 1
+      },
+      "output.books.author.name": {
+        "field_name": "output.books.author.name",
+        "field_type": "string",
+        "file": "/swagger2-gateway.json",
+        "line": 1,
+        "samples": [
+          "Jane Doe"
+        ]
+      },
+      "output.books.isbn": {
+        "comment": "ISBN of the book",
+        "field_name": "output.books.isbn",
+        "field_type": "string",
+        "file": "/swagger2-gateway.json",
+        "line": 1,
+        "samples": [
+          "978-3-16-148410-0"
+        ]
+      },
+      "output.books.previousStatus": {
+        "comment": "Status before the last change",
+        "field_name": "output.books.previousStatus",
+        "field_type": "string",
+        "file": "/swagger2-gateway.json",
+        "line": 1,
+        "samples": [
+          "AVAILABLE",
+          "BORROWED"
+        ]
+      },
+      "output.books.readerIds": {
+        "comment": "Reader id.",
+        "field_name": "output.books.readerIds",
+        "field_type": "string",
+        "file": "/swagger2-gateway.json",
+        "line": 1
+      },
+      "output.books.status": {
+        "comment": "Current status of this copy.",
+        "field_name": "output.books.status",
+        "field_type": "string",
+        "file": "/swagger2-gateway.json",
+        "line": 1,
+        "samples": [
+          "AVAILABLE",
+          "BORROWED"
+        ]
+      },
+      "output.books.tags": {
+        "comment": "Shelf tags.",
+        "field_name": "output.books.tags",
+        "field_type": "string",
+        "file": "/swagger2-gateway.json",
+        "line": 1
+      },
+      "output.code": {
+        "field_name": "output.code",
+        "field_type": "integer",
+        "file": "/swagger2-gateway.json",
+        "line": 1
+      },
+      "output.details.@type": {
+        "field_name": "output.details.@type",
+        "field_type": "string",
+        "file": "/swagger2-gateway.json",
+        "line": 1
+      },
+      "output.message": {
+        "field_name": "output.message",
+        "field_type": "string",
+        "file": "/swagger2-gateway.json",
+        "line": 1
+      },
+      "output.nextPageToken": {
+        "field_name": "output.nextPageToken",
+        "field_type": "string",
+        "file": "/swagger2-gateway.json",
+        "line": 1,
+        "severity": "high",
+        "tags": [
+          "auth"
+        ]
+      },
+      "query.param.authorId": {
+        "comment": "Author filter.",
+        "field_name": "query.param.authorId",
+        "field_type": "string",
+        "file": "/swagger2-gateway.json",
+        "line": 1,
+        "samples": [
+          "42"
+        ]
+      },
+      "query.param.pageSize": {
+        "field_name": "query.param.pageSize",
+        "field_type": "integer",
+        "file": "/swagger2-gateway.json",
+        "line": 1,
+        "samples": [
+          "20"
+        ]
+      },
+      "query.param.status": {
+        "comment": "Status filter.",
+        "field_name": "query.param.status",
+        "field_type": "array",
+        "file": "/swagger2-gateway.json",
+        "line": 1,
+        "samples": [
+          "AVAILABLE",
+          "BORROWED"
+        ]
+      }
+    },
+    "file": "/swagger2-gateway.json",
+    "hash": "921a93b34ca00874715c0fd000c12ff9",
+    "hits": [
+      {
+        "field_name": "output.nextPageToken",
+        "keyword": "token",
+        "rule": "score_tags/auth/high",
+        "rule_type": "keyword",
+        "severity": "high",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "auth"
+        ]
+      }
+    ],
+    "line": 1,
+    "object_name": "GET /v1/books",
+    "object_type": "route",
+    "parser": "swagger",
+    "properties": {
+      "method": {
+        "prop_name": "method",
+        "prop_value": "GET"
+      },
+      "path": {
+        "prop_name": "path",
+        "prop_value": "/v1/books"
+      }
+    },
+    "severity": "high",
+    "tags": [
+      "auth"
+    ]
+  },
+  {
+    "comment": "Add a book",
+    "fields": {
+      "input.author.id": {
+        "comment": "Author id.",
+        "field_name": "input.author.id",
+        "field_type": "string",
+        "file": "/swagger2-gateway.json",
+        "line": 1
+      },
+      "input.author.name": {
+        "field_name": "input.author.name",
+        "field_type": "string",
+        "file": "/swagger2-gateway.json",
+        "line": 1,
+        "samples": [
+          "Jane Doe"
+        ]
+      },
+      "input.isbn": {
+        "comment": "ISBN of the book",
+        "field_name": "input.isbn",
+        "field_type": "string",
+        "file": "/swagger2-gateway.json",
+        "line": 1
+      },
+      "input.previousStatus": {
+        "comment": "Status before the last change",
+        "field_name": "input.previousStatus",
+        "field_type": "string",
+        "file": "/swagger2-gateway.json",
+        "line": 1,
+        "samples": [
+          "AVAILABLE",
+          "BORROWED"
+        ]
+      },
+      "input.readerIds.": {
+        "comment": "Reader id.",
+        "field_name": "input.readerIds.",
+        "field_type": "string",
+        "file": "/swagger2-gateway.json",
+        "line": 1
+      },
+      "input.status": {
+        "comment": "Current status of this copy.",
+        "field_name": "input.status",
+        "field_type": "string",
+        "file": "/swagger2-gateway.json",
+        "line": 1,
+        "samples": [
+          "AVAILABLE",
+          "BORROWED"
+        ]
+      },
+      "input.tags.": {
+        "comment": "Shelf tags.",
+        "field_name": "input.tags.",
+        "field_type": "string",
+        "file": "/swagger2-gateway.json",
+        "line": 1
+      },
+      "output.author.id": {
+        "comment": "Author id.",
+        "field_name": "output.author.id",
+        "field_type": "string",
+        "file": "/swagger2-gateway.json",
+        "line": 1
+      },
+      "output.author.name": {
+        "field_name": "output.author.name",
+        "field_type": "string",
+        "file": "/swagger2-gateway.json",
+        "line": 1,
+        "samples": [
+          "Jane Doe"
+        ]
+      },
+      "output.isbn": {
+        "comment": "ISBN of the book",
+        "field_name": "output.isbn",
+        "field_type": "string",
+        "file": "/swagger2-gateway.json",
+        "line": 1
+      },
+      "output.previousStatus": {
+        "comment": "Status before the last change",
+        "field_name": "output.previousStatus",
+        "field_type": "string",
+        "file": "/swagger2-gateway.json",
+        "line": 1,
+        "samples": [
+          "AVAILABLE",
+          "BORROWED"
+        ]
+      },
+      "output.readerIds.": {
+        "comment": "Reader id.",
+        "field_name": "output.readerIds.",
+        "field_type": "string",
+        "file": "/swagger2-gateway.json",
+        "line": 1
+      },
+      "output.status": {
+        "comment": "Current status of this copy.",
+        "field_name": "output.status",
+        "field_type": "string",
+        "file": "/swagger2-gateway.json",
+        "line": 1,
+        "samples": [
+          "AVAILABLE",
+          "BORROWED"
+        ]
+      },
+      "output.tags.": {
+        "comment": "Shelf tags.",
+        "field_name": "output.tags.",
+        "field_type": "string",
+        "file": "/swagger2-gateway.json",
+        "line": 1
+      }
+    },
+    "file": "/swagger2-gateway.json",
+    "hash": "064208515338b986a369afce59cc7dd1",
+    "line": 1,
+    "object_name": "POST /v1/books",
+    "object_type": "route",
+    "parser": "swagger",
+    "properties": {
+      "method": {
+        "prop_name": "method",
+        "prop_value": "POST"
+      },
+      "path": {
+        "prop_name": "path",
+        "prop_value": "/v1/books"
+      }
+    }
+  },
+  {
+    "comment": "Upload a cover",
+    "fields": {
+      "input.caption": {
+        "field_name": "input.caption",
+        "field_type": "string",
+        "file": "/swagger2-gateway.json",
+        "line": 1,
+        "samples": [
+          "First edition"
+        ]
+      },
+      "input.image": {
+        "comment": "Cover image.",
+        "field_name": "input.image",
+        "field_type": "string",
+        "file": "/swagger2-gateway.json",
+        "line": 1
+      },
+      "path.param.isbn": {
+        "field_name": "path.param.isbn",
+        "field_type": "string",
+        "file": "/swagger2-gateway.json",
+        "line": 1
+      }
+    },
+    "file": "/swagger2-gateway.json",
+    "hash": "a46cce027934f85f02ff381a61bc7b19",
+    "line": 1,
+    "object_name": "PUT /v1/books/{isbn}/cover",
+    "object_type": "route",
+    "parser": "swagger",
+    "properties": {
+      "method": {
+        "prop_name": "method",
+        "prop_value": "PUT"
+      },
+      "path": {
+        "prop_name": "path",
+        "prop_value": "/v1/books/{isbn}/cover"
+      }
+    }
+  },
+  {
+    "comment": "Get user list\nMethod to get user list",
+    "fields": {
+      "output.code": {
+        "comment": "Internal error code",
+        "field_name": "output.code",
+        "field_type": "integer",
+        "file": "/swagger2.yaml",
+        "line": 1,
+        "samples": [
+          "1044"
+        ]
+      },
+      "output.error": {
+        "comment": "Error details",
+        "field_name": "output.error",
+        "field_type": "string",
+        "file": "/swagger2.yaml",
+        "line": 1,
+        "samples": [
+          "Invalid user id value"
+        ]
+      },
+      "output.total_count": {
+        "comment": "Total count of users",
+        "field_name": "output.total_count",
+        "field_type": "integer",
+        "file": "/swagger2.yaml",
+        "line": 1
+      },
+      "output.users.avatar": {
+        "comment": "User Avatar URL",
+        "field_name": "output.users.avatar",
+        "field_type": "string",
+        "file": "/swagger2.yaml",
+        "line": 1,
+        "samples": [
+          "https://github.com/manchenkoff/openapi3-parser"
+        ]
+      },
+      "output.users.email": {
+        "comment": "User E-mail address",
+        "field_name": "output.users.email",
+        "field_type": "string",
+        "file": "/swagger2.yaml",
+        "line": 1,
+        "samples": [
+          "user@mail.com"
+        ],
+        "severity": "medium",
+        "tags": [
+          "pii",
+          "auth"
+        ]
+      },
+      "output.users.login": {
+        "comment": "User login or nickname",
+        "field_name": "output.users.login",
+        "field_type": "string",
+        "file": "/swagger2.yaml",
+        "line": 1,
+        "samples": [
+          "super-admin"
+        ],
+        "severity": "medium",
+        "tags": [
+          "auth"
+        ]
+      },
+      "output.users.uuid": {
+        "comment": "Unique object id",
+        "field_name": "output.users.uuid",
+        "field_type": "string",
+        "file": "/swagger2.yaml",
+        "line": 1,
+        "samples": [
+          "12345678-1234-5678-1234-567812345678"
+        ]
+      },
+      "query.param.limit": {
+        "comment": "Result items limit",
+        "field_name": "query.param.limit",
+        "field_type": "integer",
+        "file": "/swagger2.yaml",
+        "line": 1,
+        "samples": [
+          "10"
+        ]
+      },
+      "query.param.offset": {
+        "comment": "Result items start offset",
+        "field_name": "query.param.offset",
+        "field_type": "integer",
+        "file": "/swagger2.yaml",
+        "line": 1,
+        "samples": [
+          "0"
+        ]
+      }
+    },
+    "file": "/swagger2.yaml",
+    "hash": "6712b23e1ee202035e6f4ec6c4fd7b38",
+    "hits": [
+      {
+        "field_name": "output.users.email",
+        "keyword": "email",
+        "rule": "score_tags/pii/medium",
+        "rule_type": "keyword",
+        "severity": "medium",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "pii"
+        ]
+      },
+      {
+        "field_name": "output.users.login",
+        "keyword": "login",
+        "rule": "score_tags/auth/medium",
+        "rule_type": "keyword",
+        "severity": "medium",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "auth"
+        ]
+      },
+      {
+        "field_name": "output.users.email",
+        "keyword": "email",
+        "rule": "score_tags/auth/medium",
+        "rule_type": "keyword",
+        "severity": "medium",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "auth"
+        ]
+      }
+    ],
+    "line": 1,
+    "object_name": "GET /users",
+    "object_type": "route",
+    "parser": "swagger",
+    "properties": {
+      "method": {
+        "prop_name": "method",
+        "prop_value": "GET"
+      },
+      "path": {
+        "prop_name": "path",
+        "prop_value": "/users"
+      }
+    },
+    "severity": "medium",
+    "tags": [
+      "pii",
+      "auth"
+    ]
+  },
+  {
+    "comment": "Get user model\nMethod to get user details",
+    "fields": {
+      "output.code": {
+        "comment": "Internal error code",
+        "field_name": "output.code",
+        "field_type": "integer",
+        "file": "/swagger2.yaml",
+        "line": 1,
+        "samples": [
+          "1044"
+        ]
+      },
+      "output.error": {
+        "comment": "Error details",
+        "field_name": "output.error",
+        "field_type": "string",
+        "file": "/swagger2.yaml",
+        "line": 1,
+        "samples": [
+          "Invalid user id value"
+        ]
+      },
+      "output.user.avatar": {
+        "comment": "User Avatar URL",
+        "field_name": "output.user.avatar",
+        "field_type": "string",
+        "file": "/swagger2.yaml",
+        "line": 1,
+        "samples": [
+          "https://github.com/manchenkoff/openapi3-parser"
+        ]
+      },
+      "output.user.email": {
+        "comment": "User E-mail address",
+        "field_name": "output.user.email",
+        "field_type": "string",
+        "file": "/swagger2.yaml",
+        "line": 1,
+        "samples": [
+          "user@mail.com"
+        ],
+        "severity": "medium",
+        "tags": [
+          "pii",
+          "auth"
+        ]
+      },
+      "output.user.login": {
+        "comment": "User login or nickname",
+        "field_name": "output.user.login",
+        "field_type": "string",
+        "file": "/swagger2.yaml",
+        "line": 1,
+        "samples": [
+          "super-admin"
+        ],
+        "severity": "medium",
+        "tags": [
+          "auth"
+        ]
+      },
+      "output.user.uuid": {
+        "comment": "Unique object id",
+        "field_name": "output.user.uuid",
+        "field_type": "string",
+        "file": "/swagger2.yaml",
+        "line": 1,
+        "samples": [
+          "12345678-1234-5678-1234-567812345678"
+        ]
+      },
+      "path.param.uuid": {
+        "comment": "User unique id",
+        "field_name": "path.param.uuid",
+        "field_type": "string",
+        "file": "/swagger2.yaml",
+        "line": 1,
+        "samples": [
+          "12345678-1234-5678-1234-567812345678"
+        ]
+      }
+    },
+    "file": "/swagger2.yaml",
+    "hash": "53a65eb88a80e2755ef8ea485ede485c",
+    "hits": [
+      {
+        "field_name": "output.user.email",
+        "keyword": "email",
+        "rule": "score_tags/pii/medium",
+        "rule_type": "keyword",
+        "severity": "medium",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "pii"
+        ]
+      },
+      {
+        "field_name": "output.user.login",
+        "keyword": "login",
+        "rule": "score_tags/auth/medium",
+        "rule_type": "keyword",
+        "severity": "medium",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "auth"
+        ]
+      },
+      {
+        "field_name": "output.user.email",
+        "keyword": "email",
+        "rule": "score_tags/auth/medium",
+        "rule_type": "keyword",
+        "severity": "medium",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "auth"
+        ]
+      }
+    ],
+    "line": 1,
+    "object_name": "GET /users/{uuid}",
+    "object_type": "route",
+    "parser": "swagger",
+    "properties": {
+      "method": {
+        "prop_name": "method",
+        "prop_value": "GET"
+      },
+      "path": {
+        "prop_name": "path",
+        "prop_value": "/users/{uuid}"
+      }
+    },
+    "severity": "medium",
+    "tags": [
+      "pii",
+      "auth"
+    ]
+  },
+  {
+    "comment": "Add new user\nMethod to add new user",
+    "fields": {
+      "input.avatar": {
+        "comment": "User Avatar URL",
+        "field_name": "input.avatar",
+        "field_type": "string",
+        "file": "/swagger2.yaml",
+        "line": 1,
+        "samples": [
+          "https://github.com/manchenkoff/openapi3-parser"
+        ]
+      },
+      "input.email": {
+        "comment": "User E-mail address",
+        "field_name": "input.email",
+        "field_type": "string",
+        "file": "/swagger2.yaml",
+        "line": 1,
+        "samples": [
+          "user@mail.com"
+        ],
+        "severity": "medium",
+        "tags": [
+          "pii",
+          "auth"
+        ]
+      },
+      "input.login": {
+        "comment": "User login or nickname",
+        "field_name": "input.login",
+        "field_type": "string",
+        "file": "/swagger2.yaml",
+        "line": 1,
+        "samples": [
+          "super-admin"
+        ],
+        "severity": "medium",
+        "tags": [
+          "auth"
+        ]
+      },
+      "input.uuid": {
+        "comment": "Unique object id",
+        "field_name": "input.uuid",
+        "field_type": "string",
+        "file": "/swagger2.yaml",
+        "line": 1,
+        "samples": [
+          "12345678-1234-5678-1234-567812345678"
+        ]
+      },
+      "output.code": {
+        "comment": "Internal error code",
+        "field_name": "output.code",
+        "field_type": "integer",
+        "file": "/swagger2.yaml",
+        "line": 1,
+        "samples": [
+          "1044"
+        ]
+      },
+      "output.error": {
+        "comment": "Error details",
+        "field_name": "output.error",
+        "field_type": "string",
+        "file": "/swagger2.yaml",
+        "line": 1,
+        "samples": [
+          "Invalid user id value"
+        ]
+      },
+      "output.user.avatar": {
+        "comment": "User Avatar URL",
+        "field_name": "output.user.avatar",
+        "field_type": "string",
+        "file": "/swagger2.yaml",
+        "line": 1,
+        "samples": [
+          "https://github.com/manchenkoff/openapi3-parser"
+        ]
+      },
+      "output.user.email": {
+        "comment": "User E-mail address",
+        "field_name": "output.user.email",
+        "field_type": "string",
+        "file": "/swagger2.yaml",
+        "line": 1,
+        "samples": [
+          "user@mail.com"
+        ],
+        "severity": "medium",
+        "tags": [
+          "pii",
+          "auth"
+        ]
+      },
+      "output.user.login": {
+        "comment": "User login or nickname",
+        "field_name": "output.user.login",
+        "field_type": "string",
+        "file": "/swagger2.yaml",
+        "line": 1,
+        "samples": [
+          "super-admin"
+        ],
+        "severity": "medium",
+        "tags": [
+          "auth"
+        ]
+      },
+      "output.user.uuid": {
+        "comment": "Unique object id",
+        "field_name": "output.user.uuid",
+        "field_type": "string",
+        "file": "/swagger2.yaml",
+        "line": 1,
+        "samples": [
+          "12345678-1234-5678-1234-567812345678"
+        ]
+      }
+    },
+    "file": "/swagger2.yaml",
+    "hash": "913cfa4242779e37a5325587cb23faec",
+    "hits": [
+      {
+        "field_name": "input.email",
+        "keyword": "email",
+        "rule": "score_tags/pii/medium",
+        "rule_type": "keyword",
+        "severity": "medium",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "pii"
+        ]
+      },
+      {
+        "field_name": "output.user.email",
+        "keyword": "email",
+        "rule": "score_tags/pii/medium",
+        "rule_type": "keyword",
+        "severity": "medium",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "pii"
+        ]
+      },
+      {
+        "field_name": "input.login",
+        "keyword": "login",
+        "rule": "score_tags/auth/medium",
+        "rule_type": "keyword",
+        "severity": "medium",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "auth"
+        ]
+      },
+      {
+        "field_name": "output.user.login",
+        "keyword": "login",
+        "rule": "score_tags/auth/medium",
+        "rule_type": "keyword",
+        "severity": "medium",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "auth"
+        ]
+      },
+      {
+        "field_name": "input.email",
+        "keyword": "email",
+        "rule": "score_tags/auth/medium",
+        "rule_type": "keyword",
+        "severity": "medium",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "auth"
+        ]
+      },
+      {
+        "field_name": "output.user.email",
+        "keyword": "email",
+        "rule": "score_tags/auth/medium",
+        "rule_type": "keyword",
+        "severity": "medium",
+        "status": "match",
+        "subject": "field",
+        "tags": [
+          "auth"
+        ]
+      }
+    ],
+    "line": 1,
+    "object_name": "POST /users",
+    "object_type": "route",
+    "parser": "swagger",
+    "properties": {
+      "method": {
+        "prop_name": "method",
+        "prop_value": "POST"
+      },
+      "path": {
+        "prop_name": "path",
+        "prop_value": "/users"
+      }
+    },
+    "severity": "medium",
+    "tags": [
+      "pii",
+      "auth"
+    ]
+  },
+  {
+    "comment": "Update existed user model",
+    "fields": {
+      "output.code": {
+        "comment": "Internal error code",
+        "field_name": "output.code",
+        "field_type": "integer",
+        "file": "/swagger2.yaml",
+        "line": 1,
+        "samples": [
+          "1044"
+        ]
+      },
+      "output.error": {
+        "comment": "Error details",
+        "field_name": "output.error",
+        "field_type": "string",
+        "file": "/swagger2.yaml",
+        "line": 1,
+        "samples": [
+          "Invalid user id value"
+        ]
+      },
+      "path.param.uuid": {
+        "comment": "User unique id",
+        "field_name": "path.param.uuid",
+        "field_type": "string",
+        "file": "/swagger2.yaml",
+        "line": 1,
+        "samples": [
+          "12345678-1234-5678-1234-567812345678"
+        ]
+      }
+    },
+    "file": "/swagger2.yaml",
+    "hash": "03c6658f52f317a394305d1632158841",
+    "line": 1,
+    "object_name": "PUT /users/{uuid}",
+    "object_type": "route",
+    "parser": "swagger",
+    "properties": {
+      "method": {
+        "prop_name": "method",
+        "prop_value": "PUT"
+      },
+      "path": {
+        "prop_name": "path",
+        "prop_value": "/users/{uuid}"
+      }
+    }
+  }
+]
